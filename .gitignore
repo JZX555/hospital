@@ -1,0 +1,7 @@
+#pom.xml
+.project
+.classpath
+.settings
+target
+logs
+#src/main/resources/*.properties
