@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cqu.hospital.Dao.TriageMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Triage" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="queue" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="index" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, patient_ID, queue, index
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from triage
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from triage
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
+    insert into triage (ID, patient_ID, queue, 
+      index)
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{queue,jdbcType=VARCHAR}, 
+      #{index,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
+    insert into triage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="patientId != null" >
+        patient_ID,
+      </if>
+      <if test="queue != null" >
+        queue,
+      </if>
+      <if test="index != null" >
+        index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null" >
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="queue != null" >
+        #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        #{index,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
+    update triage
+    <set >
+      <if test="patientId != null" >
+        patient_ID = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="queue != null" >
+        queue = #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null" >
+        index = #{index,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
+    update triage
+    set patient_ID = #{patientId,jdbcType=VARCHAR},
+      queue = #{queue,jdbcType=VARCHAR},
+      index = #{index,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

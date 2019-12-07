@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cqu.hospital.Dao.RecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Record" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="doc_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.edu.cqu.hospital.pojo.RecordWithBLOBs" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="doc_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="illness" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="history" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="result" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="treatment" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, patient_ID, doc_ID, time
+  </sql>
+  <sql id="Blob_Column_List" >
+    illness, history, result, treatment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from record
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from record
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.RecordWithBLOBs" >
+    insert into record (ID, patient_ID, doc_ID, 
+      time, illness, history, 
+      result, treatment)
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{docId,jdbcType=VARCHAR}, 
+      #{time,jdbcType=TIMESTAMP}, #{illness,jdbcType=LONGVARCHAR}, #{history,jdbcType=LONGVARCHAR}, 
+      #{result,jdbcType=LONGVARCHAR}, #{treatment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.RecordWithBLOBs" >
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="patientId != null" >
+        patient_ID,
+      </if>
+      <if test="docId != null" >
+        doc_ID,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="illness != null" >
+        illness,
+      </if>
+      <if test="history != null" >
+        history,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="treatment != null" >
+        treatment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null" >
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="illness != null" >
+        #{illness,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="history != null" >
+        #{history,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="treatment != null" >
+        #{treatment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.RecordWithBLOBs" >
+    update record
+    <set >
+      <if test="patientId != null" >
+        patient_ID = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="docId != null" >
+        doc_ID = #{docId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="illness != null" >
+        illness = #{illness,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="history != null" >
+        history = #{history,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="treatment != null" >
+        treatment = #{treatment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.cqu.hospital.pojo.RecordWithBLOBs" >
+    update record
+    set patient_ID = #{patientId,jdbcType=VARCHAR},
+      doc_ID = #{docId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      illness = #{illness,jdbcType=LONGVARCHAR},
+      history = #{history,jdbcType=LONGVARCHAR},
+      result = #{result,jdbcType=LONGVARCHAR},
+      treatment = #{treatment,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Record" >
+    update record
+    set patient_ID = #{patientId,jdbcType=VARCHAR},
+      doc_ID = #{docId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cqu.hospital.Dao.PrescriptionMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Prescription" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="doc_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="medicine_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, patient_ID, doc_ID, medicine_ID, num, price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from prescription
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from prescription
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
+    insert into prescription (ID, patient_ID, doc_ID, 
+      medicine_ID, num, price
+      )
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{docId,jdbcType=VARCHAR}, 
+      #{medicineId,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
+    insert into prescription
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="patientId != null" >
+        patient_ID,
+      </if>
+      <if test="docId != null" >
+        doc_ID,
+      </if>
+      <if test="medicineId != null" >
+        medicine_ID,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null" >
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="docId != null" >
+        #{docId,jdbcType=VARCHAR},
+      </if>
+      <if test="medicineId != null" >
+        #{medicineId,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
+    update prescription
+    <set >
+      <if test="patientId != null" >
+        patient_ID = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="docId != null" >
+        doc_ID = #{docId,jdbcType=VARCHAR},
+      </if>
+      <if test="medicineId != null" >
+        medicine_ID = #{medicineId,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
+    update prescription
+    set patient_ID = #{patientId,jdbcType=VARCHAR},
+      doc_ID = #{docId,jdbcType=VARCHAR},
+      medicine_ID = #{medicineId,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

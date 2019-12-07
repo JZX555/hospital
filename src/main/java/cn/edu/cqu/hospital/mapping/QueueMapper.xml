@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cqu.hospital.Dao.QueueMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Queue" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="max" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cur_nums" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cur_index" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, max, cur_nums, cur_index
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from queue
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from queue
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Queue" >
+    insert into queue (ID, max, cur_nums, 
+      cur_index)
+    values (#{id,jdbcType=VARCHAR}, #{max,jdbcType=INTEGER}, #{curNums,jdbcType=INTEGER}, 
+      #{curIndex,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Queue" >
+    insert into queue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="max != null" >
+        max,
+      </if>
+      <if test="curNums != null" >
+        cur_nums,
+      </if>
+      <if test="curIndex != null" >
+        cur_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null" >
+        #{max,jdbcType=INTEGER},
+      </if>
+      <if test="curNums != null" >
+        #{curNums,jdbcType=INTEGER},
+      </if>
+      <if test="curIndex != null" >
+        #{curIndex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Queue" >
+    update queue
+    <set >
+      <if test="max != null" >
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="curNums != null" >
+        cur_nums = #{curNums,jdbcType=INTEGER},
+      </if>
+      <if test="curIndex != null" >
+        cur_index = #{curIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Queue" >
+    update queue
+    set max = #{max,jdbcType=INTEGER},
+      cur_nums = #{curNums,jdbcType=INTEGER},
+      cur_index = #{curIndex,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cqu.hospital.Dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Department" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="queue" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="prio_queue" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, type, queue, prio_queue
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from department
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Department" >
+    insert into department (ID, type, queue, 
+      prio_queue)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{queue,jdbcType=VARCHAR}, 
+      #{prioQueue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="queue != null" >
+        queue,
+      </if>
+      <if test="prioQueue != null" >
+        prio_queue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="queue != null" >
+        #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="prioQueue != null" >
+        #{prioQueue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Department" >
+    update department
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="queue != null" >
+        queue = #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="prioQueue != null" >
+        prio_queue = #{prioQueue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Department" >
+    update department
+    set type = #{type,jdbcType=VARCHAR},
+      queue = #{queue,jdbcType=VARCHAR},
+      prio_queue = #{prioQueue,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

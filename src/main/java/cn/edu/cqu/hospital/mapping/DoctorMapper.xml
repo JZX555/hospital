@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cqu.hospital.Dao.DoctorMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Doctor" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="level" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="depart_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="max" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="queue" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="prio_queue" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, level, depart_ID, max, queue, prio_queue, password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from doctor
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Doctor" >
+    insert into doctor (ID, level, depart_ID, 
+      max, queue, prio_queue, 
+      password)
+    values (#{id,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{departId,jdbcType=VARCHAR}, 
+      #{max,jdbcType=INTEGER}, #{queue,jdbcType=VARCHAR}, #{prioQueue,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Doctor" >
+    insert into doctor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="departId != null" >
+        depart_ID,
+      </if>
+      <if test="max != null" >
+        max,
+      </if>
+      <if test="queue != null" >
+        queue,
+      </if>
+      <if test="prioQueue != null" >
+        prio_queue,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="departId != null" >
+        #{departId,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null" >
+        #{max,jdbcType=INTEGER},
+      </if>
+      <if test="queue != null" >
+        #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="prioQueue != null" >
+        #{prioQueue,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Doctor" >
+    update doctor
+    <set >
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="departId != null" >
+        depart_ID = #{departId,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null" >
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="queue != null" >
+        queue = #{queue,jdbcType=VARCHAR},
+      </if>
+      <if test="prioQueue != null" >
+        prio_queue = #{prioQueue,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Doctor" >
+    update doctor
+    set level = #{level,jdbcType=INTEGER},
+      depart_ID = #{departId,jdbcType=VARCHAR},
+      max = #{max,jdbcType=INTEGER},
+      queue = #{queue,jdbcType=VARCHAR},
+      prio_queue = #{prioQueue,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
