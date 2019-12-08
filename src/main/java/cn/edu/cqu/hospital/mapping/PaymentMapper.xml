@@ -1,31 +1,146 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.cqu.hospital.Dao.PaymentMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Payment" >
-    <constructor >
-      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="item" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="requisition_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="price" jdbcType="DOUBLE" javaType="java.lang.Double" />
-      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cqu.hospital.Dao.PaymentMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Payment">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="patient_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="item_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
-    ID, patient_ID, item, requisition_ID, type, price, time
+  <sql id="Base_Column_List">
+    ID, patient_ID, item, item_ID, type, price, time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from payment
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from payment
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Payment" >
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Payment">
+    insert into payment (ID, patient_ID, item, 
+      item_ID, type, price, 
+      time)
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{item,jdbcType=INTEGER}, 
+      #{itemId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Payment">
+    insert into payment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="patientId != null">
+        patient_ID,
+      </if>
+      <if test="item != null">
+        item,
+      </if>
+      <if test="itemId != null">
+        item_ID,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null">
+        #{item,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Payment">
+    update payment
+    <set>
+      <if test="patientId != null">
+        patient_ID = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null">
+        item = #{item,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        item_ID = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Payment">
+    update payment
+    set patient_ID = #{patientId,jdbcType=VARCHAR},
+      item = #{item,jdbcType=INTEGER},
+      item_ID = #{itemId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      time = #{time,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.hospital.pojo.Payment">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="patient_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="item" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="requisition_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, patient_ID, item, requisition_ID, type, price, time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from payment
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Payment">
     insert into payment (ID, patient_ID, item, 
       requisition_ID, type, price, 
       time)
@@ -33,80 +148,80 @@
       #{requisitionId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
       #{time,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Payment" >
+  <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Payment">
     insert into payment
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         ID,
       </if>
-      <if test="patientId != null" >
+      <if test="patientId != null">
         patient_ID,
       </if>
-      <if test="item != null" >
+      <if test="item != null">
         item,
       </if>
-      <if test="requisitionId != null" >
+      <if test="requisitionId != null">
         requisition_ID,
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type,
       </if>
-      <if test="price != null" >
+      <if test="price != null">
         price,
       </if>
-      <if test="time != null" >
+      <if test="time != null">
         time,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="patientId != null" >
+      <if test="patientId != null">
         #{patientId,jdbcType=VARCHAR},
       </if>
-      <if test="item != null" >
+      <if test="item != null">
         #{item,jdbcType=INTEGER},
       </if>
-      <if test="requisitionId != null" >
+      <if test="requisitionId != null">
         #{requisitionId,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="price != null" >
+      <if test="price != null">
         #{price,jdbcType=DOUBLE},
       </if>
-      <if test="time != null" >
+      <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Payment" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.hospital.pojo.Payment">
     update payment
-    <set >
-      <if test="patientId != null" >
+    <set>
+      <if test="patientId != null">
         patient_ID = #{patientId,jdbcType=VARCHAR},
       </if>
-      <if test="item != null" >
+      <if test="item != null">
         item = #{item,jdbcType=INTEGER},
       </if>
-      <if test="requisitionId != null" >
+      <if test="requisitionId != null">
         requisition_ID = #{requisitionId,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
+      <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="price != null" >
+      <if test="price != null">
         price = #{price,jdbcType=DOUBLE},
       </if>
-      <if test="time != null" >
+      <if test="time != null">
         time = #{time,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Payment" >
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Payment">
     update payment
     set patient_ID = #{patientId,jdbcType=VARCHAR},
       item = #{item,jdbcType=INTEGER},

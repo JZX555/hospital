@@ -9,17 +9,17 @@ public class Refund {
 
     private Integer item;
 
-    private String requisitionId;
+    private String itemId;
 
     private Double price;
 
     private Date time;
 
-    public Refund(String id, String patientId, Integer item, String requisitionId, Double price, Date time) {
+    public Refund(String id, String patientId, Integer item, String itemId, Double price, Date time) {
         this.id = id;
         this.patientId = patientId;
         this.item = item;
-        this.requisitionId = requisitionId;
+        this.itemId = itemId;
         this.price = price;
         this.time = time;
     }
@@ -52,12 +52,12 @@ public class Refund {
         this.item = item;
     }
 
-    public String getRequisitionId() {
-        return requisitionId;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setRequisitionId(String requisitionId) {
-        this.requisitionId = requisitionId == null ? null : requisitionId.trim();
+    public void setItemId(String itemId) {
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public Double getPrice() {
