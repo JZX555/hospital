@@ -3,5 +3,6 @@
 .classpath
 .settings
 target
+*.cld
 logs
 #src/main/resources/*.properties

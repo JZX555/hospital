@@ -2,6 +2,7 @@ package cn.edu.cqu.hospital.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ public class LogController {
 	@Autowired
 	PatientService patientService = null;
 
+	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
     	System.out.println("进入/log/login");
 		
@@ -47,5 +49,19 @@ public class LogController {
     	System.out.println("准备回到login");
 		return "login";
 	}	
-
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
+        //删除登录cookie  
+        Cookie cookieUserID = new Cookie("loginID", "");  
+        Cookie cookiePassword = new Cookie("loginPassword", "");  
+        cookieUserID.setMaxAge(0);  
+        cookieUserID.setPath("/");  
+        cookiePassword.setMaxAge(0); 
+        cookiePassword.setPath("/");  
+        response.addCookie(cookieUserID);  
+        response.addCookie(cookiePassword);  
+       
+		return "redirect:/";
+	}
 }
