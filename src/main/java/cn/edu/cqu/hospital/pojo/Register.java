@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.pojo;
 
+import java.util.Date;
+
 public class Register {
     private String id;
 
@@ -9,17 +11,20 @@ public class Register {
 
     private String departId;
 
-    private String doctorId;
+    private String docId;
 
     private Integer type;
 
-    public Register(String id, String patientId, String collectorId, String departId, String doctorId, Integer type) {
+    private Date time;
+
+    public Register(String id, String patientId, String collectorId, String departId, String docId, Integer type, Date time) {
         this.id = id;
         this.patientId = patientId;
         this.collectorId = collectorId;
         this.departId = departId;
-        this.doctorId = doctorId;
+        this.docId = docId;
         this.type = type;
+        this.time = time;
     }
 
     public Register() {
@@ -58,12 +63,12 @@ public class Register {
         this.departId = departId == null ? null : departId.trim();
     }
 
-    public String getDoctorId() {
-        return doctorId;
+    public String getDocId() {
+        return docId;
     }
 
-    public void setDoctorId(String doctorId) {
-        this.doctorId = doctorId == null ? null : doctorId.trim();
+    public void setDocId(String docId) {
+        this.docId = docId == null ? null : docId.trim();
     }
 
     public Integer getType() {
@@ -72,5 +77,13 @@ public class Register {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }
