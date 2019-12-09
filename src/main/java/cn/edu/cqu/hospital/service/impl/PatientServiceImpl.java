@@ -11,7 +11,7 @@ import cn.edu.cqu.hospital.service.PatientService;
 public class PatientServiceImpl implements PatientService {
 	@Autowired
 	private PatientMapper patientDao;
-
+	
 	public Patient getPatientByID(String ID) {
 		return this.patientDao.selectByPrimaryKey(ID);
 	}

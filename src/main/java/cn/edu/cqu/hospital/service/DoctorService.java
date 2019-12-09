@@ -3,7 +3,8 @@ package cn.edu.cqu.hospital.service;
 import cn.edu.cqu.hospital.pojo.Doctor;
 
 public interface DoctorService {
-	Doctor getDoctorByID(String ID);
+	public Doctor getDoctorByID(String ID);
 	
-	void updateDoctor(Doctor d);
+	public void updateDoctor(Doctor d);
+	public void updatePassword(String ID, String password);
 }
