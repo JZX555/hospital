@@ -16,4 +16,7 @@ public class PatientServiceImpl implements PatientService {
 		return this.patientDao.selectByPrimaryKey(ID);
 	}
 
+	public void updatePatient(Patient p) {
+		patientDao.updateByPrimaryKeySelective(p);
+	}
 }
