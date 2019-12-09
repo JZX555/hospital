@@ -9,10 +9,11 @@
       <arg column="medicine_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="price" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, patient_ID, doc_ID, medicine_ID, num, price
+    ID, patient_ID, doc_ID, medicine_ID, num, price, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -26,11 +27,11 @@
   </delete>
   <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
     insert into prescription (ID, patient_ID, doc_ID, 
-      medicine_ID, num, price
-      )
+      medicine_ID, num, price, 
+      state)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{docId,jdbcType=VARCHAR}, 
-      #{medicineId,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}
-      )
+      #{medicineId,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
     insert into prescription
@@ -53,6 +54,9 @@
       <if test="price != null" >
         price,
       </if>
+      <if test="state != null" >
+        state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -72,6 +76,9 @@
       </if>
       <if test="price != null" >
         #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -93,6 +100,9 @@
       <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
       </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
@@ -102,7 +112,8 @@
       doc_ID = #{docId,jdbcType=VARCHAR},
       medicine_ID = #{medicineId,jdbcType=VARCHAR},
       num = #{num,jdbcType=INTEGER},
-      price = #{price,jdbcType=DOUBLE}
+      price = #{price,jdbcType=DOUBLE},
+      state = #{state,jdbcType=INTEGER}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

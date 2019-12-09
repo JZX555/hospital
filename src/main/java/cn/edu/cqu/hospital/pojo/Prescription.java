@@ -13,13 +13,16 @@ public class Prescription {
 
     private Double price;
 
-    public Prescription(String id, String patientId, String docId, String medicineId, Integer num, Double price) {
+    private Integer state;
+
+    public Prescription(String id, String patientId, String docId, String medicineId, Integer num, Double price, Integer state) {
         this.id = id;
         this.patientId = patientId;
         this.docId = docId;
         this.medicineId = medicineId;
         this.num = num;
         this.price = price;
+        this.state = state;
     }
 
     public Prescription() {
@@ -72,5 +75,13 @@ public class Prescription {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }
