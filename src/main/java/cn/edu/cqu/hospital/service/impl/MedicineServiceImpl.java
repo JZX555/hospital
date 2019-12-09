@@ -20,6 +20,14 @@ public class MedicineServiceImpl implements MedicineService {
 		this.medicineDao.updateByPrimaryKeySelective(m);
 	}
 
+	public void createMedicine(Medicine m) {
+		this.medicineDao.insertSelective(m);
+	}
+
+	public void deletaMedicine(String ID) {
+		this.medicineDao.deleteByPrimaryKey(ID);
+	}
+
 	public Integer getNumsByID(String ID) {
 		Medicine m = this.medicineDao.selectByPrimaryKey(ID);
 		return m.getNums();
