@@ -6,4 +6,5 @@ public interface PatientService {
 	Patient getPatientByID(String ID);
 	
 	void updatePatient(Patient p);
+	void updatePassword(String ID, String password);
 }

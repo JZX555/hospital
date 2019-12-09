@@ -20,17 +20,19 @@ public class PatientServiceImplTest {
 	@Test
 	public void test() {
 		System.out.println("begin");
-		Patient p;
-		p = this.patientService.getPatientByID("511112199803190913");
-		System.out.println(p.getPhone());
+//		Patient p;
+//		p = this.patientService.getPatientByID("511112199803190913");
+//		System.out.println(p.getPhone());
+//		
+//		Patient n_p = new Patient();
+//		n_p.setId("511112199803190913");
+//		n_p.setPhone("17725024014");
+//		this.patientService.updatePatient(n_p);
+//		
+//		p = this.patientService.getPatientByID("511112199803190913");
+//		System.out.println(p.getPhone());
 		
-		Patient n_p = new Patient();
-		n_p.setId("511112199803190913");
-		n_p.setPhone("17725024014");
-		this.patientService.updatePatient(n_p);
-		
-		p = this.patientService.getPatientByID("511112199803190913");
-		System.out.println(p.getPhone());
+		this.patientService.updatePassword("511112199803190913", "123456");
 	}
 
 }

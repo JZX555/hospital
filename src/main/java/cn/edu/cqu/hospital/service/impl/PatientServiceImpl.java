@@ -19,4 +19,11 @@ public class PatientServiceImpl implements PatientService {
 	public void updatePatient(Patient p) {
 		patientDao.updateByPrimaryKeySelective(p);
 	}
+
+	public void updatePassword(String ID, String password) {
+		Patient p = new Patient();
+		p.setId(ID);
+		p.setPassword(password);
+		patientDao.updateByPrimaryKeySelective(p);
+	}
 }
