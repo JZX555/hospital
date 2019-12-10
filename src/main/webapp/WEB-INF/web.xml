@@ -19,11 +19,6 @@
 		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>/views/*</url-pattern>
-	</servlet-mapping>
-
 	<mime-mapping>
 		<extension>css</extension>
 		<mime-type>text/css</mime-type>

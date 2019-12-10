@@ -24,15 +24,15 @@ import cn.edu.cqu.hospital.service.PatientService;
 @RequestMapping("/log")
 public class LogController {
 	@Autowired
-	PatientService patientService = null;
+	private PatientService patientService = null;
 	@Autowired
-	DoctorService DoctorService = null;
+	private DoctorService DoctorService = null;
 	@Autowired
-	CollectorService CollectorService = null;
+	private CollectorService CollectorService = null;
 	@Autowired
-	ChemistService ChemistService = null;
+	private ChemistService ChemistService = null;
 	@Autowired
-	DispenserService DispenserService = null;
+	private DispenserService DispenserService = null;
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
