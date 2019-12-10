@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
@@ -48,31 +48,31 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/views/index_index.jsp">
+                        <a class="J_menuItem" href="/index/index_index.jsp">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/views/tabs_doctors.jsp">
+                        <a class="J_menuItem" href="/index/tabs_doctors">
                             <i class="fa fa fa-bar-chart-o"></i>
                             <span class="nav-label">我要挂号</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/views/categoryLists_index.jsp">
+                        <a class="J_menuItem" href="/index/categoryLists_index.jsp">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">科室列表</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/views/doctorLists_index.jsp">
+                        <a class="J_menuItem" href="/index/doctorLists_index.jsp">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">医生列表</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/views/registerLists_index.jsp">
+                        <a class="J_menuItem" href="/index/registerLists_index.jsp">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">我的挂号单</span>
                         </a>
@@ -93,7 +93,7 @@
                 
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="/views/index_index.jsp?v=4.0" frameborder="0" data-id="/views/index_index.jsp" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="/index/index_index.jsp?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->
