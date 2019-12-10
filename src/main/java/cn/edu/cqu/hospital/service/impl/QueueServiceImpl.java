@@ -1,11 +1,13 @@
 package cn.edu.cqu.hospital.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cn.edu.cqu.hospital.Dao.QueueMapper;
 import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.service.QueueService;
 
+@Service
 public class QueueServiceImpl implements QueueService {
 	@Autowired
 	private QueueMapper queueDao;
