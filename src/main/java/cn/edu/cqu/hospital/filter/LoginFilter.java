@@ -57,7 +57,7 @@ public class LoginFilter implements Filter {
 			return;
 		}
 		
-		if(url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".gif") || url.endsWith(".js")) {
+		if(url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".gif") || url.endsWith(".js") || url.endsWith(".ico")) {
 			chain.doFilter(req, resp);
 			return;
 		}
@@ -70,12 +70,12 @@ public class LoginFilter implements Filter {
 		}
 		
 		List<String> list= new ArrayList<String>(); //将不需要过滤的请求存放到集合中
-		list.add("/index.jsp");
+		//list.add("/index.jsp");
 		list.add("/log/login");//登录页面
 		list.add("/log/register");//跳转到注册页面请求
 		list.add("/validate");
 		list.add("/static");
-		list.add("/index");
+		//list.add("/index");
 		list.add("/views");		
 		list.add("/checkTel");
 		String path = req.getServletPath();//得到请求的url
@@ -93,7 +93,7 @@ public class LoginFilter implements Filter {
 		{
 			for(Cookie cookie : cookies)
 			{
-				if(cookie.getName().toString().equals("loginTel"))
+				if(cookie.getName().toString().equals("loginID"))
 				{
 					flag=1;
 					break;
