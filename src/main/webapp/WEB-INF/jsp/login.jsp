@@ -66,11 +66,11 @@
 	<script>
 
 		function login(){
-			var username = $('#ID').val();
+			var ID = $('#ID').val();
 			var password =$('#password').val();
 			var userType=$('#userType').val();
-			alert(userType);
-			if(username == "" || password == ""){
+
+			if(ID == "" || password == ""){
 				layer.msg("请输入用户名和密码!");
 			}
 			
@@ -78,17 +78,18 @@
         		url: '/log/validate',
         		type: 'POST',
         		data: {
-	        			'username':username,
+	        			'ID':ID,
 	        			'password':password,
 	        			'userType':userType
         			},
-        		dataType: 'JSON',
+        		dataType: 'text',
         		success: function(result){
-        			
+        			alert(result);
+        			window.location.href = result;
         		},
         		error: function(res){
         			layer.msg("登录失败");
-        		}
+        		},
         	});
 		}
 		
