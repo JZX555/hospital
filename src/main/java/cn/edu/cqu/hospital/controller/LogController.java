@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Chemist;
 import cn.edu.cqu.hospital.pojo.Collector;
@@ -67,6 +68,7 @@ public class LogController {
 	}	
 	
 	@RequestMapping("/validate")
+	@ResponseBody
 	public String validate(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String ID = request.getParameter("ID");
 		String password = request.getParameter("password");
@@ -76,7 +78,8 @@ public class LogController {
 		
 		if(userType.equals("patient")) {
 			Patient patient = this.patientService.getPatientByID(ID);
-			
+			System.out.println(ID);
+			System.out.println(patient.getPassword());
 	    	if(patient != null) {
 	    		if(patient.getPassword().equals(password)) {	
 		    	    Cookie IDCookie = new Cookie("loginID", ID);  
@@ -90,7 +93,7 @@ public class LogController {
 		   
 		    	    model.addAttribute("patient", patient);
 		    		
-		            return "redirect:/"; 
+		            return "/index.jsp"; 
 		    	}
 	    	}
 		}
@@ -99,7 +102,7 @@ public class LogController {
 			Doctor doctor = this.DoctorService.getDoctorByID(ID); 
 			if(doctor != null) {
 				if(doctor.getPassword().equals(password))
-					return "redirect:/";
+					return "/";
 			}
 		}
 		
@@ -107,7 +110,7 @@ public class LogController {
 			Chemist chemist = this.ChemistService.getChemistByID(ID);
 			if(chemist != null) {
 				if(chemist.getPassword().equals(password))
-					return "redirect:/";
+					return "/";
 			}
 		}
 		
@@ -115,7 +118,7 @@ public class LogController {
 			Dispenser dispenser = this.DispenserService.getDispenserByID(ID);
 			if(dispenser != null) {
 				if(dispenser.getPassword().equals(password))
-					return "redirect:/";
+					return "/";
 			}
 		}
 		
@@ -123,12 +126,12 @@ public class LogController {
 			Collector collector = this.CollectorService.getCollectorByID(ID);
 			if(collector != null) {
 				if(collector.getPassword().equals(password))
-					return "redirect:/";
+					return "/";
 			}
 		}
     	
     	model.addAttribute("flag", 1);
-    	return "forward:/log/login";	
+    	return "/log/login";	
 	}
 	
 	@RequestMapping("/logout")
@@ -143,6 +146,6 @@ public class LogController {
         response.addCookie(cookieUserID);  
         response.addCookie(cookiePassword);  
        
-		return "redirect:/";
+		return "redirect:/log/login";
 	}
 }
