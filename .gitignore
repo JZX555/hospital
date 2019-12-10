@@ -5,4 +5,4 @@
 target
 *.cld
 logs
-#src/main/resources/*.properties
+src/main/resources/*.properties
