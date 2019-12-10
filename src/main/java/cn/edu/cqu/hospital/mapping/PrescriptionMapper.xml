@@ -21,6 +21,12 @@
     from prescription
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByPatientKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from prescription
+    where patient_ID = #{id,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from prescription
     where ID = #{id,jdbcType=VARCHAR}

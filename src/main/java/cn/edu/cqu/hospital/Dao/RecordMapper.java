@@ -11,6 +11,8 @@ public interface RecordMapper {
     int insertSelective(RecordWithBLOBs record);
 
     RecordWithBLOBs selectByPrimaryKey(String id);
+    RecordWithBLOBs[] selectByPatientKey(String id);
+    RecordWithBLOBs[] selectByDoctorKey(String id);
 
     int updateByPrimaryKeySelective(RecordWithBLOBs record);
 

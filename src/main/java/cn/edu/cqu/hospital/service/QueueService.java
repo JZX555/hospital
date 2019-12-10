@@ -6,7 +6,9 @@ public interface QueueService {
 	public Queue getQueueByID(String ID);
 	
 	public Integer getCurIndexByID(String ID);
-	public void increaseIndexByID(String ID);
+	public Integer increaseNumsByID(String ID);
+	
+	public boolean isEmptyByID(String ID);
 	public void nextIndexByID(String ID);
 	public void clearQueueByID(String ID);
 	

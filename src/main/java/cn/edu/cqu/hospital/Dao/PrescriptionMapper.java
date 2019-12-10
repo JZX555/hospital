@@ -11,6 +11,8 @@ public interface PrescriptionMapper {
 
     Prescription selectByPrimaryKey(String id);
 
+    Prescription[] selectByPatientKey(String id);
+
     int updateByPrimaryKeySelective(Prescription record);
 
     int updateByPrimaryKey(Prescription record);
