@@ -37,15 +37,21 @@
 
             <form class="m-t" role="form" action="index.html">
                 <div class="form-group">
-                    <input id="username" type="text" class="form-control" placeholder="用户名" required="">
+                    <input id="ID" type="text" class="form-control" placeholder="用户名" required="">
                 </div>
                 <div class="form-group">
                     <input id="password" type="password" class="form-control" placeholder="密码" required="">
                 </div>
                 <button type="button" onclick="login()" class="btn btn-primary block full-width m-b">登 录</button>
-
-
+                
                 <p class="text-muted text-center"><a href="./register.jsp">注册一个新账号</a>
+                <br/><br/>
+                 <select class="sub_button" id ="userType" name="userType">
+					<option value="patient">病人</option>
+					<option value="doctor">医生</option>
+					<option value="chemist">药剂师</option>
+					<option value="dispenser">配药师</option>
+					<option value="collector">收费员</option>
                 </p>
 
             </form>
@@ -58,57 +64,27 @@
     <script src="/static/layer/layer.js"></script>
     <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	<script>
-	$(document).ready(function () {
-		var level = $.cookie('userLevel');
-		if(level == ""){
-			
-		}else if(level == 2){
-			layer.msg("已登录，当前权限为管理员，前往系统后台！");
-			setTimeout(function(){
-				window.location.href="/views/admin/index.jsp";
-			},1000);
-		}else if(level == 1){
-			layer.msg("已登录，当前权限为普通用户，前往系统后台！");
-			setTimeout(function(){
-				window.location.href="/index.jsp";
-			},1000);
-		}
-	});
+
 		function login(){
-			var username = $('#username').val();
+			var username = $('#ID').val();
 			var password =$('#password').val();
+			var userType=$('#userType').val();
+			alert(userType);
 			if(username == "" || password == ""){
 				layer.msg("请输入用户名和密码!");
 			}
 			
 			$.ajax({
-        		url: './login.do',
+        		url: '/log/validate',
         		type: 'POST',
         		data: {
 	        			'username':username,
-	        			'password':password
+	        			'password':password,
+	        			'userType':userType
         			},
         		dataType: 'JSON',
         		success: function(result){
-        			if(result == 'error'){
-        				layer.msg("登录失败,请确保帐号密码正确！");
-        			}else{
-        				if(result == 1){
-        					layer.msg("管理员权限登录成功，前往系统后台！");
-        					$.cookie('userLevel', 2, {path: '/'});
-        					setTimeout(function(){
-        						window.location.href="/views/admin/index.jsp";
-        					},1000);
-            				
-            			}else{
-            				layer.msg("用户登录成功，前往系统后台！");
-            				$.cookie('username', result, {path: '/'});
-            				$.cookie('userLevel', 1, {path: '/'});
-            				setTimeout(function(){
-        						window.location.href="/index.jsp";
-        					},1000);
-            			}
-        			}
+        			
         		},
         		error: function(res){
         			layer.msg("登录失败");
