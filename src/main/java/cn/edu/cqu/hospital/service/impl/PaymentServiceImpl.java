@@ -8,7 +8,7 @@ import cn.edu.cqu.hospital.service.PaymentService;
 
 public class PaymentServiceImpl implements PaymentService {
 	@Autowired
-	PaymentMapper paymentDao;
+	private PaymentMapper paymentDao;
 
 	public Payment getPaymentByID(String ID) {
 		return this.paymentDao.selectByPrimaryKey(ID);
