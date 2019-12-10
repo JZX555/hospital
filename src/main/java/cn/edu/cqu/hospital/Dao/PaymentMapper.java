@@ -10,6 +10,8 @@ public interface PaymentMapper {
     int insertSelective(Payment record);
 
     Payment selectByPrimaryKey(String id);
+    
+    Payment[] selectByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Payment record);
 
