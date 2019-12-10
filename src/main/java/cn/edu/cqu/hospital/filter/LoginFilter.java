@@ -75,6 +75,7 @@ public class LoginFilter implements Filter {
 		list.add("/log/register");//跳转到注册页面请求
 		list.add("/validate");
 		list.add("/static");
+		list.add("/index");
 		list.add("/views");		
 		list.add("/checkTel");
 		String path = req.getServletPath();//得到请求的url
