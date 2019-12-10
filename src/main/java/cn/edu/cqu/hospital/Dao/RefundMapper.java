@@ -10,6 +10,8 @@ public interface RefundMapper {
     int insertSelective(Refund record);
 
     Refund selectByPrimaryKey(String id);
+    
+    Refund[] selecctByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Refund record);
 

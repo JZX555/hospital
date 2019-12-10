@@ -10,6 +10,8 @@ public interface ReservationMapper {
     int insertSelective(Reservation record);
 
     Reservation selectByPrimaryKey(String id);
+    
+    Reservation[] selectByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Reservation record);
 

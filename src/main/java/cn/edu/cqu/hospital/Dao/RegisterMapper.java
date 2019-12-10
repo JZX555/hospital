@@ -10,6 +10,12 @@ public interface RegisterMapper {
     int insertSelective(Register record);
 
     Register selectByPrimaryKey(String id);
+    
+    Register[] selectByPatientKey(String id);
+    
+    Register[] selectByDoctorKey(String id);
+    
+    Register[] selectByCollectorKey(String id);
 
     int updateByPrimaryKeySelective(Register record);
 

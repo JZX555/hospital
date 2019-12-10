@@ -8,5 +8,5 @@ public interface RefundService {
 	
 	public void createRefund(Refund r);
 	public void updateRefund(Refund r);
-	public void deleteRefund(String r);
+	public void deleteRefund(String ID);
 }
