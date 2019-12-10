@@ -37,7 +37,7 @@ public class LogController {
 
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
-    	System.out.println("进入/log/login");
+    	System.out.println("------进入/log/login------");
 		
 		String IDCookie = null;
     	String passwordCookie = null;
@@ -137,6 +137,7 @@ public class LogController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         //删除登录cookie  
+		System.out.println("-----------进入/log/logout");
         Cookie cookieUserID = new Cookie("loginID", "");  
         Cookie cookiePassword = new Cookie("loginPassword", "");  
         cookieUserID.setMaxAge(0);  

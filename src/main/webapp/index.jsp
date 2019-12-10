@@ -137,7 +137,7 @@
 		  			setTimeout(function(){
 		  	  			$.cookie('loginID', null, {path: '/'});
 		  	  			$.cookie('loginPassword', null, {path: '/'});
-						window.location.href="/login.jsp";
+						window.location.href="/log/logout";
 					},1000);
 		  		}, function(){
 		  	});

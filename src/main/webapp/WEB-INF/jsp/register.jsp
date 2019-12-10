@@ -13,11 +13,11 @@
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="favicon.ico"> 
-    <link href="./static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="./static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="./static/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="./static/css/animate.css" rel="stylesheet">
-    <link href="./static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
     <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
 
 </head>
@@ -35,22 +35,16 @@
             <p>创建一个新账户</p>
             <form class="m-t" role="form" action="login.html">
                 <div class="form-group">
-                    <input id="username" type="text" class="form-control" placeholder="请输入用户名" required="">
+                    <input id="ID" type="text" class="form-control" placeholder="请输入病人ID" required="">
+                </div>
+                 <div class="form-group">
+                    <input id="sex" type="text" class="form-control" placeholder="请输入性别" required="">
                 </div>
                 <div class="form-group">
                     <input id="password" type="password" class="form-control" placeholder="请输入密码" required="">
                 </div>
                 <div class="form-group">
                     <input id="repassword" type="password" class="form-control" placeholder="请再次输入密码" required="">
-                </div>
-                <div class="form-group">
-                    <input id="name" type="text" class="form-control" placeholder="请输入用户名" required="">
-                </div>
-                <div class="form-group">
-                    <input id="address" type="text" class="form-control" placeholder="请输入地址" required="">
-                </div>
-                <div class="form-group">
-                    <input id="tel" type="text" class="form-control" placeholder="请输入联系方式" required="">
                 </div>
                 <button type="button" class="btn btn-primary block full-width m-b" onclick="register()">注 册</button>
 
@@ -62,11 +56,11 @@
     </div>
 
     <!-- 全局js -->
-    <script src="./static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="./static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
     <!-- iCheck -->
-    <script src="./static/js/plugins/iCheck/icheck.min.js"></script>
-    <script src="./static/layer/layer.js"></script>
+    <script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="/static/layer/layer.js"></script>
     <script>
         $(document).ready(function () {
             $('.i-checks').iCheck({
@@ -76,12 +70,10 @@
         });
         
         function register(){
-        	var username = $('#username').val();
+        	var ID = $('#ID').val();
         	var password = $('#password').val();
         	var repassword = $('#repassword').val();
-        	var name = $('#name').val();
-        	var address = $('#address').val();
-        	var tel = $('#tel').val();
+        	var sex = $('#sex').val();
         	if($('.form-control').val() == ""){
         		layer.msg("请确保信息填写完整");
         	}
@@ -93,11 +85,9 @@
         		url: './register.do',
         		type: 'POST',
         		data: {
-	        			'username':username,
+	        			'ID':ID,
 	        			'password':password,
-	        			'name':name,
-	        			'address':address,
-	        			'tel':tel
+	        			'sex':sex
         			},
         		dataType: 'JSON',
         		success: function(res){

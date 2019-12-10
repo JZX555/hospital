@@ -44,7 +44,7 @@
                 </div>
                 <button type="button" onclick="login()" class="btn btn-primary block full-width m-b">登 录</button>
                 
-                <p class="text-muted text-center"><a href="./register.jsp">注册一个新账号</a>
+                <p class="text-muted text-center"><a href="/index/tabs_doctors">注册一个新账号</a>
                 <br/><br/>
                  <select class="sub_button" id ="userType" name="userType">
 					<option value="patient">病人</option>

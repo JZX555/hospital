@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 	@RequestMapping("/tabs_doctors")
 	public String login(HttpServletRequest request,Model model) {
-		return "tabs_doctors";
+		System.out.println("------进入/index/tabs_doctors------");
+		return "register";
 	}
 }
