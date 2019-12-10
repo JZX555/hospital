@@ -48,7 +48,7 @@
                 </div>
                 <button type="button" class="btn btn-primary block full-width m-b" onclick="register()">注 册</button>
 
-                <p class="text-muted text-center"><small>已经有账户了？</small><a href="login.jsp">点此登录</a>
+                <p class="text-muted text-center"><small>已经有账户了？</small><a href="/log/login">点此登录</a>
                 </p>
 
             </form>
