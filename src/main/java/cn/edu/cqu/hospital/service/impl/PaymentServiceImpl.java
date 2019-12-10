@@ -1,11 +1,13 @@
 package cn.edu.cqu.hospital.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cn.edu.cqu.hospital.Dao.PaymentMapper;
 import cn.edu.cqu.hospital.pojo.Payment;
 import cn.edu.cqu.hospital.service.PaymentService;
 
+@Service
 public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentMapper paymentDao;
