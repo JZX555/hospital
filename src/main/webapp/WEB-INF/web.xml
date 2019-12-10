@@ -18,6 +18,11 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/views/*</url-pattern>
+	</servlet-mapping>
 	
 	<!-- Spring和mybatis的配置文件 -->
 	<context-param>
