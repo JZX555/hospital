@@ -16,10 +16,10 @@
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="./static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="./static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="./static/css/animate.css" rel="stylesheet">
-    <link href="./static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -48,31 +48,31 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="./views/index_index.jsp">
+                        <a class="J_menuItem" href="/views/index_index.jsp">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="./views/tabs_doctors.jsp">
+                        <a class="J_menuItem" href="/views/tabs_doctors.jsp">
                             <i class="fa fa fa-bar-chart-o"></i>
                             <span class="nav-label">我要挂号</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="./views/categoryLists_index.jsp">
+                        <a class="J_menuItem" href="/views/categoryLists_index.jsp">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">科室列表</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="./views/doctorLists_index.jsp">
+                        <a class="J_menuItem" href="/views/doctorLists_index.jsp">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">医生列表</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="./views/registerLists_index.jsp">
+                        <a class="J_menuItem" href="/views/registerLists_index.jsp">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">我的挂号单</span>
                         </a>
@@ -93,50 +93,53 @@
                 
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="./views/index_index.jsp?v=4.0" frameborder="0" data-id="./views/index_index.jsp" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="/views/index_index.jsp?v=4.0" frameborder="0" data-id="/views/index_index.jsp" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->
     </div>
 
     <!-- 全局js -->
-    <script src="./static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="./static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="./static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="./static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="./static/js/plugins/layer/layer.min.js"></script>
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/static/js/plugins/layer/layer.min.js"></script>
 
     <!-- 自定义js -->
-    <script src="./static/js/hAdmin.js?v=4.1.0"></script>
-    <script type="text/javascript" src="./static/js/index.js"></script>
+    <script src="/static/js/hAdmin.js?v=4.1.0"></script>
+    <script type="text/javascript" src="/static/js/index.js"></script>
 
     <!-- 第三方插件 -->
-    <script src="./static/js/plugins/pace/pace.min.js"></script>
-    <script type="text/javascript" src="./static/js/jquery.cookie.js"></script>
+    <script src="/static/js/plugins/pace/pace.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	
 </body>
 	<script type="text/javascript">
-	$(document).ready(function () {
-		var level = $.cookie('userLevel');
-		if(level == null){
-			layer.msg("用户未登录，前往登录界面！");
-			setTimeout(function(){
-				window.location.href="/note/";
-			},1000);
+		$(document).ready(
+			function () {
+				var level = $.cookie('userLevel');
+				alert("123456");
+				if(level == null){
+					layer.msg("用户未登录，前往登录界面！");
+					setTimeout(function(){
+						window.location.href="/note/";
+					},1000);
+				}
+			});
+		
+		function loginOut(){
+			layer.confirm('确认退出吗？', {
+		  		  btn: ['确定','取消'] //按钮
+		  		}, function(){
+		  			$.cookie('username', null, {path: '/'});
+		  			$.cookie('userLevel', null, {path: '/'});
+		  			layer.msg('退出成功，前往登录界面！');
+		  			setTimeout(function(){
+						window.location.href="/note/";
+					},1000);
+		  		}, function(){
+		  	});
 		}
-	});
-	function loginOut(){
-		layer.confirm('确认退出吗？', {
-  		  btn: ['确定','取消'] //按钮
-  		}, function(){
-  			$.cookie('username', null, {path: '/'});
-  			$.cookie('userLevel', null, {path: '/'});
-  			layer.msg('退出成功，前往登录界面！');
-  			setTimeout(function(){
-				window.location.href="/note/";
-			},1000);
-  		}, function(){
-  		});
-	}
 	</script>
 </html>
