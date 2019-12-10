@@ -133,11 +133,11 @@
 			layer.confirm('确认退出吗？', {
 		  		  btn: ['确定','取消'] //按钮
 		  		}, function(){
-		  			$.cookie('username', null, {path: '/'});
-		  			$.cookie('userLevel', null, {path: '/'});
 		  			layer.msg('退出成功，前往登录界面！');
 		  			setTimeout(function(){
-						window.location.href="/note/";
+		  	  			$.cookie('loginID', null, {path: '/'});
+		  	  			$.cookie('loginPassword', null, {path: '/'});
+						window.location.href="/login.jsp";
 					},1000);
 		  		}, function(){
 		  	});
