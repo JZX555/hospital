@@ -4,7 +4,7 @@
 
 <head>
 
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -12,12 +12,12 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
-    <link rel="shortcut icon" href="favicon.ico"> 
-    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link rel="shortcut icon" type="image/icon" href="/static/ico/favicon.ico"> 
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" type="text/css" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" type="text/css" rel="stylesheet">
 
-    <link href="/static/css/animate.css" rel="stylesheet">
-    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/animate.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" type="text/css" rel="stylesheet">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->

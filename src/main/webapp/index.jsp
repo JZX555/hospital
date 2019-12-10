@@ -117,16 +117,17 @@
 </body>
 	<script type="text/javascript">
 		$(document).ready(
-			function () {
-				var level = $.cookie('userLevel');
-				alert("123456");
-				if(level == null){
-					layer.msg("用户未登录，前往登录界面！");
-					setTimeout(function(){
-						window.location.href="/note/";
-					},1000);
-				}
-			});
+			//function () {
+			//	var level = $.cookie('userLevel');
+			//	alert("123456");
+			//	if(level == null){
+			//		layer.msg("用户未登录，前往登录界面！");
+			//		setTimeout(function(){
+			//			window.location.href="/note/";
+			//		},1000);
+			//	}
+			//}
+			);
 		
 		function loginOut(){
 			layer.confirm('确认退出吗？', {

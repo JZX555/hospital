@@ -47,17 +47,25 @@ public class LoginFilter implements Filter {
 		req.setCharacterEncoding("utf-8");
 
 		HttpServletResponse resp = (HttpServletResponse) response;
-		resp.setContentType("text/html;charset=utf-8");
 		
 		String url = req.getRequestURI();
-		if(url.contains("/root/")) {
-			chain.doFilter(req, resp);
+		System.out.println(url);
 
+		if(url.endsWith(".css")) {
+			resp.setContentType("text/css;charset=utf-8");
+			chain.doFilter(req, resp);
 			return;
 		}
 		
-		if(url.endsWith(".css") || url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".gif") || url.endsWith(".js")) {
+		if(url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".gif") || url.endsWith(".js")) {
 			chain.doFilter(req, resp);
+			return;
+		}
+		
+		resp.setContentType("text/html;charset=utf-8");
+		if(url.contains("/root/")) {
+			chain.doFilter(req, resp);
+			
 			return;
 		}
 		
@@ -66,7 +74,8 @@ public class LoginFilter implements Filter {
 		list.add("/log/login");//登录页面
 		list.add("/log/register");//跳转到注册页面请求
 		list.add("/validate");
-		list.add("/assets");
+		list.add("/static");
+		list.add("/views");		
 		list.add("/checkTel");
 		String path = req.getServletPath();//得到请求的url
 		System.out.println("uri:"+path);
@@ -95,6 +104,7 @@ public class LoginFilter implements Filter {
            // HttpSession session = req.getSession(true); 
             //session.setAttribute("requestUri", req.getRequestURI());
           //session.setAttribute("requestMethod", req.getMethod());
+			System.out.println("uri为: " + path);
 			System.out.println("无用户");
 			resp.sendRedirect("/log/login");
 		}
