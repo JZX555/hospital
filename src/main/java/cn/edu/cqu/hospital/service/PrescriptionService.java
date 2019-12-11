@@ -7,7 +7,7 @@ public interface PrescriptionService {
 	public Prescription[] getPrescriptionByPatient(String ID);
 	public Prescription[] getPrescriptionByRecord(String ID);
 	
-	public void createPrescripiton(Prescription p);
-	public void updatePrescription(Prescription p);
-	public void deletaPrescription(String ID);
+	public Integer createPrescripiton(Prescription p);
+	public Integer updatePrescription(Prescription p);
+	public Integer deletaPrescription(String ID);
 }

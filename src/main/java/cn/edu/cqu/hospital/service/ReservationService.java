@@ -6,9 +6,9 @@ public interface ReservationService {
 	public Reservation getReservationByID(String ID);
 	public Reservation[] getReservationsByPatient(String ID);
 	
-	public void updateStateByID(String ID, int state);
+	public Integer updateStateByID(String ID, int state);
 	
-	public void createReservation(Reservation r);
-	public void updateReservation(Reservation r);
-	public void deleteReservation(String ID);
+	public Integer createReservation(Reservation r);
+	public Integer updateReservation(Reservation r);
+	public Integer deleteReservation(String ID);
 }

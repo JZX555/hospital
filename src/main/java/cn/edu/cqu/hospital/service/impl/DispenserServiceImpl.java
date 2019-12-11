@@ -16,15 +16,15 @@ public class DispenserServiceImpl implements DispenserService {
 		return this.dispenserDao.selectByPrimaryKey(ID);
 	}
 
-	public void updateDispenser(Dispenser d) {
-		this.dispenserDao.updateByPrimaryKeySelective(d);
+	public Integer updateDispenser(Dispenser d) {
+		return this.dispenserDao.updateByPrimaryKeySelective(d);
 	}
 
-	public void updatePassword(String ID, String password) {
+	public Integer updatePassword(String ID, String password) {
 		Dispenser d = new Dispenser();
 		d.setId(ID);
 		d.setPassword(password);
-		this.dispenserDao.updateByPrimaryKeySelective(d);
+		return this.dispenserDao.updateByPrimaryKeySelective(d);
 	}
 
 }

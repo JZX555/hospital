@@ -25,44 +25,44 @@ public class RecordServiceImpl implements RecordService {
 		return this.recordDao.selectByDoctorKey(ID);
 	}
 
-	public void updateIllnessByID(String ID, String illness) {
+	public Integer updateIllnessByID(String ID, String illness) {
 		RecordWithBLOBs record = this.recordDao.selectByPrimaryKey(ID);
 		record.setIllness(illness);
 		
-		this.recordDao.updateByPrimaryKeySelective(record);
+		return this.recordDao.updateByPrimaryKeySelective(record);
 	}
 
-	public void updateHistoryByID(String ID, String history) {
+	public Integer updateHistoryByID(String ID, String history) {
 		RecordWithBLOBs record = this.recordDao.selectByPrimaryKey(ID);
 		record.setHistory(history);
 		
-		this.recordDao.updateByPrimaryKeySelective(record);
+		return this.recordDao.updateByPrimaryKeySelective(record);
 	}
 
-	public void updateResultByID(String ID, String result) {
+	public Integer updateResultByID(String ID, String result) {
 		RecordWithBLOBs record = this.recordDao.selectByPrimaryKey(ID);
 		record.setResult(result);
 		
-		this.recordDao.updateByPrimaryKeySelective(record);
+		return this.recordDao.updateByPrimaryKeySelective(record);
 	}
 
-	public void updateTreatmentByID(String ID, String treatment) {
+	public Integer updateTreatmentByID(String ID, String treatment) {
 		RecordWithBLOBs record = this.recordDao.selectByPrimaryKey(ID);
 		record.setTreatment(treatment);
 		
-		this.recordDao.updateByPrimaryKeySelective(record);
+		return this.recordDao.updateByPrimaryKeySelective(record);
 	}
 
-	public void createRecord(RecordWithBLOBs r) {
-		this.recordDao.insertSelective(r);
+	public Integer createRecord(RecordWithBLOBs r) {
+		return this.recordDao.insertSelective(r);
 	}
 
-	public void updateRecord(RecordWithBLOBs r) {
-		this.recordDao.updateByPrimaryKeySelective(r);
+	public Integer updateRecord(RecordWithBLOBs r) {
+		return this.recordDao.updateByPrimaryKeySelective(r);
 	}
 
-	public void deleteRecord(String ID) {
-		this.recordDao.deleteByPrimaryKey(ID);
+	public Integer deleteRecord(String ID) {
+		return this.recordDao.deleteByPrimaryKey(ID);
 	}
 
 }

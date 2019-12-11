@@ -5,7 +5,7 @@ import cn.edu.cqu.hospital.pojo.Item;
 public interface ItemService {
 	public Item getItemByID(String ID);
 	
-	public void createItem(Item i);
-	public void updateItem(Item i);
-	public void deleteItem(String ID);
+	public Integer createItem(Item i);
+	public Integer updateItem(Item i);
+	public Integer deleteItem(String ID);
 }

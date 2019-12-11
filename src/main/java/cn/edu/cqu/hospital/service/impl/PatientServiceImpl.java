@@ -16,14 +16,22 @@ public class PatientServiceImpl implements PatientService {
 		return this.patientDao.selectByPrimaryKey(ID);
 	}
 
-	public void updatePatient(Patient p) {
-		patientDao.updateByPrimaryKeySelective(p);
-	}
-
-	public void updatePassword(String ID, String password) {
+	public Integer updatePassword(String ID, String password) {
 		Patient p = new Patient();
 		p.setId(ID);
 		p.setPassword(password);
-		patientDao.updateByPrimaryKeySelective(p);
+		return this.patientDao.updateByPrimaryKeySelective(p);
+	}
+	
+	public Integer createPatient(Patient p) {
+		return this.patientDao.insertSelective(p);
+	}
+	
+	public Integer updatePatient(Patient p) {
+		return this.patientDao.updateByPrimaryKeySelective(p);
+	}
+	
+	public Integer deletePatient(String ID) {
+		return this.patientDao.deleteByPrimaryKey(ID);
 	}
 }

@@ -6,7 +6,7 @@ public interface RefundService {
 	public Refund getRefundByID(String ID);
 	public Refund[] getRefundByPatient(String ID);
 	
-	public void createRefund(Refund r);
-	public void updateRefund(Refund r);
-	public void deleteRefund(String ID);
+	public Integer createRefund(Refund r);
+	public Integer updateRefund(Refund r);
+	public Integer deleteRefund(String ID);
 }

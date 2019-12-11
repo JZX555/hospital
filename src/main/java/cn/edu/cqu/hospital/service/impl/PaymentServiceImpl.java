@@ -20,16 +20,16 @@ public class PaymentServiceImpl implements PaymentService {
 		return this.paymentDao.selectByPatientKey(ID);
 	}
 
-	public void createPayment(Payment p) {
-		this.paymentDao.insertSelective(p);
+	public Integer createPayment(Payment p) {
+		return this.paymentDao.insertSelective(p);
 	}
 
-	public void updatePayment(Payment p) {
-		this.paymentDao.updateByPrimaryKeySelective(p);
+	public Integer updatePayment(Payment p) {
+		return this.paymentDao.updateByPrimaryKeySelective(p);
 	}
 
-	public void deletaPayment(String ID) {
-		this.paymentDao.deleteByPrimaryKey(ID);
+	public Integer deletaPayment(String ID) {
+		return this.paymentDao.deleteByPrimaryKey(ID);
 	}
 
 }

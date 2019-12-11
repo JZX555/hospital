@@ -8,12 +8,12 @@ public interface RecordService {
 	public RecordWithBLOBs[] getRecordByPatient(String ID);
 	public RecordWithBLOBs[] getRecordByDoctor(String ID);
 	
-	public void updateIllnessByID(String ID, String illness);
-	public void updateHistoryByID(String ID, String history);
-	public void updateResultByID(String ID, String result);
-	public void updateTreatmentByID(String ID, String treatment);
+	public Integer updateIllnessByID(String ID, String illness);
+	public Integer updateHistoryByID(String ID, String history);
+	public Integer updateResultByID(String ID, String result);
+	public Integer updateTreatmentByID(String ID, String treatment);
 	
-	public void  createRecord(RecordWithBLOBs r);
-	public void updateRecord(RecordWithBLOBs r);
-	public void deleteRecord(String ID);
+	public Integer  createRecord(RecordWithBLOBs r);
+	public Integer updateRecord(RecordWithBLOBs r);
+	public Integer deleteRecord(String ID);
 }

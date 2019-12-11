@@ -16,15 +16,15 @@ public class CollectorServiceImpl implements CollectorService {
 		return this.collectorDao.selectByPrimaryKey(ID);
 	}
 
-	public void updateCollector(Collector c) {
-		this.collectorDao.updateByPrimaryKeySelective(c);
+	public Integer updateCollector(Collector c) {
+		return this.collectorDao.updateByPrimaryKeySelective(c);
 	}
 
-	public void updatePassword(String ID, String password) {
+	public Integer updatePassword(String ID, String password) {
 		Collector c = new Collector();
 		c.setId(ID);
 		c.setPassword(password);
-		this.collectorDao.updateByPrimaryKeySelective(c);
+		return this.collectorDao.updateByPrimaryKeySelective(c);
 	}
 
 }

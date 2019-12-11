@@ -20,16 +20,16 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		return this.prescriptionDao.selectByPatientKey(ID);
 	}
 
-	public void createPrescripiton(Prescription p) {
-		this.prescriptionDao.insertSelective(p);
+	public Integer createPrescripiton(Prescription p) {
+		return this.prescriptionDao.insertSelective(p);
 	}
 
-	public void updatePrescription(Prescription p) {
-		this.prescriptionDao.updateByPrimaryKeySelective(p);
+	public Integer updatePrescription(Prescription p) {
+		return this.prescriptionDao.updateByPrimaryKeySelective(p);
 	}
 
-	public void deletaPrescription(String ID) {
-		this.prescriptionDao.deleteByPrimaryKey(ID);
+	public Integer deletaPrescription(String ID) {
+		return this.prescriptionDao.deleteByPrimaryKey(ID);
 	}
 
 	public Prescription[] getPrescriptionByRecord(String ID) {

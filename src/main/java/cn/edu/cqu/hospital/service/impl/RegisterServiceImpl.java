@@ -28,16 +28,16 @@ public class RegisterServiceImpl implements RegisterService {
 		return this.registerDao.selectByCollectorKey(ID);
 	}
 
-	public void createRegister(Register r) {
-		this.registerDao.insertSelective(r);
+	public Integer createRegister(Register r) {
+		return this.registerDao.insertSelective(r);
 	}
 
-	public void updateRegister(Register r) {
-		this.registerDao.updateByPrimaryKeySelective(r);
+	public Integer updateRegister(Register r) {
+		return this.registerDao.updateByPrimaryKeySelective(r);
 	}
 
-	public void deleteRegister(String ID) {
-		this.registerDao.deleteByPrimaryKey(ID);
+	public Integer deleteRegister(String ID) {
+		return this.registerDao.deleteByPrimaryKey(ID);
 	}
 
 }

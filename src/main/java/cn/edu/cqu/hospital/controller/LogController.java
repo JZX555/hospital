@@ -134,6 +134,36 @@ public class LogController {
     	return "/log/login";	
 	}
 	
+	@RequestMapping("/goRegister")
+	public String goRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "register";
+	}
+	
+	@RequestMapping("/doRegister")
+	@ResponseBody
+	public Integer doRegister(String ID, String name, String password, String phone, String sex, HttpServletResponse response, Model model) {
+		Patient patient = new Patient();
+		patient.setId(ID);
+		patient.setName(name);
+		patient.setPhone(phone);
+		patient.setSex(Integer.parseInt(sex));
+		patient.setPassword(password);
+		
+		this.patientService.createPatient(patient);
+		
+	    Cookie IDCookie = new Cookie("loginID", ID);  
+	    Cookie passwordCookie = new Cookie("loginPassword", password);  
+	    IDCookie.setMaxAge(60 * 60);  
+	    IDCookie.setPath("/");  
+	    passwordCookie.setMaxAge(60 * 60);  
+	    passwordCookie.setPath("/");  
+
+		response.addCookie(IDCookie);  
+	    response.addCookie(passwordCookie); 	
+		
+		return 1;
+	}
+	
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         //删除登录cookie  

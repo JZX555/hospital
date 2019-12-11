@@ -20,16 +20,16 @@ public class RefundServiceImpl implements RefundService {
 		return this.refundDao.selecctByPatientKey(ID);
 	}
 
-	public void createRefund(Refund r) {
-		this.refundDao.insertSelective(r);
+	public Integer createRefund(Refund r) {
+		return this.refundDao.insertSelective(r);
 	}
 
-	public void updateRefund(Refund r) {
-		this.refundDao.updateByPrimaryKeySelective(r);
+	public Integer updateRefund(Refund r) {
+		return this.refundDao.updateByPrimaryKeySelective(r);
 	}
 
-	public void deleteRefund(String ID) {
-		this.refundDao.deleteByPrimaryKey(ID);
+	public Integer deleteRefund(String ID) {
+		return this.refundDao.deleteByPrimaryKey(ID);
 	}
 
 }

@@ -16,8 +16,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return this.departmentDao.selectByPrimaryKey(ID);
 	}
 
-	public void updateDepartment(Department d) {
-		this.departmentDao.updateByPrimaryKeySelective(d);
+	public Integer updateDepartment(Department d) {
+		return this.departmentDao.updateByPrimaryKeySelective(d);
 	}
 
 }

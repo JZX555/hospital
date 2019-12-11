@@ -20,23 +20,23 @@ public class ReservationServiceImpl implements ReservationService {
 		return this.reservationDao.selectByPatientKey(ID);
 	}
 
-	public void updateStateByID(String ID, int state) {
+	public Integer updateStateByID(String ID, int state) {
 		Reservation reservation = this.reservationDao.selectByPrimaryKey(ID);
 		reservation.setState(state);
 		
-		this.reservationDao.updateByPrimaryKeySelective(reservation);
+		return this.reservationDao.updateByPrimaryKeySelective(reservation);
 	}
 
-	public void createReservation(Reservation r) {
-		this.reservationDao.insertSelective(r);
+	public Integer createReservation(Reservation r) {
+		return this.reservationDao.insertSelective(r);
 	}
 
-	public void updateReservation(Reservation r) {
-		this.reservationDao.updateByPrimaryKeySelective(r);
+	public Integer updateReservation(Reservation r) {
+		return this.reservationDao.updateByPrimaryKeySelective(r);
 	}
 
-	public void deleteReservation(String ID) {
-		this.deleteReservation(ID);
+	public Integer deleteReservation(String ID) {
+		return this.deleteReservation(ID);
 	}
 
 }

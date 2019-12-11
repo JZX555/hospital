@@ -16,16 +16,16 @@ public class ItemServiceImpl implements ItemService {
 		return this.itemDao.selectByPrimaryKey(ID);
 	}
 
-	public void createItem(Item i) {
-		this.itemDao.insertSelective(i);
+	public Integer createItem(Item i) {
+		return this.itemDao.insertSelective(i);
 	}
 
-	public void updateItem(Item i) {
-		this.itemDao.updateByPrimaryKey(i);
+	public Integer updateItem(Item i) {
+		return this.itemDao.updateByPrimaryKey(i);
 	}
 
-	public void deleteItem(String ID) {
-		this.itemDao.deleteByPrimaryKey(ID);
+	public Integer deleteItem(String ID) {
+		return this.itemDao.deleteByPrimaryKey(ID);
 	}
 
 }

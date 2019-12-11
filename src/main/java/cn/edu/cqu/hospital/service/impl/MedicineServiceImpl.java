@@ -16,16 +16,16 @@ public class MedicineServiceImpl implements MedicineService {
 		return this.medicineDao.selectByPrimaryKey(ID);
 	}
 
-	public void updateMedicine(Medicine m) {
-		this.medicineDao.updateByPrimaryKeySelective(m);
+	public Integer updateMedicine(Medicine m) {
+		return this.medicineDao.updateByPrimaryKeySelective(m);
 	}
 
-	public void createMedicine(Medicine m) {
-		this.medicineDao.insertSelective(m);
+	public Integer createMedicine(Medicine m) {
+		return this.medicineDao.insertSelective(m);
 	}
 
-	public void deletaMedicine(String ID) {
-		this.medicineDao.deleteByPrimaryKey(ID);
+	public Integer deletaMedicine(String ID) {
+		return this.medicineDao.deleteByPrimaryKey(ID);
 	}
 
 	public Integer getNumsByID(String ID) {
@@ -33,10 +33,11 @@ public class MedicineServiceImpl implements MedicineService {
 		return m.getNums();
 	}
 
-	public void addNumsByID(String ID, int nums) {
+	public Integer addNumsByID(String ID, int nums) {
 		Medicine m = this.medicineDao.selectByPrimaryKey(ID);
 		m.setNums(m.getNums() + nums);
-		this.medicineDao.updateByPrimaryKeySelective(m);
+		
+		return this.medicineDao.updateByPrimaryKeySelective(m);
 	}
 
 }

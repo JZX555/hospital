@@ -8,7 +8,7 @@ public interface RegisterService {
 	public Register[] getRegisterByDoctor(String ID);
 	public Register[] getRegisterByCollector(String ID);
 	
-	public void createRegister(Register r);
-	public void updateRegister(Register r);
-	public void deleteRegister(String ID);
+	public Integer createRegister(Register r);
+	public Integer updateRegister(Register r);
+	public Integer deleteRegister(String ID);
 }

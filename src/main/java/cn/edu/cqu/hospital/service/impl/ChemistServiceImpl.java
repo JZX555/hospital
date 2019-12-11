@@ -16,15 +16,16 @@ public class ChemistServiceImpl implements ChemistService {
 		return this.chemistDao.selectByPrimaryKey(ID);
 	}
 
-	public void updateChemist(Chemist c) {
-		this.chemistDao.updateByPrimaryKeySelective(c);
+	public Integer updateChemist(Chemist c) {
+		return this.chemistDao.updateByPrimaryKeySelective(c);
 	}
 
-	public void updatePassword(String ID, String password) {
+	public Integer updatePassword(String ID, String password) {
 		Chemist c = new Chemist();
 		c.setId(ID);
 		c.setPassword(password);
-		this.chemistDao.updateByPrimaryKeySelective(c);
+		
+		return this.chemistDao.updateByPrimaryKeySelective(c);
 	}
 
 }

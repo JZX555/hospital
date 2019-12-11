@@ -9,10 +9,10 @@ public interface QueueService {
 	public Integer increaseNumsByID(String ID);
 	
 	public boolean isEmptyByID(String ID);
-	public void nextIndexByID(String ID);
-	public void clearQueueByID(String ID);
+	public Integer nextIndexByID(String ID);
+	public Integer clearQueueByID(String ID);
 	
-	public void createQueue(Queue q);
-	public void updateQueue(Queue q);
-	public void deletaQueue(String ID);
+	public Integer createQueue(Queue q);
+	public Integer updateQueue(Queue q);
+	public Integer deletaQueue(String ID);
 }

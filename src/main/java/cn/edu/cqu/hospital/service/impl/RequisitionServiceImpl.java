@@ -16,15 +16,15 @@ public class RequisitionServiceImpl implements RequisitionService {
 		return this.requisitionDao.selectByPrimaryKey(ID);
 	}
 
-	public void createRequisition(Requisition r) {
-		this.requisitionDao.insertSelective(r);
+	public Integer createRequisition(Requisition r) {
+		return this.requisitionDao.insertSelective(r);
 	}
 
-	public void updateRequisition(Requisition r) {
-		this.requisitionDao.updateByPrimaryKeySelective(r);
+	public Integer updateRequisition(Requisition r) {
+		return this.requisitionDao.updateByPrimaryKeySelective(r);
 	}
 
-	public void deleteRequisition(String ID) {
-		this.requisitionDao.deleteByPrimaryKey(ID);
+	public Integer deleteRequisition(String ID) {
+		return this.requisitionDao.deleteByPrimaryKey(ID);
 	}
 }

@@ -39,35 +39,35 @@ public class QueueServiceImpl implements QueueService {
 		return nums == 0;
 	}
 
-	public void nextIndexByID(String ID) {
+	public Integer nextIndexByID(String ID) {
 		Queue queue = this.queueDao.selectByPrimaryKey(ID);
 		int index = queue.getCurIndex();
 		int nums = queue.getCurNums();
 		queue.setCurIndex(index + 1);
 		queue.setCurNums(nums - 1);
 		
-		this.queueDao.updateByPrimaryKeySelective(queue);
+		return this.queueDao.updateByPrimaryKeySelective(queue);
 	}
 
-	public void clearQueueByID(String ID) {
+	public Integer clearQueueByID(String ID) {
 		Queue queue = this.queueDao.selectByPrimaryKey(ID);
 		
 		queue.setCurIndex(1);
 		queue.setCurNums(0);
 		
-		this.queueDao.updateByPrimaryKeySelective(queue);
+		return this.queueDao.updateByPrimaryKeySelective(queue);
 	}
 
-	public void createQueue(Queue q) {
-		this.queueDao.insertSelective(q);
+	public Integer createQueue(Queue q) {
+		return this.queueDao.insertSelective(q);
 	}
 
-	public void updateQueue(Queue q) {
-		this.queueDao.updateByPrimaryKeySelective(q);
+	public Integer updateQueue(Queue q) {
+		return this.queueDao.updateByPrimaryKeySelective(q);
 	}
 
-	public void deletaQueue(String ID) {
-		this.queueDao.deleteByPrimaryKey(ID);
+	public Integer deletaQueue(String ID) {
+		return this.queueDao.deleteByPrimaryKey(ID);
 	}
 
 }

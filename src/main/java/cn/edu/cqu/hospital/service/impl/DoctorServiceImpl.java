@@ -16,15 +16,16 @@ public class DoctorServiceImpl implements DoctorService {
 		return this.getDoctorByID(ID);
 	}
 
-	public void updateDoctor(Doctor d) {
-		this.doctorDao.updateByPrimaryKeySelective(d);
+	public Integer updateDoctor(Doctor d) {
+		return this.doctorDao.updateByPrimaryKeySelective(d);
 	}
 
-	public void updatePassword(String ID, String password) {
+	public Integer updatePassword(String ID, String password) {
 		Doctor d = new Doctor();
 		d.setId(ID);
 		d.setPassword(password);
-		this.doctorDao.updateByPrimaryKeySelective(d);
+		
+		return this.doctorDao.updateByPrimaryKeySelective(d);
 	}
 
 }
