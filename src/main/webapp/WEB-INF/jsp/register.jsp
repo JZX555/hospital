@@ -37,6 +37,13 @@
                 <div class="form-group">
                     <input id="ID" type="text" class="form-control" placeholder="请输入病人ID" required="">
                 </div>
+                <div class="form-group">
+                    <input id="name" type="text" class="form-control" placeholder="请输入病人姓名" required="">
+                </div>
+                <div class="form-group">
+                    <input id="phone" type="text" class="form-control" placeholder="请输入病人电话" required="">
+                </div>
+                
                  <div class="form-group">
                     <input id="sex" type="text" class="form-control" placeholder="请输入性别" required="">
                 </div>
@@ -71,6 +78,9 @@
         
         function register(){
         	var ID = $('#ID').val();
+        	var name = $('#name').val();
+        	var phone = $('#phone').val();
+        	var sex = $('#sex').val();
         	var password = $('#password').val();
         	var repassword = $('#repassword').val();
         	var sex = $('#sex').val();
@@ -82,22 +92,22 @@
         		layer.msg("请确保两次密码输入一致");
         	}
         	$.ajax({
-        		url: './register.do',
+        		url: '/log/doRegister',
         		type: 'POST',
         		data: {
 	        			'ID':ID,
+	        			'name':name,
+	        			'phone':phone,
+	        			'sex':sex,	
 	        			'password':password,
-	        			'sex':sex
         			},
         		dataType: 'JSON',
         		success: function(res){
-        			if(res == "success"){
+        			if(res >0){
         				layer.msg("注册成功！前往登录界面！");
         				setTimeout(function(){
-    						window.location.href="./login.jsp";
+    						window.location.href="/log/login";
     					},1000);
-        			}else if(res == "exists"){
-        				layer.msg("账号已存在");
         			}else{
         				layer.msg("注册失败");
         			}
