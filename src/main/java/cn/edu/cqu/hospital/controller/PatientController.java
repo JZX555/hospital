@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Department;
+import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.service.DepartmentService;
+import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
 
 @Controller
@@ -24,12 +26,22 @@ public class PatientController {
 	private PatientService patientService = null;
 	@Autowired
 	private DepartmentService departmentService = null;
+	@Autowired
+	private DoctorService doctorService = null;
 	
 	@RequestMapping("/getAllDepartments")
 	@ResponseBody
 	public List<Department> getAllDepartments(HttpServletRequest request, HttpServletResponse response, Model model) {
 		List<Department> res = this.departmentService.getAllDepartments();
 
+		return res;
+	}
+	
+	@RequestMapping("/getGoodDoctorByDepartment")
+	@ResponseBody
+	public List<Doctor> getGoodDoctorByDepartment(String ID, HttpServletRequest request, HttpServletResponse response, Model model) {
+		List<Doctor> res = this.doctorService.getGoodDoctorByDepartment(ID);
+		
 		return res;
 	}
 }
