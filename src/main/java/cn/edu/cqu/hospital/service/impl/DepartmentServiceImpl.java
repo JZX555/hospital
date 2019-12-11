@@ -15,6 +15,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public Department getDepartmentByID(String ID) {
 		return this.departmentDao.selectByPrimaryKey(ID);
 	}
+	
+	public Department[] getAllDepartments() {
+		return this.departmentDao.selectAllDepartments();
+	}
 
 	public Integer updateDepartment(Department d) {
 		return this.departmentDao.updateByPrimaryKeySelective(d);

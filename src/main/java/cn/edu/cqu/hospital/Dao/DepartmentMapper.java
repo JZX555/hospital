@@ -10,6 +10,8 @@ public interface DepartmentMapper {
     int insertSelective(Department record);
 
     Department selectByPrimaryKey(String id);
+    
+    Department[] selectAllDepartments();
 
     int updateByPrimaryKeySelective(Department record);
 
