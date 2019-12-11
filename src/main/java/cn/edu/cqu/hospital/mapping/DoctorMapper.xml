@@ -21,6 +21,12 @@
     from doctor
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectGoodByDepartmentKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from doctor
+    where depart_ID = #{id,jdbcType=VARCHAR} and level = 1 or ID = concat(#{id,jdbcType=VARCHAR}, "000")
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from doctor
     where ID = #{id,jdbcType=VARCHAR}
