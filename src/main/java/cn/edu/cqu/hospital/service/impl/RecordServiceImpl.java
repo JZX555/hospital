@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,11 @@ public class RecordServiceImpl implements RecordService {
 		return this.recordDao.selectByPrimaryKey(ID);
 	}
 
-	public RecordWithBLOBs[] getRecordByPatient(String ID) {
+	public List<RecordWithBLOBs> getRecordByPatient(String ID) {
 		return this.recordDao.selectByPatientKey(ID);
 	}
 
-	public RecordWithBLOBs[] getRecordByDoctor(String ID) {
+	public List<RecordWithBLOBs> getRecordByDoctor(String ID) {
 		return this.recordDao.selectByDoctorKey(ID);
 	}
 

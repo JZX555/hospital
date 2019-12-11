@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Refund;
 
 public interface RefundMapper {
@@ -11,7 +13,7 @@ public interface RefundMapper {
 
     Refund selectByPrimaryKey(String id);
     
-    Refund[] selecctByPatientKey(String id);
+    List<Refund> selecctByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Refund record);
 

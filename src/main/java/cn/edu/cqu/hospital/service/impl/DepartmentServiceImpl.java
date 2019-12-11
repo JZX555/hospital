@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return this.departmentDao.selectByPrimaryKey(ID);
 	}
 	
-	public Department[] getAllDepartments() {
+	public List<Department> getAllDepartments() {
 		return this.departmentDao.selectAllDepartments();
 	}
 

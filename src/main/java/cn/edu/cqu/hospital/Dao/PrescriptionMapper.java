@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Prescription;
 
 public interface PrescriptionMapper {
@@ -11,9 +13,9 @@ public interface PrescriptionMapper {
 
     Prescription selectByPrimaryKey(String id);
     
-    Prescription[] selectByPatientKey(String id);
+    List<Prescription> selectByPatientKey(String id);
     
-    Prescription[] selectByRecordKey(String id);
+    List<Prescription> selectByRecordKey(String id);
                  
     int updateByPrimaryKeySelective(Prescription record);
 

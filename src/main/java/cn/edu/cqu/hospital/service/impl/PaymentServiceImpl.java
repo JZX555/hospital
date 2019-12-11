@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class PaymentServiceImpl implements PaymentService {
 		return this.paymentDao.selectByPrimaryKey(ID);
 	}
 
-	public Payment[] getPaymentByPatient(String ID) {
+	public List<Payment> getPaymentByPatient(String ID) {
 		return this.paymentDao.selectByPatientKey(ID);
 	}
 

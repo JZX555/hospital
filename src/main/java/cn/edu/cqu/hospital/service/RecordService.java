@@ -1,12 +1,14 @@
 package cn.edu.cqu.hospital.service;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Record;
 import cn.edu.cqu.hospital.pojo.RecordWithBLOBs;
 
 public interface RecordService {
 	public RecordWithBLOBs getRecordByID(String ID);
-	public RecordWithBLOBs[] getRecordByPatient(String ID);
-	public RecordWithBLOBs[] getRecordByDoctor(String ID);
+	public List<RecordWithBLOBs> getRecordByPatient(String ID);
+	public List<RecordWithBLOBs> getRecordByDoctor(String ID);
 	
 	public Integer updateIllnessByID(String ID, String illness);
 	public Integer updateHistoryByID(String ID, String history);

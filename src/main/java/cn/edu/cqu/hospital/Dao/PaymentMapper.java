@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Payment;
 
 public interface PaymentMapper {
@@ -11,7 +13,7 @@ public interface PaymentMapper {
 
     Payment selectByPrimaryKey(String id);
     
-    Payment[] selectByPatientKey(String id);
+    List<Payment> selectByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Payment record);
 

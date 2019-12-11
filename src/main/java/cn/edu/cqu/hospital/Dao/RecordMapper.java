@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Record;
 import cn.edu.cqu.hospital.pojo.RecordWithBLOBs;
 
@@ -11,8 +13,8 @@ public interface RecordMapper {
     int insertSelective(RecordWithBLOBs record);
 
     RecordWithBLOBs selectByPrimaryKey(String id);
-    RecordWithBLOBs[] selectByPatientKey(String id);
-    RecordWithBLOBs[] selectByDoctorKey(String id);
+    List<RecordWithBLOBs> selectByPatientKey(String id);
+    List<RecordWithBLOBs> selectByDoctorKey(String id);
 
     int updateByPrimaryKeySelective(RecordWithBLOBs record);
 

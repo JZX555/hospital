@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class RefundServiceImpl implements RefundService {
 		return this.refundDao.selectByPrimaryKey(ID);
 	}
 
-	public Refund[] getRefundByPatient(String ID) {
+	public List<Refund> getRefundByPatient(String ID) {
 		return this.refundDao.selecctByPatientKey(ID);
 	}
 

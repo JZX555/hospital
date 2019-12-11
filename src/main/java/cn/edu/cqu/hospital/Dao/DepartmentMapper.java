@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Department;
 
 public interface DepartmentMapper {
@@ -11,7 +13,7 @@ public interface DepartmentMapper {
 
     Department selectByPrimaryKey(String id);
     
-    Department[] selectAllDepartments();
+    List<Department> selectAllDepartments();
 
     int updateByPrimaryKeySelective(Department record);
 

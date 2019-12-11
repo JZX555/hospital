@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		return this.prescriptionDao.selectByPrimaryKey(ID);
 	}
 
-	public Prescription[] getPrescriptionByPatient(String ID) {
+	public List<Prescription> getPrescriptionByPatient(String ID) {
 		return this.prescriptionDao.selectByPatientKey(ID);
 	}
 
@@ -32,7 +34,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		return this.prescriptionDao.deleteByPrimaryKey(ID);
 	}
 
-	public Prescription[] getPrescriptionByRecord(String ID) {
+	public List<Prescription> getPrescriptionByRecord(String ID) {
 		return this.prescriptionDao.selectByRecordKey(ID);
 	}
 

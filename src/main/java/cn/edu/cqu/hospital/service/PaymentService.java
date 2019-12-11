@@ -1,10 +1,12 @@
 package cn.edu.cqu.hospital.service;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Payment;
 
 public interface PaymentService {
 	public Payment getPaymentByID(String ID);
-	public Payment[] getPaymentByPatient(String ID);
+	public List<Payment> getPaymentByPatient(String ID);
 	
 	public Integer createPayment(Payment p);
 	public Integer updatePayment(Payment p);

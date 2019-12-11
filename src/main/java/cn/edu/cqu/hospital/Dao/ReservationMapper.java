@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Reservation;
 
 public interface ReservationMapper {
@@ -11,7 +13,7 @@ public interface ReservationMapper {
 
     Reservation selectByPrimaryKey(String id);
     
-    Reservation[] selectByPatientKey(String id);
+    List<Reservation> selectByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Reservation record);
 

@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class ReservationServiceImpl implements ReservationService {
 		return this.reservationDao.selectByPrimaryKey(ID);
 	}
 
-	public Reservation[] getReservationsByPatient(String ID) {
+	public List<Reservation> getReservationsByPatient(String ID) {
 		return this.reservationDao.selectByPatientKey(ID);
 	}
 

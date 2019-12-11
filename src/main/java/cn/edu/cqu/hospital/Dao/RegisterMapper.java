@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Register;
 
 public interface RegisterMapper {
@@ -11,11 +13,11 @@ public interface RegisterMapper {
 
     Register selectByPrimaryKey(String id);
     
-    Register[] selectByPatientKey(String id);
+    List<Register> selectByPatientKey(String id);
     
-    Register[] selectByDoctorKey(String id);
+    List<Register> selectByDoctorKey(String id);
     
-    Register[] selectByCollectorKey(String id);
+    List<Register> selectByCollectorKey(String id);
 
     int updateByPrimaryKeySelective(Register record);
 
