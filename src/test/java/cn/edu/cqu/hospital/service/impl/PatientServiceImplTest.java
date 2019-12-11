@@ -32,7 +32,7 @@ public class PatientServiceImplTest {
 //		p = this.patientService.getPatientByID("511112199803190913");
 //		System.out.println(p.getPhone());
 		
-		this.patientService.updatePassword("511112199803190913", "123456");
+		System.out.println(this.patientService.updatePassword("511112199803190913", "123456"));
 	}
 
 }
