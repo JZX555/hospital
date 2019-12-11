@@ -13,7 +13,7 @@ public class DoctorServiceImpl implements DoctorService {
 	private DoctorMapper doctorDao;
 	
 	public Doctor getDoctorByID(String ID) {
-		return this.getDoctorByID(ID);
+		return this.doctorDao.selectByPrimaryKey(ID);
 	}
 
 	public Integer updateDoctor(Doctor d) {
