@@ -13,14 +13,14 @@
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="favicon.ico"> 
-    <link href="../static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="../static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 
     <!-- Data Tables -->
-    <link href="../static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 
-    <link href="../static/css/animate.css" rel="stylesheet">
-    <link href="../static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
 	<style>
 		.float-e-margins .btn {margin-bottom: 0px;}		
 		.tableBtn{float:left;width:30%;margin-top:0px;margin-left:5px;padding:2px 8px;}
@@ -44,8 +44,6 @@
                                 <tr>
                                     <th>科室ID</th>
                                     <th>科室名称</th>
-                                    <th>科室位置</th>
-                                    <th>科室简介</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -62,22 +60,22 @@
     </div>
 
     <!-- 全局js -->
-    <script src="../static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="../static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="../static/js/plugins/jeditable/jquery.jeditable.js"></script>
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/jeditable/jquery.jeditable.js"></script>
     <!-- Data Tables -->
-    <script src="../static/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
     <!-- 自定义js -->
-    <script src="../static/js/content.js?v=1.0.0"></script>
-	<script src="../static/layer/layer.js"></script>
+    <script src="/static/js/content.js?v=1.0.0"></script>
+	<script src="/static/layer/layer.js"></script>
 
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
          
         	$.ajax({
-        		url: '../getDeptList.do',
+        		url: '/patient/getAllDepartments',
         		type: 'POST',
         		dataType: 'JSON',
         		success: function(res){
@@ -86,19 +84,18 @@
                     $('.dataTables-example').DataTable( {
                         data: data,
                         columns: [
-                            { data: 'departmentId' },
-                            { data: 'departmentName' },
-                            { data: 'departmentArea' },
-                            { data: 'departmentDes' },
+                            { data: 'id' },
+                            { data: 'type' },
+                        
                             { data: null}
                         ],
                         columnDefs:[{
-                            targets: 4,
-                            render: function (data, type, row, meta) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=register(' + row.departmentId + ') >我要挂号 </a>';
+                            targets: 2,
+                            render: function (data, type, row) {
+                                return '<a type="button" class="btn btn-info" href="#" onclick=register(' + row.id + ') >我要挂号 </a>';
                             }
                         },
-                            { "orderable": false, "targets": 4 },
+                            { "orderable": false, "targets": 2 },
                         ],
                     } );
         		},
