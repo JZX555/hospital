@@ -6,14 +6,14 @@
       <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="doc_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="item_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="price" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, patient_ID, doc_ID, name, price, time, state
+    ID, patient_ID, doc_ID, item_ID, price, time, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -27,10 +27,10 @@
   </delete>
   <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Requisition" >
     insert into requisition (ID, patient_ID, doc_ID, 
-      name, price, time, 
+      item_ID, price, time, 
       state)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{docId,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{time,jdbcType=TIMESTAMP}, 
+      #{itemId,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{time,jdbcType=TIMESTAMP}, 
       #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Requisition" >
@@ -45,8 +45,8 @@
       <if test="docId != null" >
         doc_ID,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="itemId != null" >
+        item_ID,
       </if>
       <if test="price != null" >
         price,
@@ -68,8 +68,8 @@
       <if test="docId != null" >
         #{docId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         #{price,jdbcType=DOUBLE},
@@ -91,8 +91,8 @@
       <if test="docId != null" >
         doc_ID = #{docId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="itemId != null" >
+        item_ID = #{itemId,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         price = #{price,jdbcType=DOUBLE},
@@ -110,7 +110,7 @@
     update requisition
     set patient_ID = #{patientId,jdbcType=VARCHAR},
       doc_ID = #{docId,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+      item_ID = #{itemId,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       time = #{time,jdbcType=TIMESTAMP},
       state = #{state,jdbcType=INTEGER}

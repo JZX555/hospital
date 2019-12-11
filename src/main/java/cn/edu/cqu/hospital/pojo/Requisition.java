@@ -9,7 +9,7 @@ public class Requisition {
 
     private String docId;
 
-    private String name;
+    private String itemId;
 
     private Double price;
 
@@ -17,11 +17,11 @@ public class Requisition {
 
     private Integer state;
 
-    public Requisition(String id, String patientId, String docId, String name, Double price, Date time, Integer state) {
+    public Requisition(String id, String patientId, String docId, String itemId, Double price, Date time, Integer state) {
         this.id = id;
         this.patientId = patientId;
         this.docId = docId;
-        this.name = name;
+        this.itemId = itemId;
         this.price = price;
         this.time = time;
         this.state = state;
@@ -55,12 +55,12 @@ public class Requisition {
         this.docId = docId == null ? null : docId.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setItemId(String itemId) {
+        this.itemId = itemId == null ? null : itemId.trim();
     }
 
     public Double getPrice() {
