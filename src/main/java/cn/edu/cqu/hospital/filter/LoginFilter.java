@@ -72,7 +72,8 @@ public class LoginFilter implements Filter {
 		List<String> list= new ArrayList<String>(); //将不需要过滤的请求存放到集合中
 		//list.add("/index.jsp");
 		list.add("/log/login");//登录页面
-		list.add("/log/register");//跳转到注册页面请求
+		list.add("/log/goRegister");//跳转到注册页面请求
+		list.add("/log/doRegister");
 		list.add("/validate");
 		list.add("/static");
 		list.add("/index/");
