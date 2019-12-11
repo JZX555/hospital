@@ -32,4 +32,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		this.prescriptionDao.deleteByPrimaryKey(ID);
 	}
 
+	public Prescription[] getPrescriptionByRecord(String ID) {
+		return this.prescriptionDao.selectByRecordKey(ID);
+	}
+
 }

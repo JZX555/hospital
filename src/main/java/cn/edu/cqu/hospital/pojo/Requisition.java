@@ -15,13 +15,16 @@ public class Requisition {
 
     private Date time;
 
-    public Requisition(String id, String patientId, String docId, String name, Double price, Date time) {
+    private Integer state;
+
+    public Requisition(String id, String patientId, String docId, String name, Double price, Date time, Integer state) {
         this.id = id;
         this.patientId = patientId;
         this.docId = docId;
         this.name = name;
         this.price = price;
         this.time = time;
+        this.state = state;
     }
 
     public Requisition() {
@@ -74,5 +77,13 @@ public class Requisition {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

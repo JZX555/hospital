@@ -7,6 +7,8 @@ public class Prescription {
 
     private String docId;
 
+    private String recordId;
+
     private String medicineId;
 
     private Integer num;
@@ -15,10 +17,11 @@ public class Prescription {
 
     private Integer state;
 
-    public Prescription(String id, String patientId, String docId, String medicineId, Integer num, Double price, Integer state) {
+    public Prescription(String id, String patientId, String docId, String recordId, String medicineId, Integer num, Double price, Integer state) {
         this.id = id;
         this.patientId = patientId;
         this.docId = docId;
+        this.recordId = recordId;
         this.medicineId = medicineId;
         this.num = num;
         this.price = price;
@@ -51,6 +54,14 @@ public class Prescription {
 
     public void setDocId(String docId) {
         this.docId = docId == null ? null : docId.trim();
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId == null ? null : recordId.trim();
     }
 
     public String getMedicineId() {

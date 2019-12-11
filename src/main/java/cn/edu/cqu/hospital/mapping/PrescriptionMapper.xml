@@ -6,6 +6,7 @@
       <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="doc_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="record_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="medicine_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="price" jdbcType="DOUBLE" javaType="java.lang.Double" />
@@ -13,7 +14,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, patient_ID, doc_ID, medicine_ID, num, price, state
+    ID, patient_ID, doc_ID, record_ID, medicine_ID, num, price, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -27,17 +28,23 @@
     from prescription
     where patient_ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByRecordKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from prescription
+    where record_ID = #{id,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from prescription
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
     insert into prescription (ID, patient_ID, doc_ID, 
-      medicine_ID, num, price, 
-      state)
+      record_ID, medicine_ID, num, 
+      price, state)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{docId,jdbcType=VARCHAR}, 
-      #{medicineId,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
-      #{state,jdbcType=INTEGER})
+      #{recordId,jdbcType=VARCHAR}, #{medicineId,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Prescription" >
     insert into prescription
@@ -50,6 +57,9 @@
       </if>
       <if test="docId != null" >
         doc_ID,
+      </if>
+      <if test="recordId != null" >
+        record_ID,
       </if>
       <if test="medicineId != null" >
         medicine_ID,
@@ -74,6 +84,9 @@
       <if test="docId != null" >
         #{docId,jdbcType=VARCHAR},
       </if>
+      <if test="recordId != null" >
+        #{recordId,jdbcType=VARCHAR},
+      </if>
       <if test="medicineId != null" >
         #{medicineId,jdbcType=VARCHAR},
       </if>
@@ -97,6 +110,9 @@
       <if test="docId != null" >
         doc_ID = #{docId,jdbcType=VARCHAR},
       </if>
+      <if test="recordId != null" >
+        record_ID = #{recordId,jdbcType=VARCHAR},
+      </if>
       <if test="medicineId != null" >
         medicine_ID = #{medicineId,jdbcType=VARCHAR},
       </if>
@@ -116,6 +132,7 @@
     update prescription
     set patient_ID = #{patientId,jdbcType=VARCHAR},
       doc_ID = #{docId,jdbcType=VARCHAR},
+      record_ID = #{recordId,jdbcType=VARCHAR},
       medicine_ID = #{medicineId,jdbcType=VARCHAR},
       num = #{num,jdbcType=INTEGER},
       price = #{price,jdbcType=DOUBLE},

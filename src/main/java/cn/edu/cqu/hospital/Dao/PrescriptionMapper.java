@@ -10,9 +10,11 @@ public interface PrescriptionMapper {
     int insertSelective(Prescription record);
 
     Prescription selectByPrimaryKey(String id);
-
+    
     Prescription[] selectByPatientKey(String id);
-
+    
+    Prescription[] selectByRecordKey(String id);
+                 
     int updateByPrimaryKeySelective(Prescription record);
 
     int updateByPrimaryKey(Prescription record);
