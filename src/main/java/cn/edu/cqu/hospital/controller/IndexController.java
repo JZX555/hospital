@@ -16,12 +16,12 @@ public class IndexController {
 	
 	@RequestMapping("/index_chemist")
 	public String index_chemist(HttpServletRequest request,Model model) {
-		return "index_doctor";
+		return "index_chemist";
 	}
 	
 	@RequestMapping("/index_collector")
 	public String index_collector(HttpServletRequest request,Model model) {
-		return "index_ollector";
+		return "index_collector";
 	}
 	
 	@RequestMapping("/index_dispenser")

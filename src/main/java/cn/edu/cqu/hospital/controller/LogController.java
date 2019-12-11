@@ -102,7 +102,7 @@ public class LogController {
 			Doctor doctor = this.DoctorService.getDoctorByID(ID); 
 			if(doctor != null) {
 				if(doctor.getPassword().equals(password))
-					return "/index_doctor";
+					return "/index/index_doctor";
 			}
 		}
 		
@@ -110,7 +110,7 @@ public class LogController {
 			Chemist chemist = this.ChemistService.getChemistByID(ID);
 			if(chemist != null) {
 				if(chemist.getPassword().equals(password))
-					return "/index_chemist";
+					return "/index/index_chemist";
 			}
 		}
 		
@@ -118,7 +118,7 @@ public class LogController {
 			Dispenser dispenser = this.DispenserService.getDispenserByID(ID);
 			if(dispenser != null) {
 				if(dispenser.getPassword().equals(password))
-					return "/index_dispenser";
+					return "/index/index_dispenser";
 			}
 		}
 		
@@ -126,7 +126,7 @@ public class LogController {
 			Collector collector = this.CollectorService.getCollectorByID(ID);
 			if(collector != null) {
 				if(collector.getPassword().equals(password))
-					return "/index_collector";
+					return "/index/index_collector";
 			}
 		}
     	

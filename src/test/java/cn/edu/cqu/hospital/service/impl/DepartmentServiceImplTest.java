@@ -2,6 +2,8 @@ package cn.edu.cqu.hospital.service.impl;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class DepartmentServiceImplTest {
 	
 	@Test
 	public void test() {
-		Department[] departments = this.departmentService.getAllDepartments();
+		List<Department> departments = this.departmentService.getAllDepartments();
 		for(Department d : departments) {
 			System.out.println(d.getId());
 		}
