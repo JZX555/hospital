@@ -102,7 +102,7 @@ public class LogController {
 			Doctor doctor = this.DoctorService.getDoctorByID(ID); 
 			if(doctor != null) {
 				if(doctor.getPassword().equals(password))
-					return "/";
+					return "/index_doctor";
 			}
 		}
 		
@@ -110,7 +110,7 @@ public class LogController {
 			Chemist chemist = this.ChemistService.getChemistByID(ID);
 			if(chemist != null) {
 				if(chemist.getPassword().equals(password))
-					return "/";
+					return "/index_chemist";
 			}
 		}
 		
@@ -118,7 +118,7 @@ public class LogController {
 			Dispenser dispenser = this.DispenserService.getDispenserByID(ID);
 			if(dispenser != null) {
 				if(dispenser.getPassword().equals(password))
-					return "/";
+					return "/index_dispenser";
 			}
 		}
 		
@@ -126,7 +126,7 @@ public class LogController {
 			Collector collector = this.CollectorService.getCollectorByID(ID);
 			if(collector != null) {
 				if(collector.getPassword().equals(password))
-					return "/";
+					return "/index_collector";
 			}
 		}
     	
@@ -149,7 +149,10 @@ public class LogController {
 		patient.setSex(Integer.parseInt(sex));
 		patient.setPassword(password);
 		
-		this.patientService.createPatient(patient);
+		int flag = this.patientService.createPatient(patient);
+		
+		if(flag == 0)
+			return flag;
 		
 	    Cookie IDCookie = new Cookie("loginID", ID);  
 	    Cookie passwordCookie = new Cookie("loginPassword", password);  
@@ -161,7 +164,7 @@ public class LogController {
 		response.addCookie(IDCookie);  
 	    response.addCookie(passwordCookie); 	
 		
-		return 1;
+		return flag;
 	}
 	
 	@RequestMapping("/logout")
