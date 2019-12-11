@@ -1,0 +1,31 @@
+package cn.edu.cqu.hospital.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cn.edu.cqu.hospital.Dao.ItemMapper;
+import cn.edu.cqu.hospital.pojo.Item;
+import cn.edu.cqu.hospital.service.ItemService;
+
+@Service
+public class ItemServiceImpl implements ItemService {
+	@Autowired
+	private ItemMapper itemDao;
+	
+	public Item getItemByID(String ID) {
+		return this.itemDao.selectByPrimaryKey(ID);
+	}
+
+	public void createItem(Item i) {
+		this.itemDao.insertSelective(i);
+	}
+
+	public void updateItem(Item i) {
+		this.itemDao.updateByPrimaryKey(i);
+	}
+
+	public void deleteItem(String ID) {
+		this.itemDao.deleteByPrimaryKey(ID);
+	}
+
+}
