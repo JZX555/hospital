@@ -58,6 +58,21 @@ public class DoctorController {
 		return "editRecord";
 	}
 	
+	@RequestMapping("/editRequisition")
+	public String editRequisition(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "editRequisition";
+	}
+	
+	@RequestMapping("/editPrescription")
+	public String editPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "editPrescription";
+	}
+	
+	@RequestMapping("/viewHistoricalRec")
+	public String viewHistoricalRec(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "viewHistoricalRec";
+	}
+	
 	@RequestMapping("/getNextPatientByDoctor")
 	@ResponseBody
 	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession httpSession) {
