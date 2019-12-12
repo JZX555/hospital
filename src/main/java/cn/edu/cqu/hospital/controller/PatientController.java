@@ -1,6 +1,8 @@
 package cn.edu.cqu.hospital.controller;
 
 import java.util.List;
+import java.util.Random;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Patient;
+import cn.edu.cqu.hospital.pojo.Reservation;
 import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
+import cn.edu.cqu.hospital.service.ReservationService;
 
 @Controller
 @RequestMapping("/patient")
@@ -31,6 +35,8 @@ public class PatientController {
 	private DepartmentService departmentService = null;
 	@Autowired
 	private DoctorService doctorService = null;
+	@Autowired
+	private ReservationService reservationService = null;
 	
 	@RequestMapping("/DeptLists_patient")
 	public String DeptLists_patient(HttpServletRequest request,Model model) {
@@ -86,8 +92,34 @@ public class PatientController {
 	
 	@RequestMapping("/insertReservation")
 	@ResponseBody
-	public Integer insertReservation() {
+	public Integer insertReservation(HttpServletRequest request, HttpServletResponse response, Model model) {
 		int flag = 0;
+		
+		String ID = request.getParameter("ID");
+		String date = request.getParameter("Date");
+		String doc_ID = request.getParameter("doc_ID");
+		String depart_ID = request.getParameter("depart_ID");
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Random random=new Random();
+		
+		try {
+			Reservation reservation = new Reservation();
+			reservation.setId(date + (random.nextDouble() * 900 + 100));
+			reservation.setPatientId(ID);
+			reservation.setDocId(doc_ID);
+			reservation.setDepartId(depart_ID);
+			reservation.setState(0);
+			reservation.setTime(dateFormat.parse(date));
+			
+			this.reservationService.createReservation(reservation);
+			
+			flag = 1;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			flag = 0;
+		}
+		
 		return flag;
 	}
 	
