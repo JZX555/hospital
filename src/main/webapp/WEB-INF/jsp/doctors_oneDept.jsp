@@ -160,61 +160,64 @@
 			
 			var timestamp =(new Date()).valueOf();
 			var timestamp1=new Date(Date.parse(registerTime)).valueOf();
-			alert(timestamp);
+			
 			if(registerTime==""){
 				layer.msg("请选择预约日期！",{time:800});
 			}else{
-				$.ajax({
-        			url: '/patient/getRemainedByIDAndDate',
-        			type: 'POST',
-        			data: {
-	        			'ID':ID,
-	        			'Date':registerTime	
-        				},
-        			dataType: 'text',
-        			success: function(result){
-        				var patient_ID = $.cookie('loginID');
-        				if(result<=0){
-        					layer.msg("当前剩余预约名额已满！无法预约！");
-        				}else{
-        					layer.confirm('该医生剩余可预约名额为：'+result+'</br>    确认预约该医生的诊疗？', {
-	    	        		  	btn: ['确定','取消'] //按钮
-	    	        			}, function(){
-	    	        			//提交
-	    	        				
-	    							$.ajax({
-	    								url: '/patient/insertReservation',
-	    			        			type: 'POST',
-	    			        			data: {
-	    			        				'ID':patient_ID,
-	    			        				'Date':registerTime,
-	    			        				'doc_ID':ID,
-	    			        				'depart_ID':mydoctor.departId
-	    			        			},
-	    			        			dataType: 'JSON',
-	    			        			success: function(result){
-	    			        				if(result>0){
-	    			        					
-	    			        					layer.alert('挂号预约成功!',function(index){
-	    			        						layer.close(index);
-	    			        						parent.layer.closeAll();
-	    			        					});
-	    			        				}
-	    			        			},
-	    			        			error: function(res){
-	    			        				layer.msg('挂号预约失败');
-	    			        			}
-	    							})
-	    	        			},function(){
-	    	        			});
-        				}
-        				
-        			},
-        			error: function(res){
-        				layer.msg("查询失败");
-        			},
-        		});
-			}
+				if(	timestamp>=timestamp1){
+					layer.msg("不可选择今日以前的日期！",{time:800});
+				}else{
+					$.ajax({
+	        			url: '/patient/getRemainedByIDAndDate',
+	        			type: 'POST',
+	        			data: {
+		        			'ID':ID,
+		        			'Date':registerTime	
+	        				},
+	        			dataType: 'text',
+	        			success: function(result){
+	        				var patient_ID = $.cookie('loginID');
+	        				if(result<=0){
+	        					layer.msg("当前剩余预约名额已满！无法预约！");
+	        				}else{
+	        					layer.confirm('该医生剩余可预约名额为：'+result+'</br>    确认预约该医生的诊疗？', {
+		    	        		  	btn: ['确定','取消'] //按钮
+		    	        			}, function(){
+		    	        			//提交
+		    	        				
+		    							$.ajax({
+		    								url: '/patient/insertReservation',
+		    			        			type: 'POST',
+		    			        			data: {
+		    			        				'ID':patient_ID,
+		    			        				'Date':registerTime,
+		    			        				'doc_ID':ID,
+		    			        				'depart_ID':mydoctor.departId
+		    			        			},
+		    			        			dataType: 'JSON',
+		    			        			success: function(result){
+		    			        				if(result>0){
+		    			        					
+		    			        					layer.alert('挂号预约成功!',function(index){
+		    			        						layer.close(index);
+		    			        						parent.layer.closeAll();
+		    			        					});
+		    			        				}
+		    			        			},
+		    			        			error: function(res){
+		    			        				layer.msg('挂号预约失败');
+		    			        			}
+		    							})
+		    	        			},function(){
+		    	        			});
+	        				}
+	        				
+	        			},
+	        			error: function(res){
+	        				layer.msg("查询失败");
+	        			},
+	        		});
+			}}
 		}
 	
 		
