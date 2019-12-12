@@ -19,7 +19,7 @@
     from triage
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectByQueueAndIndex" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByQueueAndIndex" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from triage

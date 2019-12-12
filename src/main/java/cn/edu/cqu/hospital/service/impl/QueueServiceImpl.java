@@ -43,6 +43,10 @@ public class QueueServiceImpl implements QueueService {
 		Queue queue = this.queueDao.selectByPrimaryKey(ID);
 		int index = queue.getCurIndex();
 		int nums = queue.getCurNums();
+		
+		if(nums == 0)
+			return 0;
+		
 		queue.setCurIndex(index + 1);
 		queue.setCurNums(nums - 1);
 		
