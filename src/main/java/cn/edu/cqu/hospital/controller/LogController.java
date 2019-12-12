@@ -76,18 +76,19 @@ public class LogController {
 		
 		System.out.println(userType);
 		
+	    Cookie IDCookie = new Cookie("loginID", ID);  
+	    Cookie passwordCookie = new Cookie("loginPassword", password);  
+	    IDCookie.setMaxAge(60 * 60);  
+	    IDCookie.setPath("/");  
+	    passwordCookie.setMaxAge(60 * 60);  
+	    passwordCookie.setPath("/");  
+		
 		if(userType.equals("patient")) {
 			Patient patient = this.patientService.getPatientByID(ID);
 			System.out.println(ID);
 			System.out.println(patient.getPassword());
 	    	if(patient != null) {
 	    		if(patient.getPassword().equals(password)) {	
-		    	    Cookie IDCookie = new Cookie("loginID", ID);  
-		    	    Cookie passwordCookie = new Cookie("loginPassword", password);  
-		    	    IDCookie.setMaxAge(60 * 60);  
-		    	    IDCookie.setPath("/");  
-		    	    passwordCookie.setMaxAge(60 * 60);  
-		    	    passwordCookie.setPath("/");  
 		    	    response.addCookie(IDCookie);  
 		    	    response.addCookie(passwordCookie); 
 		   
@@ -101,32 +102,56 @@ public class LogController {
 		else if(userType.equals("doctor")) {
 			Doctor doctor = this.DoctorService.getDoctorByID(ID); 
 			if(doctor != null) {
-				if(doctor.getPassword().equals(password))
+				if(doctor.getPassword().equals(password)) {
+		    	    response.addCookie(IDCookie);  
+		    	    response.addCookie(passwordCookie); 
+		    	    
+		    	    model.addAttribute("doctor", doctor);
+					
 					return "/index/index_doctor";
+				}
 			}
 		}
 		
 		else if(userType.equals("chemist")) {
 			Chemist chemist = this.ChemistService.getChemistByID(ID);
 			if(chemist != null) {
-				if(chemist.getPassword().equals(password))
+				if(chemist.getPassword().equals(password)) {
+		    	    response.addCookie(IDCookie);  
+		    	    response.addCookie(passwordCookie); 
+		    	    
+		    	    model.addAttribute("chemist", chemist);
+		    	    
 					return "/index/index_chemist";
+				}
 			}
 		}
 		
 		else if(userType.equals("dispenser")) {
 			Dispenser dispenser = this.DispenserService.getDispenserByID(ID);
 			if(dispenser != null) {
-				if(dispenser.getPassword().equals(password))
+				if(dispenser.getPassword().equals(password)) {
+		    	    response.addCookie(IDCookie);  
+		    	    response.addCookie(passwordCookie); 
+		    	    
+		    	    model.addAttribute("dispenser", dispenser);
+		    	    
 					return "/index/index_dispenser";
+				}
 			}
 		}
 		
 		else if(userType.equals("collector")) {
 			Collector collector = this.CollectorService.getCollectorByID(ID);
 			if(collector != null) {
-				if(collector.getPassword().equals(password))
+				if(collector.getPassword().equals(password)) {
+		    	    response.addCookie(IDCookie);  
+		    	    response.addCookie(passwordCookie); 
+		    	    
+		    	    model.addAttribute("collector", collector);
+		    	    
 					return "/index/index_collector";
+				}
 			}
 		}
     	
