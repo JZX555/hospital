@@ -17,7 +17,7 @@ public interface DoctorMapper {
     
     List<Doctor> selectGoodByDepartmentKey(String id);
     
-    int getUsedByIDAndDate(@Param("id")String id, @Param("date")String date);
+    Integer getUsedByIDAndDate(@Param("id")String id, @Param("date")String date);
 
     int updateByPrimaryKeySelective(Doctor record);
 

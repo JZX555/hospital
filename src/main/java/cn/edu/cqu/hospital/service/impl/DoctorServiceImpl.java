@@ -24,6 +24,8 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	public Integer getUsedByIDAndDate(String ID, String date) {
+		if(this.doctorDao.getUsedByIDAndDate(ID, date) == null)
+			return 0;
 		return this.doctorDao.getUsedByIDAndDate(ID, date);
 	}
 
