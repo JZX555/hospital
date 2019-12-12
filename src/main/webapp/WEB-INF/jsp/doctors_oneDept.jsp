@@ -54,7 +54,7 @@
     <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	<script>
 		var doctorDatas;
-		 
+		
 		function getDoctorByDeptId(ID){
 			$.ajax({
 	        		url: '/patient/getGoodDoctorByDepartment',
@@ -67,21 +67,22 @@
 	        			for(let i=0;i<res.length;i++){
 	        				var level =  res[i].level == 1?"专家":"普通医生";
 	        				var id = "#time"+i;
-	        				alert(id);
+	        				
 	        				$("#doctors").append(
 	        					"<div class='col-sm-4'>"+
 	                                "<div class='panel panel-success'>"+
 	                                    "<div class='panel-heading'>"+res[i].id+" 相关信息</div>"+
 	                                    "<div class='panel-body'>"+
-	                                        "<p style='color:red'>医生职称: "+level+"</p>"+
-	                                        
+	                                        "<p >医生职称: "+level+"</p>"+
+	                                        "<br/>"+
 	                                        "<div class='form-group'>"+
 	                                        	"<label class='col-sm-2 control-label' style='padding:0px'>挂号时间：</label>" +
 		                                        "<div class='col-sm-10'>" +
 		                                        	"<input id='time"+i+"' class='laydate-icon form-control layer-date'>" +
 		                                        "</div>"+
 	                                        "</div>" +
-	                                        "<button class='btn btn-info' onclick='register("+i+")'>挂号</button>"+
+	                                        "<br/><br/><br/>"+
+	                                        "<button class='btn btn-info' onclick=checknums('"+res[i].id+"',"+i+")>查看可预约名额</button>"+
 	                                    "</div>"+
 	                                "</div>"+
 	                            "</div>"
@@ -138,110 +139,85 @@
 	        		}
 	        	});
 		}
-		function register(index){
-			var mypatient;
-			var loginID = $.cookie('loginID');
-			if(loginID == null){
-				layer.msg("用户信息过期或未登录,前往登录界面！");
-				setTimeout(function(){
-					window.location.href="/log/login";
-				},1000);
-			}
-			$.ajax({
-					url: '../getUserData.do',
-	        		type: 'POST',
-	        		data: {
-	        			'username':username
-	        		},
-	        		dataType: 'JSON',
-	        		success: function(result){
-	        			mypatient = result;
-	        		}
-			})
+	
+		
+		function checknums(ID,index){
+			
 			if(index >= 0){
 				var mydoctor = doctorDatas[index];
 			}else{
 				var mydoctor = doctorDatas;
 			}
-			console.log(mydoctor);
-			if(mydoctor.workStatus == 1){
-				//选择时间
-				if(data == -1){
-					var time = $('#time').val();
-				}else{
-					var time = $('#time'+index).val();
-				}
-				
-				//当前系统时间 转换为年月日
-				var now = new Date();
-				var nowTime = now.getFullYear() + "-" +((now.getMonth()+1)<10?"0":"")+(now.getMonth()+1)+"-"+(now.getDate()<10?"0":"")+now.getDate();
-				
-				var timestamp =now.getTime();
-				var registerTime = new Date(time).getTime();
-				var cha = timestamp - registerTime;
-				console.log(cha);
-				if(cha >= 0){
-					layer.msg("对不起，请预约今天之后的时间");
-				}
-				var week = getMyDay(new Date(time));
-				if(data.workTime.indexOf(week)  > -1){
-					layer.confirm('确认预约该医生的诊疗？', {
-		        		  btn: ['确定','取消'] //按钮
-		        		}, function(){
-		        			//提交
-							$.ajax({
-								url: '../addReg.do',
-				        		type: 'POST',
-				        		data: {
-				        			'hzUsername':mypatient.username,
-				        			'hzName':mypatient.name,
-				        			'hzId':mypatient.user_id,
-				        			'address':mypatient.address,
-				        			'tel':mypatient.tel,
-				        			'doctorName':mydoctor.doctorName,
-				        			'doctorId':mydoctor.doctorId,
-				        			'deptName':mydoctor.deptName,
-				        			'deptId':mydoctor.deptId,
-				        			'registerTime':time,
-				        			'createTime':nowTime
-				        		},
-				        		dataType: 'JSON',
-				        		success: function(result){
-				        			if(result=="success"){
-				        				layer.alert('挂号预约成功',function(index){
-				        					layer.close(index);
-				        					parent.layer.closeAll();
-				        				});
-				        			}
-				        		},
-				        		error: function(res){
-				        			layer.msg('挂号预约失败');
-				        		}
-							})
-		        		},function(){
-		        		});
-				}else{
-					layer.msg("请选择当前医生出诊的时间预约！");
-				}
-				
-				
-			}else if(data.workStatus == 0){
-				layer.msg("对不起！当前医生处于请假状态，请选择其他医生");
+			
+			if(mydoctor == -1){
+				var registerTime = $('#time').val();
+			}else{
+				var registerTime = $('#time'+index).val();
+			}
+			
+			var now = new Date();
+			var nowTime = now.getFullYear() + "-" +((now.getMonth()+1)<10?"0":"")+(now.getMonth()+1)+"-"+(now.getDate()<10?"0":"")+now.getDate();
+			
+			var timestamp =(new Date()).valueOf();
+			var timestamp1=new Date(Date.parse(registerTime)).valueOf();
+			alert(timestamp);
+			if(registerTime==""){
+				layer.msg("请选择预约日期！",{time:800});
+			}else{
+				$.ajax({
+        			url: '/patient/getRemainedByIDAndDate',
+        			type: 'POST',
+        			data: {
+	        			'ID':ID,
+	        			'Date':registerTime	
+        				},
+        			dataType: 'text',
+        			success: function(result){
+        				var patient_ID = $.cookie('loginID');
+        				if(result<=0){
+        					layer.msg("当前剩余预约名额已满！无法预约！");
+        				}else{
+        					layer.confirm('该医生剩余可预约名额为：'+result+'</br>    确认预约该医生的诊疗？', {
+	    	        		  	btn: ['确定','取消'] //按钮
+	    	        			}, function(){
+	    	        			//提交
+	    	        				
+	    							$.ajax({
+	    								url: '/patient/insertReservation',
+	    			        			type: 'POST',
+	    			        			data: {
+	    			        				'ID':patient_ID,
+	    			        				'Date':registerTime,
+	    			        				'doc_ID':ID,
+	    			        				'depart_ID':mydoctor.departId
+	    			        			},
+	    			        			dataType: 'JSON',
+	    			        			success: function(result){
+	    			        				if(result>0){
+	    			        					
+	    			        					layer.alert('挂号预约成功!',function(index){
+	    			        						layer.close(index);
+	    			        						parent.layer.closeAll();
+	    			        					});
+	    			        				}
+	    			        			},
+	    			        			error: function(res){
+	    			        				layer.msg('挂号预约失败');
+	    			        			}
+	    							})
+	    	        			},function(){
+	    	        			});
+        				}
+        				
+        			},
+        			error: function(res){
+        				layer.msg("查询失败");
+        			},
+        		});
 			}
 		}
+	
 		
-		//判断周几
-		function getMyDay(date){
-			var week;
-				if(date.getDay()==0) week="星期日"
-				if(date.getDay()==1) week="星期一"
-				if(date.getDay()==2) week="星期二"
-				if(date.getDay()==3) week="星期三"
-				if(date.getDay()==4) week="星期四"
-				if(date.getDay()==5) week="星期五"
-				if(date.getDay()==6) week="星期六"
-			return week;
-		}
 		
 	</script>
 
