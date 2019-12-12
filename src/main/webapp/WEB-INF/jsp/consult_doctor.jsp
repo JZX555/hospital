@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>挂号清单</h5>
+                        <h5>当前患者</h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -44,14 +44,19 @@
                                 <tr>
                                     <th>患者ID</th>
                                     <th>挂号类型</th>
-                                    <th>操作</th>
+                                    <th>当前病历</th>
+                                    <th>检验项目</th>
+                                    <th>药品处方</th>
+                                    <th>历史病历</th>
                                 </tr>
                             </thead>
-                            <tbody id="deptList">
+                            <tbody id="currentPatient">
                             
                             </tbody>
                         </table>
-
+						<div style = "text-align:right;">
+                       		<a type='button' class='btn btn-info' href='#' onclick=getNextPatient()>下一个 </a>
+                     	</div>
                     </div>
                 </div>
             </div>
@@ -74,8 +79,11 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-            var ID = $.cookie("loginID");
-         
+        	
+        });
+       	function getNextPatient() {
+           	var ID = $.cookie("loginID");
+        
         	$.ajax({
         		url: '/doctor/getNextPatientByDoctor',
         		type: 'POST',
@@ -85,34 +93,28 @@
     				},
         		dataType: 'JSON',
         		success: function(res){
+        			
         			var data = res;
-        			//然后 DataTables 这样初始化：
-                    $('.dataTables-example').DataTable( {
-                        data: data,
-                        columns: [
-                            { data: "patientID"},
-                        	{ data: "type" },
-                            { data: null}
-                        ],
-                        columnDefs:[{
-                            targets: 2,
-                            render: function (data, type, row) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=register(' + row.id + ') >病历编辑 </a>';
-                            }
-                        },
-                            { "orderable": false, "targets": 2 },
-                        ],
-                    } );
+        			line = "<tr>" +
+                    		"<th>" + data.patientId + "</th>" +
+                    		"<th>" + data.type + "</th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#'>编辑 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#'>申请 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#'>编辑 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#'>查看 </a></th>" +
+                			"</tr>";
+
+        			$('#currentPatient').append(line);
         		},
         		error: function(res){
-        			layer.msg('操作失败');
+        			layer.msg('今日已无病人就诊');
         		}
         	});
-        });
+        }
         //重新加载
         function reload(){
         	window.location.reload();
-        }
+        };
     </script>
 	
     
