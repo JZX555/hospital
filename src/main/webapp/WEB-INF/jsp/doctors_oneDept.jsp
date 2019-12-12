@@ -13,10 +13,10 @@
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="favicon.ico"> 
-    <link href="../static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="../static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="../static/css/animate.css" rel="stylesheet">
-    <link href="../static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
 	<style>
 		.des{display:block;line-height:25px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 	</style>
@@ -43,39 +43,37 @@
 
 
     <!-- 全局js -->
-    <script src="../static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="../static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
 
     <!-- 自定义js -->
-    <script src="../static/js/content.js?v=1.0.0"></script>
-    <script src="../static/js/plugins/layer/layer.min.js"></script>
+    <script src="/static/js/content.js?v=1.0.0"></script>
+    <script src="/static/js/plugins/layer/layer.min.js"></script>
     
-    <script src="../static/js/laydate/laydate.js"></script>
-    <script type="text/javascript" src="../static/js/jquery.cookie.js"></script>
+    <script src="/static/js/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	<script>
 		var doctorDatas;
 		 
-		function getDoctorByDeptId(id){
+		function getDoctorByDeptId(ID){
 			$.ajax({
-	        		url: '../getDoctorByDeptId.do',
+	        		url: '/patient/getGoodDoctorByDepartment',
 	        		type: 'POST',
-	        		data:{'deptId':id},
+	        		data:{'ID':ID},
 	        		dataType: 'JSON',
 	        		success: function(res){
+	        			
 	        			doctorDatas = res;
 	        			for(let i=0;i<res.length;i++){
-	        				var status =  res[i].workStatus == 1?"正常":"请假";
+	        				var level =  res[i].level == 1?"专家":"普通医生";
 	        				var id = "#time"+i;
+	        				alert(id);
 	        				$("#doctors").append(
 	        					"<div class='col-sm-4'>"+
 	                                "<div class='panel panel-success'>"+
-	                                    "<div class='panel-heading'>"+res[i].doctorName+" 相关信息</div>"+
+	                                    "<div class='panel-heading'>"+res[i].id+" 相关信息</div>"+
 	                                    "<div class='panel-body'>"+
-	                                    	"<p>医生姓名: "+res[i].doctorName+"</p>"+
-	                                        "<p class='des'>医生简介: "+res[i].doctorDes+"</p>"+
-	                                        "<p>所属科室: "+res[i].deptName+"</p>"+
-	                                        "<p>出诊时间: "+res[i].workTime+"</p>"+
-	                                        "<p style='color:red'>当前工作状态: "+status+"</p>"+
+	                                        "<p style='color:red'>医生职称: "+level+"</p>"+
 	                                        
 	                                        "<div class='form-group'>"+
 	                                        	"<label class='col-sm-2 control-label' style='padding:0px'>挂号时间：</label>" +
@@ -141,12 +139,12 @@
 	        	});
 		}
 		function register(index){
-			var userData;
-			var username = $.cookie('username');
-			if(username == null){
+			var mypatient;
+			var loginID = $.cookie('loginID');
+			if(loginID == null){
 				layer.msg("用户信息过期或未登录,前往登录界面！");
 				setTimeout(function(){
-					window.location.href="/note/";
+					window.location.href="/log/login";
 				},1000);
 			}
 			$.ajax({
@@ -157,16 +155,16 @@
 	        		},
 	        		dataType: 'JSON',
 	        		success: function(result){
-	        			userData = result;
+	        			mypatient = result;
 	        		}
 			})
 			if(index >= 0){
-				var data = doctorDatas[index];
+				var mydoctor = doctorDatas[index];
 			}else{
-				var data = doctorDatas;
+				var mydoctor = doctorDatas;
 			}
-			console.log(data);
-			if(data.workStatus == 1){
+			console.log(mydoctor);
+			if(mydoctor.workStatus == 1){
 				//选择时间
 				if(data == -1){
 					var time = $('#time').val();
@@ -195,15 +193,15 @@
 								url: '../addReg.do',
 				        		type: 'POST',
 				        		data: {
-				        			'hzUsername':userData.username,
-				        			'hzName':userData.name,
-				        			'hzId':userData.user_id,
-				        			'address':userData.address,
-				        			'tel':userData.tel,
-				        			'doctorName':data.doctorName,
-				        			'doctorId':data.doctorId,
-				        			'deptName':data.deptName,
-				        			'deptId':data.deptId,
+				        			'hzUsername':mypatient.username,
+				        			'hzName':mypatient.name,
+				        			'hzId':mypatient.user_id,
+				        			'address':mypatient.address,
+				        			'tel':mypatient.tel,
+				        			'doctorName':mydoctor.doctorName,
+				        			'doctorId':mydoctor.doctorId,
+				        			'deptName':mydoctor.deptName,
+				        			'deptId':mydoctor.deptId,
 				        			'registerTime':time,
 				        			'createTime':nowTime
 				        		},
