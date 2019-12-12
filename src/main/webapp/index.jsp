@@ -48,7 +48,7 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/index/DeptLists_patient">
+                        <a class="J_menuItem" href="/patient/DeptLists_patient">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">预约挂号</span>
                         </a>
@@ -56,7 +56,7 @@
                     <li>
                         <a class="J_menuItem" href="/index/doctorLists_index.jsp">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">我的挂号单</span>
+	                        <span class="nav-label">我的预约</span>
                         </a>
                     </li>
                     <li>
@@ -81,7 +81,7 @@
                 
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="/index/index_index.jsp?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="/patient/DeptLists_patient?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->

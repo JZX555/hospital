@@ -79,6 +79,7 @@
         		type: 'POST',
         		dataType: 'JSON',
         		success: function(res){
+        			
         			var data = res;
         			//然后 DataTables 这样初始化：
                     $('.dataTables-example').DataTable( {
@@ -92,7 +93,7 @@
                         columnDefs:[{
                             targets: 2,
                             render: function (data, type, row) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=register(' + row.id + ') >我要挂号 </a>';
+                                return '<a type="button" class="btn btn-info" href="#" onclick=register("' + row.id + '") >我要挂号 </a>';
                             }
                         },
                             { "orderable": false, "targets": 2 },
@@ -104,7 +105,8 @@
         		}
         	});
         });
-        function register(id){
+        function register(ID){
+        	
         	//根据科室id获取科室下的医生列表
         	layer.open({
       		  type: 2,
@@ -112,10 +114,10 @@
       		  shadeClose: true,
       		  shade: 0.8,
       		  area: ['90%', '80%'],
-      		  content: './tabs_doctor.jsp',
+      		  content: '/patient/doctors_oneDept',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];
-                iframe.getDoctorByDeptId(id)
+                iframe.getDoctorByDeptId(ID)
               }
       		});
         }
