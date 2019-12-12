@@ -125,4 +125,33 @@ public class PatientController {
 		return flag;
 	}
 	
+	@RequestMapping("/getReservationByPatient")
+	@ResponseBody
+	public List<Reservation> getReservationByPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		List<Reservation> res = this.reservationService.getReservationsByPatient(ID);
+		
+		return res;
+	}
+	
+	@RequestMapping("/cancelReservationByID")
+	@ResponseBody
+	public Integer cancelReservationByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		
+		Reservation reservation = this.reservationService.getReservationByID(ID);
+		if(reservation == null)
+			return 0;
+		
+		Patient patient = this.patientService.getPatientByID(reservation.getPatientId());
+		if(patient == null)
+			return 0;
+		
+		patient.setCanceltime(patient.getCanceltime() + 1);
+		if(this.patientService.updatePatient(patient) == 0)
+			return 0;
+		
+		reservation.setState(2);
+		return this.reservationService.updateReservation(reservation);
+	}
 }
