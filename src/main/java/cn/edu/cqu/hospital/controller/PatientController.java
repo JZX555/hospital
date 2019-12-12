@@ -54,6 +54,21 @@ public class PatientController {
 		return "doctorLists_index";
 	}
 	
+	@RequestMapping("/Wait_check")
+	public String Wait_check(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "Wait_check";
+	}
+	
+	@RequestMapping("/Prescription_check")
+	public String Prescription_check(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "Prescription_check";
+	}
+	
+	@RequestMapping("/RervLists_patient")
+	public String RervLists_patient(HttpServletRequest request,Model model) {
+		return "RervLists_patient";
+	}	
+	
 	@RequestMapping("/getAllDepartments")
 	@ResponseBody
 	public List<Department> getAllDepartments(HttpServletRequest request, HttpServletResponse response, Model model) {
