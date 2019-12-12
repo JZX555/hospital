@@ -3,6 +3,7 @@ package cn.edu.cqu.hospital.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,6 +72,7 @@ public class DoctorController {
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+	        sdf.setTimeZone(TimeZone.getTimeZone("Etc/GMT-8"));
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			
@@ -89,8 +91,8 @@ public class DoctorController {
 			Triage triage = this.triageService.getByQueueAndIndex(qID, cur_index);
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	        sdf.setTimeZone(TimeZone.getTimeZone("Etc/GMT-8"));
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			

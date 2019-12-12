@@ -2,6 +2,7 @@ package cn.edu.cqu.hospital.controller;
 
 import java.util.List;
 import java.util.Random;
+import java.util.TimeZone;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -101,6 +102,7 @@ public class PatientController {
 		String depart_ID = request.getParameter("depart_ID");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("Etc/GMT-8"));
 		Random random=new Random();
 		
 		try {
