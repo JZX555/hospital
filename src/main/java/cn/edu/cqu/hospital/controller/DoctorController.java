@@ -7,15 +7,18 @@ import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Patient;
+import cn.edu.cqu.hospital.pojo.PatientWithRecord;
 import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Record;
 import cn.edu.cqu.hospital.pojo.RecordWithBLOBs;
@@ -28,6 +31,7 @@ import cn.edu.cqu.hospital.service.RecordService;
 import cn.edu.cqu.hospital.service.RegisterService;
 import cn.edu.cqu.hospital.service.TriageService;
 
+@SessionAttributes(value = {"record_ID"})
 @Controller
 @RequestMapping("/doctor")
 public class DoctorController {
@@ -51,7 +55,7 @@ public class DoctorController {
 	
 	@RequestMapping("/getNextPatientByDoctor")
 	@ResponseBody
-	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession httpSession) {
 		System.out.println("123:::"+ID);
 		Doctor doctor = this.doctorService.getDoctorByID(ID);
 		if(doctor == null)
@@ -76,11 +80,14 @@ public class DoctorController {
 	        String dateID = sdf.format(date).toString();
 			
 			RecordWithBLOBs r = new RecordWithBLOBs();
-			r.setId(register.getPatientId() + ID + dateID);
+			String r_ID = register.getPatientId() + ID + dateID;
+			r.setId(r_ID);
 			r.setPatientId(register.getPatientId());
 			r.setDocId(ID);
 			r.setTime(date);
 			this.recordService.createRecord(r);
+			
+			model.addAttribute("record_ID", r_ID);
 			
 			return register;   
 		}
@@ -95,15 +102,38 @@ public class DoctorController {
 	        String dateID = sdf.format(date).toString();
 			
 			RecordWithBLOBs r = new RecordWithBLOBs();
-			r.setId(register.getPatientId() + ID + dateID);
+			String r_ID = register.getPatientId() + ID + dateID;
+			r.setId(r_ID);
 			r.setPatientId(register.getPatientId());
 			r.setDocId(ID);
 			r.setTime(date);
 			this.recordService.createRecord(r);
 			
+			model.addAttribute("record_ID", r_ID);
+			
 			return register;   
 		}   
 		
 		return null;
+	}
+	
+	@RequestMapping("/getRecordByID")
+	@ResponseBody
+	public PatientWithRecord getRecordByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		
+		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(ID);
+		if(recordWithBLOBs == null)
+			return null;
+		
+		Patient patient = this.patientService.getPatientByID(recordWithBLOBs.getPatientId());
+		if(patient == null)
+			return null;
+		
+		PatientWithRecord res = new PatientWithRecord();
+		res.setPatient(patient);
+		res.setRecordWithBLOBs(recordWithBLOBs);
+		
+		return res;
 	}
 }
