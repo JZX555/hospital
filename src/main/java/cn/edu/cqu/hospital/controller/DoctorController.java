@@ -75,7 +75,7 @@ public class DoctorController {
 	        String dateID = sdf.format(date).toString();
 			
 			RecordWithBLOBs r = new RecordWithBLOBs();
-			r.setId(register.getPatientId().substring(14) + ID + dateID);
+			r.setId(register.getPatientId() + ID + dateID);
 			r.setPatientId(register.getPatientId());
 			r.setDocId(ID);
 			r.setTime(date);
