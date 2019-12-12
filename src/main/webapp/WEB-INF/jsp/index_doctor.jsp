@@ -48,27 +48,9 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/index/index_index.jsp">
+                        <a class="J_menuItem" href="/doctor/consult_doctor">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">主页</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/index/tabs_doctors">
-                            <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">我要挂号</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/DeptLists_patient.jsp">
-                        	<i class="fa fa-table"></i>
-	                        <span class="nav-label">预约挂号</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/index/registerLists_index.jsp">
-                        	<i class="fa fa-table"></i>
-	                        <span class="nav-label">我的挂号单</span>
                         </a>
                     </li>
                     <li>
