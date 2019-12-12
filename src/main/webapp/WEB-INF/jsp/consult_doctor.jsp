@@ -61,6 +61,7 @@
 
     <!-- 全局js -->
     <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="/static/js/plugins/jeditable/jquery.jeditable.js"></script>
     <!-- Data Tables -->
@@ -73,7 +74,7 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-            var ID = $('#ID').val();
+            var ID = $.cookie("loginID");
          
         	$.ajax({
         		url: '/doctor/getNextPatientByDoctor',

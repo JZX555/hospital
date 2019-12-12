@@ -52,7 +52,7 @@ public class QueueServiceImpl implements QueueService {
 		
 		this.queueDao.updateByPrimaryKeySelective(queue);
 		
-		return queue.getCurIndex();
+		return index;
 	}
 
 	public Integer clearQueueByID(String ID) {

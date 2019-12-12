@@ -51,6 +51,7 @@ public class DoctorController {
 	@RequestMapping("/getNextPatientByDoctor")
 	@ResponseBody
 	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("123:::"+ID);
 		Doctor doctor = this.doctorService.getDoctorByID(ID);
 		if(doctor == null)
 			return null;
@@ -69,13 +70,12 @@ public class DoctorController {
 			Triage triage = this.triageService.getByQueueAndIndex(prio_qID, cur_index);
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			
 			RecordWithBLOBs r = new RecordWithBLOBs();
-			r.setId(register.getPatientId() + ID + dateID);
+			r.setId(register.getPatientId().substring(14) + ID + dateID);
 			r.setPatientId(register.getPatientId());
 			r.setDocId(ID);
 			r.setTime(date);
