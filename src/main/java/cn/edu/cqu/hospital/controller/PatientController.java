@@ -49,4 +49,15 @@ public class PatientController {
 	public String DeptLists_patient(HttpServletRequest request,Model model) {
 		return "DeptLists_patient";
 	}	
+	
+	@RequestMapping("/doctor_oneDept")
+	public String doctor_oneDept(HttpServletRequest request,Model model) {
+		return "doctor_oneDept";
+	}
+	
+	@RequestMapping("/doctorLists_index")
+	public String doctorLists_index(HttpServletRequest request,Model model) {
+		return "doctorLists_index";
+	}
+	
 }
