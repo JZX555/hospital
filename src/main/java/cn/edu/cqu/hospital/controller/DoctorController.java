@@ -136,4 +136,25 @@ public class DoctorController {
 		
 		return res;
 	}
+	
+	@RequestMapping("/updatetRecordByID")
+	@ResponseBody
+	public Integer updateRecordByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		String illness = request.getParameter("illness");
+		String history = request.getParameter("history");
+		String result = request.getParameter("result");
+		String treatment = request.getParameter("treatment");
+		
+		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(ID);
+		if(recordWithBLOBs == null)
+			return 0;
+		
+		recordWithBLOBs.setIllness(illness);
+		recordWithBLOBs.setHistory(history);
+		recordWithBLOBs.setResult(result);
+		recordWithBLOBs.setTreatment(treatment);
+		
+		return this.recordService.updateRecord(recordWithBLOBs);
+	}
 }
