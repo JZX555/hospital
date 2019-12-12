@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>我的预约 <small>列表</small></h5>
+                        <h5>我的处方单 <small>列表</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -42,12 +42,12 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>预约单ID</th>
-                                    <th>预约医生ID</th>
-                                    <th>预约科室ID</th>
-                                    <th>预约单状态</th>
-                                    <th>预约时间</th>
-                                    <th>操作</th>
+                                    <th>处方单ID</th>
+                                    <th>就诊医生ID</th>
+                                    <th>病历ID</th>
+                                    <th>药品ID</th>
+                                    <th>药品数量</th>
+                                    <th>处方进度</th>
                                 </tr>
                             </thead>
                             <tbody id="deptList">

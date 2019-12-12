@@ -54,15 +54,20 @@
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/index/RervLists_patient">
+                        <a class="J_menuItem" href="/patient/RervLists_patient">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">我的预约</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/index/registerLists_index.jsp">
+                        <a class="J_menuItem" href="/patient/Wait_check">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">进度查询</span>
+	                        <span class="nav-label">排队进度查询</span>
+                        </a>
+                    </li><li>
+                        <a class="J_menuItem" href="/patient/Prescription_check">
+                        	<i class="fa fa-table"></i>
+	                        <span class="nav-label">处方进度查询</span>
                         </a>
                     </li>
                     <li>
