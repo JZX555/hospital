@@ -34,11 +34,6 @@ public class IndexController {
 		return "tabs_doctors";
 	}
 	
-	@RequestMapping("/DeptLists_patient")
-	public String DeptLists_patient(HttpServletRequest request,Model model) {
-		return "DeptLists_patient";
-	}	
-	
 	@RequestMapping("/RervLists_patient")
 	public String RervLists_patient(HttpServletRequest request,Model model) {
 		return "RervLists_patient";

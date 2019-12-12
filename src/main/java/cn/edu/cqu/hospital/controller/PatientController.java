@@ -44,4 +44,9 @@ public class PatientController {
 		
 		return res;
 	}
+	
+	@RequestMapping("/DeptLists_patient")
+	public String DeptLists_patient(HttpServletRequest request,Model model) {
+		return "DeptLists_patient";
+	}	
 }
