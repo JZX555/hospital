@@ -10,6 +10,8 @@ public interface TriageMapper {
     int insertSelective(Triage record);
 
     Triage selectByPrimaryKey(String id);
+    
+    Triage selectByQueueAndIndex(String q, Integer i);
 
     int updateByPrimaryKeySelective(Triage record);
 

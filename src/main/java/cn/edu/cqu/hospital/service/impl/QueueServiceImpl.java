@@ -46,7 +46,9 @@ public class QueueServiceImpl implements QueueService {
 		queue.setCurIndex(index + 1);
 		queue.setCurNums(nums - 1);
 		
-		return this.queueDao.updateByPrimaryKeySelective(queue);
+		this.queueDao.updateByPrimaryKeySelective(queue);
+		
+		return queue.getCurIndex();
 	}
 
 	public Integer clearQueueByID(String ID) {

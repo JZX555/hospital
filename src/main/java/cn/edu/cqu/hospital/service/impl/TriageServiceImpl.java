@@ -16,6 +16,10 @@ public class TriageServiceImpl implements TriageService {
 		return this.triageDao.selectByPrimaryKey(ID);
 	}
 
+	public Triage getByQueueAndIndex(String q, Integer i) {
+		return this.triageDao.selectByQueueAndIndex(q, i);
+	}
+
 	public Integer createTriage(Triage t) {
 		return this.triageDao.insertSelective(t);
 	}

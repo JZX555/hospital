@@ -5,13 +5,16 @@ public class Triage {
 
     private String patientId;
 
+    private String registerId;
+
     private String queue;
 
     private Integer index;
 
-    public Triage(String id, String patientId, String queue, Integer index) {
+    public Triage(String id, String patientId, String registerId, String queue, Integer index) {
         this.id = id;
         this.patientId = patientId;
+        this.registerId = registerId;
         this.queue = queue;
         this.index = index;
     }
@@ -34,6 +37,14 @@ public class Triage {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId == null ? null : patientId.trim();
+    }
+
+    public String getRegisterId() {
+        return registerId;
+    }
+
+    public void setRegisterId(String registerId) {
+        this.registerId = registerId == null ? null : registerId.trim();
     }
 
     public String getQueue() {

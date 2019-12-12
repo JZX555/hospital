@@ -5,12 +5,13 @@
     <constructor >
       <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="patient_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="register_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="queue" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="index" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, patient_ID, queue, index
+    ID, patient_ID, register_ID, queue, index
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -18,15 +19,21 @@
     from triage
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByQueueAndIndex" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from triage
+    where queue = #{q,jdbcType=VARCHAR} and index = #{i,jdbcType=Integer}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from triage
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
-    insert into triage (ID, patient_ID, queue, 
-      index)
-    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{queue,jdbcType=VARCHAR}, 
-      #{index,jdbcType=INTEGER})
+    insert into triage (ID, patient_ID, register_ID, 
+      queue, index)
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{registerId,jdbcType=VARCHAR}, 
+      #{queue,jdbcType=VARCHAR}, #{index,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
     insert into triage
@@ -36,6 +43,9 @@
       </if>
       <if test="patientId != null" >
         patient_ID,
+      </if>
+      <if test="registerId != null" >
+        register_ID,
       </if>
       <if test="queue != null" >
         queue,
@@ -51,6 +61,9 @@
       <if test="patientId != null" >
         #{patientId,jdbcType=VARCHAR},
       </if>
+      <if test="registerId != null" >
+        #{registerId,jdbcType=VARCHAR},
+      </if>
       <if test="queue != null" >
         #{queue,jdbcType=VARCHAR},
       </if>
@@ -65,6 +78,9 @@
       <if test="patientId != null" >
         patient_ID = #{patientId,jdbcType=VARCHAR},
       </if>
+      <if test="registerId != null" >
+        register_ID = #{registerId,jdbcType=VARCHAR},
+      </if>
       <if test="queue != null" >
         queue = #{queue,jdbcType=VARCHAR},
       </if>
@@ -77,6 +93,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
     update triage
     set patient_ID = #{patientId,jdbcType=VARCHAR},
+      register_ID = #{registerId,jdbcType=VARCHAR},
       queue = #{queue,jdbcType=VARCHAR},
       index = #{index,jdbcType=INTEGER}
     where ID = #{id,jdbcType=VARCHAR}
