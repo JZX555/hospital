@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/index/doctorLists_index.jsp">
+                        <a class="J_menuItem" href="/index/RervLists_patient">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">我的预约</span>
                         </a>
