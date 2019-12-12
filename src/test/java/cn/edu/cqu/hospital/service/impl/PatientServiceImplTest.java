@@ -2,6 +2,9 @@ package cn.edu.cqu.hospital.service.impl;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,10 @@ public class PatientServiceImplTest {
 //		p = this.patientService.getPatientByID("511112199803190913");
 //		System.out.println(p.getPhone());
 		
-		System.out.println(this.patientService.updatePassword("511112199803190913", "123456"));
+//		System.out.println(this.patientService.updatePassword("511112199803190913", "123456"));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		
 	}
 
 }

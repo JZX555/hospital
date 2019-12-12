@@ -72,7 +72,6 @@ public class DoctorController {
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
-	        sdf.setTimeZone(TimeZone.getTimeZone("Etc/GMT-8"));
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			
@@ -92,7 +91,6 @@ public class DoctorController {
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	        sdf.setTimeZone(TimeZone.getTimeZone("Etc/GMT-8"));
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			

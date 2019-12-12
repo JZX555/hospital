@@ -102,12 +102,12 @@ public class PatientController {
 		String depart_ID = request.getParameter("depart_ID");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("Etc/GMT-8"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
 		Random random=new Random();
 		
 		try {
 			Reservation reservation = new Reservation();
-			reservation.setId(date + (random.nextDouble() * 900 + 100));
+			reservation.setId(date + (int)(random.nextDouble() * 900 + 100));
 			reservation.setPatientId(ID);
 			reservation.setDocId(doc_ID);
 			reservation.setDepartId(depart_ID);
