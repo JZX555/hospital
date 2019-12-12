@@ -1,7 +1,9 @@
 package cn.edu.cqu.hospital.controller;
 
 import java.util.List;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.faces.flow.builder.ReturnBuilder;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
+import cn.edu.cqu.hospital.pojo.Patient;
 import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
@@ -60,9 +63,32 @@ public class PatientController {
 		return res;
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping("/getPatientByID")
 	@ResponseBody
-	public Integer createReservation() {
-		return 0;
+	public Patient getPatientByID(String ID, HttpServletRequest request, HttpServletResponse response, Model model) {
+		return this.patientService.getPatientByID(ID);
 	}
+	
+	@RequestMapping("/getRemainedByIDAndDate")
+	@ResponseBody
+	public Integer getRemainedByIDAndDate(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		String date = request.getParameter("Date");
+		
+		Doctor doctor = this.doctorService.getDoctorByID(ID);
+		if(doctor == null)
+			return -1;
+		
+		int used = this.doctorService.getUsedByIDAndDate(ID, date);
+		
+		return doctor.getMax() - used;
+	}
+	
+	@RequestMapping("/insertReservation")
+	@ResponseBody
+	public Integer insertReservation() {
+		int flag = 0;
+		return flag;
+	}
+	
 }

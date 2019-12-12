@@ -2,6 +2,8 @@ package cn.edu.cqu.hospital.Dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.cqu.hospital.pojo.Doctor;
 
 public interface DoctorMapper {
@@ -14,6 +16,8 @@ public interface DoctorMapper {
     Doctor selectByPrimaryKey(String id);
     
     List<Doctor> selectGoodByDepartmentKey(String id);
+    
+    int getUsedByIDAndDate(@Param("id")String id, @Param("date")String date);
 
     int updateByPrimaryKeySelective(Doctor record);
 

@@ -1,5 +1,6 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class DoctorServiceImpl implements DoctorService {
 
 	public List<Doctor> getGoodDoctorByDepartment(String ID) {
 		return this.doctorDao.selectGoodByDepartmentKey(ID);
+	}
+
+	public Integer getUsedByIDAndDate(String ID, String date) {
+		return this.doctorDao.getUsedByIDAndDate(ID, date);
 	}
 
 	public Integer updateDoctor(Doctor d) {

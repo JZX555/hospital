@@ -21,10 +21,12 @@ public class DoctorServiceImplTest {
 	
 	@Test
 	public void test() {
-		List<Doctor> doctors = this.doctorService.getGoodDoctorByDepartment("0002");
+		List<Doctor> doctors = this.doctorService.getGoodDoctorByDepartment("0001");
 		for(Doctor d : doctors) {
 			System.out.println(d.getId());
 		}
+		
+		System.out.println(this.doctorService.getUsedByIDAndDate("0001001", "2019-12-08"));
 	}
 
 }
