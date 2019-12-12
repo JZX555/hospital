@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>我的挂号单<small>列表</small></h5>
+                        <h5>我的预约<small>列表</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -42,10 +42,10 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>挂号单ID</th>
-                                    <th>挂号ID</th>
-                                    <th>医生ID</th>
-                                    <th>挂号单状态</th>
+                                    <th>预约单ID</th>
+                                    <th>预约医生ID</th>
+                                    <th>预约科室ID</th>
+                                    <th>预约单状态</th>
                                     <th>预约时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -62,6 +62,12 @@
         
     </div>
 
+	<!-- 脚本 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+    <!-- 语言包 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/zh-cn.js"></script>
+
+
     <!-- 全局js -->
     <script src="/static/js/jquery.min.js?v=2.1.4"></script>
     <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
@@ -77,41 +83,47 @@
     <script>
         $(document).ready(function () {
         	
-         	var hzUsername = $.cookie('username');
-         
+        	var patient_ID = $.cookie('loginID');
+         	
          	
         	$.ajax({
-        		url: '../getRegListByName.do',
+        		url: '/patient/getReservationByPatient',
         		type: 'POST',
         		
-        		data:{'hzUsername':hzUsername},
+        		data:{'ID':patient_ID},
         		
         		dataType: 'JSON',
         		success: function(res){
         			var data = res;
+        			
         			//然后 DataTables 这样初始化：
                     $('.dataTables-example').DataTable( {
                         data: data,
                         columns: [
-                            { data: 'registerId' },
-                            { data: 'hzName' },
-                            { data: 'doctorName' },
-                            { data: 'deptName' },
-                            { data: 'ghStatus',render:function(data,type,row){
-                                if(data == 1){
-                                    return "<button class='btn btn-success'>正常</a>";
+                            { data: 'id' },
+                            { data: 'docId' },
+                            { data: 'departId' },
+                            { data: 'state',render:function(data,type,row){
+                                if(data == 0){
+                                 
+                                    return "<font color='green' size='3''>已预约<font/>";
+                                }else if(data == 1){
+                                    return "<font color='yellow' size='3''>已就诊<font/>";
                                 }else{
-                                    return "<button class='btn btn-danger'>取消</a>";
+                                	return "<font color='red' size='3''>已取消<font/>";
                                 }
+                                
                         	} },
-                            { data: 'registerTime' },
+                            { data: 'time' ,"render" : function(data, type, full, meta) {
+        						return  moment(data).format("YYYY-MM-DD");
+        					}},
                             { data: null}
                         ],
                         columnDefs:[{
-                            targets: 6,
+                            targets: 5,
                             render: function (data, type, row, meta) {
-                            	if(row.ghStatus == 1){
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus(' + row.registerId + ') >取消预约 </a>';
+                            	if(row.state == 0){
+                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.id + '") >取消预约 </a>';
                             	}else{
                             		return '<a type="button" class="btn btn-danger" href="#" disabled>已取消 </a>';
                             	}
@@ -119,7 +131,7 @@
                                 
                             }
                         },
-                            { "orderable": false, "targets": 4 },
+                            { "orderable": false, "targets": 3 },
                         ],
                     } );
         		},
@@ -129,20 +141,21 @@
         	});
         });
         function changeghStatus(id){
+        	alert(id);
             	layer.confirm('确认取消预约？', {
           		  btn: ['确定','取消'] //按钮
           		}, function(){
           			$.ajax({
-                  		url: '../updateghStatus.do',
+                  		url: '/patient/cancelReservationByID',
                   		type: 'POST',
                   		data: {
-                  			'registerId':id
+                  			'ID':id
                   		},
                   		dataType: 'JSON',
                   		success: function(result){
-                  			if(result=="success"){
-                  				layer.alert('修改成功',function(index){
-                  					layer.close(index);
+                  			if(result>0){
+                  				layer.alert('取消成功',function(index){
+                  					//layer.close(index);
                   					reload();
                   				});
                   			}
