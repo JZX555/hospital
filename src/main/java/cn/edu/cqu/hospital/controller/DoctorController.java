@@ -50,7 +50,7 @@ public class DoctorController {
 	
 	@RequestMapping("/getNextPatientByDoctor")
 	@ResponseBody
-	public Register getRecordsByDoctor(String ID, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Doctor doctor = this.doctorService.getDoctorByID(ID);
 		if(doctor == null)
 			return null;
@@ -90,7 +90,7 @@ public class DoctorController {
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			
