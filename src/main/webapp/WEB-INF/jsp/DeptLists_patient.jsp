@@ -96,7 +96,7 @@
                         columnDefs:[{
                             targets: 2,
                             render: function (data, type, row) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=register("' + row.id + '") >我要挂号 </a>';
+                                return '<a type="button" class="btn btn-info" href="#" onclick=register("' + row.id + '") >我要预约 </a>';
                             }
                         },
                             { "orderable": false, "targets": 2 },

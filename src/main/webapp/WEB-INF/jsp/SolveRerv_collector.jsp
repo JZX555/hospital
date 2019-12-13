@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>我的预约 <small>列表</small></h5>
+                        <h5>病人预约详情 <small>列表</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -45,8 +45,7 @@
                                     <th>预约单ID</th>
                                     <th>预约医生ID</th>
                                     <th>预约科室ID</th>
-                                    <th>预约单状态</th>
-                                    <th>预约时间</th>
+                                    <th>预约日期</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -83,11 +82,10 @@
     <script>
         $(document).ready(function () {
         	
-        	var patient_ID = $.cookie('loginID');
-         	
-         	
+        	var patient_ID = sessionStorage.getItem("patient_ID");
+			
         	$.ajax({
-        		url: '/patient/getReservationByPatient',
+        		url: '/collector/getReservationByID',
         		type: 'POST',
         		
         		data:{'ID':patient_ID},
@@ -103,29 +101,19 @@
                             { data: 'id' },
                             { data: 'docId' },
                             { data: 'departId' },
-                            { data: 'state',render:function(data,type,row){
-                                if(data == 0){
-                                 
-                                    return "<font color='green' size='3''>正常<font/>";
-                                }else if(data == 1){
-                                    return "<font color='green' size='3''>正常<font/>";
-                                }else{
-                                	return "<font color='red' size='3''>已取消<font/>";
-                                }
-                                
-                        	} },
                             { data: 'time' ,"render" : function(data, type, full, meta) {
         						return  moment(data).format("YYYY-MM-DD");
         					}},
                             { data: null}
                         ],
                         columnDefs:[{
-                            targets: 5,
+                            targets: 4,
                             render: function (data, type, row, meta) {
+                            	
                             	if(row.state == 0){
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.id + '") >取消预约 </a>';
+                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.id + '") >进行挂号 </a>';
                             	}else if(row.state == 1){
-                            		return '<a type="button" class="btn btn-warning" href="#" disabled>已就诊 </a>';
+                            		return '<a type="button" class="btn btn-warning" href="#" disabled>已挂号 </a>';
                             	}else{
                             		return '<a type="button" class="btn btn-danger" href="#" disabled>已取消 </a>';
                             	}
@@ -143,31 +131,33 @@
         	});
         });
         function changeghStatus(id){
-        	
-            	layer.confirm('确认取消预约？', {
-          		  btn: ['确定','取消'] //按钮
-          		}, function(){
+         	var collector_id=$.cookie('loginID');
           			$.ajax({
-                  		url: '/patient/cancelReservationByID',
+                  		url: '/collector/insertRegisterByReservation',
                   		type: 'POST',
                   		data: {
-                  			'ID':id
+                  			'reservation_ID':id,
+                  			'collector_ID':collector_id
+                  			
                   		},
                   		dataType: 'JSON',
                   		success: function(result){
                   			if(result>0){
-                  				layer.alert('取消成功',function(index){
+                  				layer.alert('挂号成功',function(index){
                   					//layer.close(index);
-                  					window.location.href="/patient/RervLists_patient";
+                  					window.location.href="/collector/SolveRerv_collector";
                   				});
                   			}
                   		},
                   		error: function(res){
-                  			layer.msg('修改失败');
+                  			layer.msg('挂号失败');
                   		}
                   	});
-          		}, function(){
-          	});
+          		}
+        
+        //重新加载
+        function reload(){
+        	window.location.reload();
         }
     </script>
 	
