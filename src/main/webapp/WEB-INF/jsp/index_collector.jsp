@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/patient/DeptLists_patient">
+                        <a class="J_menuItem" href="/collector/DeptLists_collector">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">门诊挂号</span>
                         </a>

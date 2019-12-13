@@ -96,7 +96,7 @@
                         columnDefs:[{
                             targets: 2,
                             render: function (data, type, row) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=register("' + row.id + '") >我要挂号 </a>';
+                                return '<a type="button" class="btn btn-info" href="#" onclick=register("' + row.id + '") >挂号 </a>';
                             }
                         },
                             { "orderable": false, "targets": 2 },
@@ -117,7 +117,7 @@
       		  shadeClose: true,
       		  shade: 0.8,
       		  area: ['90%', '80%'],
-      		  content: '/patient/doctors_oneDept',
+      		  content: '/collector/register_collector',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];
                 iframe.getDoctorByDeptId(ID)
