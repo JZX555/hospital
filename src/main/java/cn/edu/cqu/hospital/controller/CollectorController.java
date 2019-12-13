@@ -43,6 +43,16 @@ public class CollectorController {
 		return "register_collector";
 	}
 	
+	@RequestMapping("/SolveRerv_collector")
+	public String SolveRerv_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "SolveRerv_collector";
+	}
+	
+	@RequestMapping("/Money_collector")
+	public String Money_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "Money_collector";
+	}
+	
 	@RequestMapping("/insertRegister")
 	@ResponseBody
 	public Integer insertRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
