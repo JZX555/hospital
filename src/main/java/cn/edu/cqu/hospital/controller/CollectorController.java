@@ -33,6 +33,16 @@ public class CollectorController {
 	@Autowired
 	private ReservationService reservationService = null;
 	
+	@RequestMapping("/DeptLists_collector")
+	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "DeptLists_collector";
+	}
+	
+	@RequestMapping("/register_collector")
+	public String register_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "register_collector";
+	}
+	
 	@RequestMapping("/insertRegister")
 	@ResponseBody
 	public Integer insertRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
