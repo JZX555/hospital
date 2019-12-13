@@ -162,7 +162,7 @@ public class CollectorController {
 		
 		List<Reservation> res = this.reservationService.getReservationsByPatientAndDate(ID, dateFormat.format(date));
 		for(Reservation r : res) {
-			if(r.getState() != 0)
+			if(r.getState() != 0 || r.getState() != 1)
 				res.remove(r);
 		}
 		
