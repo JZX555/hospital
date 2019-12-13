@@ -29,15 +29,23 @@
                         <a type='button' class='btn btn-info' href='#'>保存 </a>
                     </div>
                     <div class="ibox-content">
-						<center><font size="6" >门诊病历</font></center>
-						<div class="row" id="recordID" style="float:right;font-size:18px;">
+						<center><font size="5" ><a>门诊病历</a></font></center>
+						<div class="row" id="recordID" style="float:right;font-size:14px;">
 						</div>
 					</div>
-					<div class="ibox-content">
-						<div class="row" id="deptType" style="float:left;font-size:18px;">
+					<div class="ibox-content" style="font-size:14px;">
+						<div class="row" id="deptType" style="float:left;">
                         </div>
-                        <div class="row" id="visitTime" style="float:right;font-size:18px;">
+                        <div class="row" id="visitTime" style="float:right;">
                         </div>
+                    </div>
+                    <div class="ibox-content" style="font-size:18px;">
+						<table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            </thead>
+                            <tbody id="patientInfo">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -67,7 +75,7 @@
 		function getCurrRecord(){
 			var ID = '<%= session.getAttribute("record_ID") %>';
 			$("#recordID").append(
-					"<p>No：" + ID + "</p>");
+					"<p><a>No：</a>" + ID + "</p>");
 			
 			$.ajax({
 	        		url: '/doctor/getRecordByID',
@@ -75,8 +83,30 @@
 	        		data:{'ID':ID},
 	        		dataType: 'JSON',
 	        		success: function(res){
-	        			$("#deptType").append("<p>科室：" + res.department.type + "</p>");
-	        			$("#visitTime").append("<p>就诊时间：" + Date2String(res.recordWithBLOBs.time)+ "</p>");
+	        			$("#deptType").append("<p><a>科室：</a>" + res.department.type + "</p>");
+	        			$("#visitTime").append("<p><a>就诊时间：</a>" + Date2String(res.recordWithBLOBs.time) + "</p>");
+	        			
+	        			line1 = "<tr>" +
+                		"<td>姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+                				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+                				res.patient.name + "</td>" +
+                		"<td>性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+                				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                				res.patient.sex + "</td>" +
+                		"<td>年龄：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+                				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                				res.patient.age + "</td>" +
+            			"</tr>";
+            			line2 = "<tr>" +
+            			"<td>电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+        						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+        						res.patient.phone + "</td>" +
+        				"<td colspan='2'>身份证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+        						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xxxxxxxxxxxx" +
+        						res.patient.id + "</td>"
+            			"</tr>";
+	        			$("#patientInfo").append(line1+line2);
 	        		},
 	        		error: function(res){
 	        			layer.msg('加载失败');

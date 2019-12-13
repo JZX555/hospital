@@ -117,7 +117,6 @@
                     		"<th><a type='button' class='btn btn-info' href='#'>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#'>查看 </a></th>" +
                 			"</tr>";
-
         			$('#currentPatient').append(line);
         		},
         		error: function(res){
