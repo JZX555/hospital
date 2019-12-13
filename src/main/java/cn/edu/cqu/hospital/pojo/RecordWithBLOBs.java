@@ -1,6 +1,6 @@
 package cn.edu.cqu.hospital.pojo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class RecordWithBLOBs extends Record {
     private String illness;
@@ -17,6 +17,10 @@ public class RecordWithBLOBs extends Record {
         this.history = history;
         this.result = result;
         this.treatment = treatment;
+    }
+    
+    public RecordWithBLOBs(String id, String patientId, String docId, Date time) {
+    	super(id, patientId, docId, time);
     }
 
     public RecordWithBLOBs() {
