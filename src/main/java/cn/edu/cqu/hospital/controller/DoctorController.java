@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Patient;
 import cn.edu.cqu.hospital.pojo.PatientWithRecord;
@@ -24,6 +25,7 @@ import cn.edu.cqu.hospital.pojo.Record;
 import cn.edu.cqu.hospital.pojo.RecordWithBLOBs;
 import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Triage;
+import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.QueueService;
@@ -47,6 +49,8 @@ public class DoctorController {
 	private TriageService triageService = null;
 	@Autowired
 	private RegisterService registerService = null;
+	@Autowired
+	private DepartmentService departmentService = null;
 	
 	@RequestMapping("/consult_doctor")
 	public String consult_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -150,9 +154,18 @@ public class DoctorController {
 		if(patient == null)
 			return null;
 		
+		Doctor doctor = this.doctorService.getDoctorByID(recordWithBLOBs.getDocId());
+		if(doctor == null)
+			return null;
+		
+		Department department = this.departmentService.getDepartmentByID(doctor.getDepartId());
+		if(department == null)
+			return null;
+		
 		PatientWithRecord res = new PatientWithRecord();
 		res.setPatient(patient);
 		res.setRecordWithBLOBs(recordWithBLOBs);
+		res.setDepartment(department);
 		
 		return res;
 	}
