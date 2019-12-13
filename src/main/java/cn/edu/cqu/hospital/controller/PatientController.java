@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Patient;
+import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Reservation;
 import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
+import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.ReservationService;
 
 @Controller
@@ -38,6 +40,8 @@ public class PatientController {
 	private DoctorService doctorService = null;
 	@Autowired
 	private ReservationService reservationService = null;
+	@Autowired
+	private PrescriptionService prescriptionService = null;
 	
 	@RequestMapping("/DeptLists_patient")
 	public String DeptLists_patient(HttpServletRequest request,Model model) {
@@ -168,5 +172,15 @@ public class PatientController {
 		
 		reservation.setState(2);
 		return this.reservationService.updateReservation(reservation);
+	}
+	
+	@RequestMapping("/getPrescriptionsByPatient")
+	@ResponseBody
+	public List<Prescription> getPrescriptionsByPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		
+		List<Prescription> res = this.prescriptionService.getPrescriptionByPatient(ID);
+		
+		return res;
 	}
 }
