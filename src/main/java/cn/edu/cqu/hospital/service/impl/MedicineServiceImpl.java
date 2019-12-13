@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class MedicineServiceImpl implements MedicineService {
 	
 	public Medicine getMedicineByID(String ID) {
 		return this.medicineDao.selectByPrimaryKey(ID);
+	}
+
+	public List<Medicine> getAllMedicines() {
+		return this.medicineDao.selectAllMedicines();
 	}
 
 	public Integer updateMedicine(Medicine m) {
