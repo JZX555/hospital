@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Medicine;
 
 public interface MedicineMapper {
@@ -10,6 +12,8 @@ public interface MedicineMapper {
     int insertSelective(Medicine record);
 
     Medicine selectByPrimaryKey(String id);
+    
+    List<Medicine> selectAllMedicines();
 
     int updateByPrimaryKeySelective(Medicine record);
 

@@ -3,6 +3,7 @@ package cn.edu.cqu.hospital.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
+import cn.edu.cqu.hospital.pojo.Medicine;
 import cn.edu.cqu.hospital.pojo.Patient;
 import cn.edu.cqu.hospital.pojo.PatientWithRecord;
+import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Record;
 import cn.edu.cqu.hospital.pojo.RecordWithBLOBs;
@@ -27,7 +30,9 @@ import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
+import cn.edu.cqu.hospital.service.MedicineService;
 import cn.edu.cqu.hospital.service.PatientService;
+import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.QueueService;
 import cn.edu.cqu.hospital.service.RecordService;
 import cn.edu.cqu.hospital.service.RegisterService;
@@ -51,6 +56,11 @@ public class DoctorController {
 	private RegisterService registerService = null;
 	@Autowired
 	private DepartmentService departmentService = null;
+	@Autowired
+	private MedicineService medicineService = null;
+	@Autowired
+	private PrescriptionService prescriptionService = null;
+	
 	
 	@RequestMapping("/consult_doctor")
 	public String consult_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -189,5 +199,43 @@ public class DoctorController {
 		recordWithBLOBs.setTreatment(treatment);
 		
 		return this.recordService.updateRecord(recordWithBLOBs);
+	}
+	
+	@RequestMapping("/getAllMedicines")
+	@ResponseBody
+	public List<Medicine> getAllMedicines(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return this.medicineService.getAllMedicines();
+	}
+	
+	@RequestMapping("/insertPrescription")
+	@ResponseBody
+	public Integer insertPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String record_ID = request.getParameter("record_ID");
+		String medicine_ID = request.getParameter("medicine_ID");
+		Integer nums = Integer.parseInt(request.getParameter("nums"));
+		Double price;
+		
+		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(record_ID);
+		if(recordWithBLOBs == null)
+			return 0;
+		
+		Medicine medicine = this.medicineService.getMedicineByID(medicine_ID);
+		if(medicine == null)
+			return 0;
+		price = medicine.getPrice() * nums;
+		
+		Random random = new Random();
+		
+		Prescription prescription = new Prescription();
+		prescription.setId(record_ID + (int)(random.nextDouble() * 899 + 100));
+		prescription.setPatientId(recordWithBLOBs.getPatientId());
+		prescription.setDocId(recordWithBLOBs.getDocId());
+		prescription.setRecordId(record_ID);
+		prescription.setMedicineId(medicine_ID);
+		prescription.setNum(nums);
+		prescription.setPrice(price);
+		prescription.setState(0);
+		
+		return this.prescriptionService.createPrescripiton(prescription);
 	}
 }
