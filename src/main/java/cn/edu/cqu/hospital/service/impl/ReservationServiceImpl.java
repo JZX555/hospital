@@ -22,6 +22,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return this.reservationDao.selectByPatientKey(ID);
 	}
 
+	public List<Reservation> getReservationsByPatientAndDate(String ID, String date) {
+		return this.reservationDao.selectByPatientAndDate(ID, date);
+	}
+
 	public Integer updateStateByID(String ID, int state) {
 		Reservation reservation = this.reservationDao.selectByPrimaryKey(ID);
 		reservation.setState(state);
