@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>科室<small>列表</small></h5>
+                        <h5>医院科室 <small>列表</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
