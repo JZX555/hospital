@@ -33,7 +33,7 @@
                 <h1 class="logo-name">h</h1>
 
             </div>
-            <h3>欢迎使用 医院【挂号】系统</h3>
+            <h3>欢迎使用 医院门诊系统</h3>
 
             <form class="m-t" role="form" action="index.html">
                 <div class="form-group">

@@ -36,12 +36,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">医院挂号系统</strong>
+                                        <strong class="font-bold">医院门诊系统</strong>
                                     </span>
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">医院挂号系统
+                        <div class="logo-element">医院门诊系统
                         </div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
@@ -54,22 +54,18 @@
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/patient/RervLists_patient">
+                        <a class="J_menuItem" href="/patient/DeptLists_patient">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">我的预约</span>
+	                        <span class="nav-label">门诊挂号</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/patient/Wait_check">
+                        <a class="J_menuItem" href="/patient/RervLists_patient">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">排队进度查询</span>
-                        </a>
-                    </li><li>
-                        <a class="J_menuItem" href="/patient/Prescription_check">
-                        	<i class="fa fa-table"></i>
-	                        <span class="nav-label">处方进度查询</span>
+	                        <span class="nav-label">收费退费</span>
                         </a>
                     </li>
+               
                     <li>
                         <a class="J_menuItem" onclick="loginOut()">
                         	<i class="fa fa-table"></i>

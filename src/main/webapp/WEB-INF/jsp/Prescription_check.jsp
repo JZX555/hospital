@@ -46,7 +46,6 @@
                                     <th>就诊医生ID</th>
                                     <th>病历ID</th>
                                     <th>药品ID</th>
-                                    <th>药品数量</th>
                                     <th>处方进度</th>
                                 </tr>
                             </thead>
@@ -87,7 +86,7 @@
          	
          	
         	$.ajax({
-        		url: '/patient/getReservationByPatient',
+        		url: '/patient/getPrescriptionsByPatient',
         		type: 'POST',
         		
         		data:{'ID':patient_ID},
@@ -102,36 +101,27 @@
                         columns: [
                             { data: 'id' },
                             { data: 'docId' },
-                            { data: 'departId' },
-                            { data: 'state',render:function(data,type,row){
-                                if(data == 0){
-                                 
-                                    return "<font color='green' size='3''>已预约<font/>";
-                                }else if(data == 1){
-                                    return "<font color='yellow' size='3''>已就诊<font/>";
-                                }else{
-                                	return "<font color='red' size='3''>已取消<font/>";
-                                }
-                                
-                        	} },
-                            { data: 'time' ,"render" : function(data, type, full, meta) {
-        						return  moment(data).format("YYYY-MM-DD");
-        					}},
+                            { data: 'recordId' },
+                            { data: 'medicineId'},
                             { data: null}
                         ],
                         columnDefs:[{
-                            targets: 5,
+                            targets: 4,
                             render: function (data, type, row, meta) {
-                            	if(row.state == 0){
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.id + '") >取消预约 </a>';
-                            	}else{
-                            		return '<a type="button" class="btn btn-danger" href="#" disabled>已取消 </a>';
-                            	}
+                            	if(row.state == 1){
+                            		return '<a type="button" class="btn btn-info" href="#" disabled >等待配药 </a>';
+                            	}else if(row.state == 2){
+                            		return '<a type="button" class="btn btn-info" href="#" disabled>正在配药 </a>';
+                            	}else if(row.state == 3){
+                            		return '<a type="button" class="btn btn-info" href="#" disabled>等待发药 </a>';
+                            	}else {
+                            		return '<a type="button" class="btn btn-info" href="#" disabled>正在发药 </a>';
+                            	};
                             	
                                 
                             }
                         },
-                            { "orderable": false, "targets": 3 },
+                            { "orderable": false, "targets": 4 },
                         ],
                     } );
         		},
@@ -140,37 +130,7 @@
         		}
         	});
         });
-        function changeghStatus(id){
-        	alert(id);
-            	layer.confirm('确认取消预约？', {
-          		  btn: ['确定','取消'] //按钮
-          		}, function(){
-          			$.ajax({
-                  		url: '/patient/cancelReservationByID',
-                  		type: 'POST',
-                  		data: {
-                  			'ID':id
-                  		},
-                  		dataType: 'JSON',
-                  		success: function(result){
-                  			if(result>0){
-                  				layer.alert('取消成功',function(index){
-                  					//layer.close(index);
-                  					reload();
-                  				});
-                  			}
-                  		},
-                  		error: function(res){
-                  			layer.msg('修改失败');
-                  		}
-                  	});
-          		}, function(){
-          	});
-        }
-        //重新加载
-        function reload(){
-        	window.location.reload();
-        }
+        
     </script>
 	
     
