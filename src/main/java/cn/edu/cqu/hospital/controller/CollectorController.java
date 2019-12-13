@@ -84,7 +84,7 @@ public class CollectorController {
 		Date date = new Date();
 		Random random = new Random();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 
 		
 		Register register = new Register();
@@ -121,7 +121,7 @@ public class CollectorController {
 		Date date = new Date();
 		Random random = new Random();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		
 		Register register = new Register();
 		register.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
@@ -141,7 +141,7 @@ public class CollectorController {
 		String ID = request.getParameter("ID");
 		Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		
 		Doctor doctor = this.doctorService.getDoctorByID(ID);
 		if(doctor == null)
@@ -158,7 +158,7 @@ public class CollectorController {
 		String ID = request.getParameter("ID");
 		Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		
 		List<Reservation> res = this.reservationService.getReservationsByPatientAndDate(ID, dateFormat.format(date));
 		for(Reservation r : res) {

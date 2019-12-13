@@ -90,7 +90,6 @@ public class DoctorController {
 	@RequestMapping("/getNextPatientByDoctor")
 	@ResponseBody
 	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession httpSession) {
-		System.out.println("123:::"+ID);
 		Doctor doctor = this.doctorService.getDoctorByID(ID);
 		if(doctor == null)
 			return null;
@@ -110,6 +109,7 @@ public class DoctorController {
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+	        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			
@@ -132,6 +132,7 @@ public class DoctorController {
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 	        Date date = new Date();
 	        String dateID = sdf.format(date).toString();
 			
