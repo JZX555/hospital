@@ -53,6 +53,11 @@ public class CollectorController {
 		return "Money_collector";
 	}
 	
+	@RequestMapping("/getPID_collector")
+	public String getPID_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "getPID_collector";
+	}
+	
 	@RequestMapping("/insertRegister")
 	@ResponseBody
 	public Integer insertRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
