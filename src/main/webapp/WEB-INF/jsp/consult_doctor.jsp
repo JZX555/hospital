@@ -44,7 +44,7 @@
                                 <tr>
                                     <th>患者ID</th>
                                     <th>挂号类型</th>
-                                    <th>当前病历</th>
+                                    <th>门诊病历</th>
                                     <th>检验项目</th>
                                     <th>药品处方</th>
                                     <th>历史病历</th>
@@ -81,6 +81,20 @@
         $(document).ready(function () {
         	
         });
+        function editRecord() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '病历',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		area: ['70%', '90%'],
+	       		  content: '/doctor/editRecord',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getCurrRecord()
+                }
+       		});
+        }
        	function getNextPatient() {
            	var ID = $.cookie("loginID");
         
@@ -98,7 +112,7 @@
         			line = "<tr>" +
                     		"<th>" + data.patientId + "</th>" +
                     		"<th>" + data.type + "</th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#'>编辑 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#'>申请 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#'>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#'>查看 </a></th>" +
@@ -114,7 +128,7 @@
         //重新加载
         function reload(){
         	window.location.reload();
-        };
+        }
     </script>
 	
     
