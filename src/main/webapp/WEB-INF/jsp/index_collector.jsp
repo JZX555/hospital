@@ -50,7 +50,13 @@
                     <li>
                         <a class="J_menuItem" href="/patient/DeptLists_patient">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">挂号退号</span>
+	                        <span class="nav-label">预约挂号</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/patient/DeptLists_patient">
+                        	<i class="fa fa-table"></i>
+	                        <span class="nav-label">门诊挂号</span>
                         </a>
                     </li>
                     <li>
