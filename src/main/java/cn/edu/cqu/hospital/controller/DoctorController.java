@@ -108,6 +108,8 @@ public class DoctorController {
 			Triage triage = this.triageService.getByQueueAndIndex(prio_qID, cur_index);
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
 			
+			this.triageService.deleteTriage(triage.getId());
+			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
 	        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 	        Date date = new Date();
@@ -130,6 +132,8 @@ public class DoctorController {
 			int cur_index = this.queueService.nextIndexByID(qID);
 			Triage triage = this.triageService.getByQueueAndIndex(qID, cur_index);
 			Register register = this.registerService.getRegisterByID(triage.getRegisterId());
+			
+			this.triageService.deleteTriage(triage.getId());
 			
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 	        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
