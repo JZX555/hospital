@@ -24,6 +24,7 @@ import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Patient;
 import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Queue;
+import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Reservation;
 import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.pojo.TriageWithQueue;
@@ -32,6 +33,7 @@ import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.QueueService;
+import cn.edu.cqu.hospital.service.RegisterService;
 import cn.edu.cqu.hospital.service.ReservationService;
 import cn.edu.cqu.hospital.service.TriageService;
 
@@ -52,6 +54,8 @@ public class PatientController {
 	private TriageService triageService = null;
 	@Autowired
 	private QueueService queueService = null;
+	@Autowired
+	private RegisterService registerService = null;
 	
 	@RequestMapping("/DeptLists_patient")
 	public String DeptLists_patient(HttpServletRequest request,Model model) {
@@ -204,9 +208,18 @@ public class PatientController {
 		
 		for(Triage t : triages) {
 			Queue q = this.queueService.getQueueByID(t.getQueue());
+			Register r = this.registerService.getRegisterByID(t.getRegisterId());
+			
+			if(r == null || q == null)
+				continue;
+			
 			TriageWithQueue tmp = new TriageWithQueue();
-			tmp.setQueue(q);
-			tmp.setTriage(t);
+			tmp.setDepart_ID(r.getDepartId());
+			tmp.setDoc_ID(r.getDocId());
+			tmp.setQueue_ID(t.getQueue());
+			tmp.setRegister_ID(t.getRegisterId());
+			tmp.setIndex(t.getIndex());
+			tmp.setRemained(t.getIndex() - q.getCurIndex());
 			
 			res.add(tmp);
 		}
