@@ -85,16 +85,12 @@ public class CollectorController {
 		if(doctor == null)
 			return 0;
 		
-		Queue queue = null;
-		if(doctor.getLevel() == 0) {
-			queue = this.queueService.getQueueByID(doctor.getQueue());
+		if(doctor.getLevel() == 0)
 			type = 0;
-		}
-		else {
-			queue = this.queueService.getQueueByID(doctor.getPrioQueue());
+		else
 			type = 1;
-		}
 		
+		Queue queue = this.queueService.getQueueByID(doctor.getQueue());
 		if(queue == null)
 			return 0;
 		
@@ -146,16 +142,12 @@ public class CollectorController {
 		if(doctor == null)
 			return 0;
 		
-		Queue queue = null;
-		if(doctor.getLevel() == 0) {
-			queue = this.queueService.getQueueByID(doctor.getQueue());
+		if(doctor.getLevel() == 0)
 			type = 2;
-		}
-		else {
-			queue = this.queueService.getQueueByID(doctor.getPrioQueue());
+		else
 			type = 3;
-		}
 		
+		Queue queue = this.queueService.getQueueByID(doctor.getPrioQueue());
 		if(queue == null)
 			return 0;
 		

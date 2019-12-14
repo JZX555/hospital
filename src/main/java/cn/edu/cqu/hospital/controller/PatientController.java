@@ -121,7 +121,7 @@ public class PatientController {
 		String depart_ID = request.getParameter("depart_ID");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		Random random=new Random();
 		
 		try {
