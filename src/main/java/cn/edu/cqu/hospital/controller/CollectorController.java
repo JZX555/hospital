@@ -20,6 +20,7 @@ import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Payment;
 import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Queue;
+import cn.edu.cqu.hospital.pojo.Refund;
 import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Requisition;
 import cn.edu.cqu.hospital.pojo.Reservation;
@@ -30,6 +31,7 @@ import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PaymentService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.QueueService;
+import cn.edu.cqu.hospital.service.RefundService;
 import cn.edu.cqu.hospital.service.RegisterService;
 import cn.edu.cqu.hospital.service.RequisitionService;
 import cn.edu.cqu.hospital.service.ReservationService;
@@ -56,6 +58,8 @@ public class CollectorController {
 	private PaymentService paymentService = null;
 	@Autowired
 	private RequisitionService requisitionService = null;
+	@Autowired
+	private RefundService refundService = null;
 	
 	@RequestMapping("/DeptLists_collector")
 	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -424,5 +428,59 @@ public class CollectorController {
 		payment.setTime(date);
 		
 		return this.paymentService.createPayment(payment);
+	}
+	
+	@RequestMapping("/createRefundForPatient")
+	@ResponseBody
+	public Integer createRefundForPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String patient_ID = request.getParameter("patient_ID");
+		Integer item = Integer.parseInt(request.getParameter("item"));
+		String item_ID = request.getParameter("item_ID");
+		Double price = Double.parseDouble(request.getParameter("price"));
+		
+		Date date = new Date();
+		Random random = new Random();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		
+		if(item == 1) {
+			Register r = this.registerService.getRegisterByID(item_ID);
+			if(r == null || r.getState() != 1)
+				return 0;
+			r.setState(2);
+			
+			if(this.registerService.updateRegister(r) == 0)
+				return 0;
+		}
+		else if(item == 2) {
+			Prescription p = this.prescriptionService.getPrescriptionByID(item_ID);
+			if(p == null || p.getState() != 1)
+				return 0;
+			p.setState(5);
+			
+			if(this.prescriptionService.updatePrescription(p) == 0)
+				return 0;
+		}
+		else if(item == 3) {
+			Requisition r = this.requisitionService.getRequisitionByID(item_ID);
+			if(r == null || r.getState() != 1)
+				return 0;
+			r.setState(3);
+			
+			if(this.requisitionService.updateRequisition(r) == 0)
+				return 0;
+		}
+		else
+			return 0;
+		
+		Refund refund = new Refund();
+		refund.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		refund.setPatientId(patient_ID);
+		refund.setItem(item);
+		refund.setItemId(item_ID);
+		refund.setPrice(price);
+		refund.setTime(date);
+		
+		return this.refundService.createRefund(refund);
 	}
 }
