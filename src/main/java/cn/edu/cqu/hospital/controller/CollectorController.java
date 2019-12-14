@@ -76,6 +76,16 @@ public class CollectorController {
 		return "getPID_collector";
 	}
 	
+	@RequestMapping("/search_collector")
+	public String search_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "search_collector";
+	}
+	
+	@RequestMapping("/SolvePay_collector")
+	public String SolvePay_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "SolvePay_collector";
+	}
+	
 	@RequestMapping("/insertRegister")
 	@ResponseBody
 	public Integer insertRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
