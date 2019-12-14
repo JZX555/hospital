@@ -117,17 +117,12 @@
                     		"<th><a type='button' class='btn btn-info' href='#'>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#'>查看 </a></th>" +
                 			"</tr>";
-
         			$('#currentPatient').append(line);
         		},
         		error: function(res){
         			layer.msg('今日已无病人就诊');
         		}
         	});
-        }
-        //重新加载
-        function reload(){
-        	window.location.reload();
         }
     </script>
 	
