@@ -113,6 +113,7 @@ public class CollectorController {
 		register.setDepartId(depart_ID);
 		register.setCollectorId(collector_ID);
 		register.setType(type);
+		register.setState(0);
 		register.setTime(date);
 		
 		if(this.registerService.createRegister(register) == 0)
@@ -183,6 +184,7 @@ public class CollectorController {
 		register.setDepartId(reservation.getDepartId());
 		register.setCollectorId(collector_ID);
 		register.setType(type);
+		register.setState(0);
 		register.setTime(date);		
 		
 		if(this.registerService.createRegister(register) == 0)
