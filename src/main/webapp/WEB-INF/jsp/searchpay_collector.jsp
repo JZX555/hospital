@@ -34,7 +34,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>预约挂号处理 </h5>
+                        <h5>缴费处理 </h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     <br/><br/><br/><br/><br/><br/><br/><br/>
  						
                        <input type="text" id="patient_id"  placeholder="请输入病人ID" size="40"/>
-                       <input type="button" value="查询" name="search" onclick="getResList()" />
+                       <input type="button" value="查询" name="search" onclick="getPayList()" />
                        
                        
                        
@@ -71,15 +71,16 @@
 
     <!-- Page-Level Scripts -->
     <script>
-    function getResList(){
+    function getPayList(){
 		var patient_ID = $('#patient_id').val();
 		
 		if(patient_ID == ""){
 			layer.msg("病人ID不能为空!");
 		}else{
 			sessionStorage.setItem("patient_ID",patient_ID);
-			window.location.href='/collector/SolveRerv_collector';
+			window.location.href='/collector/SolvePay_collector';
 		}
+
 	}
     </script>
 	

@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>待缴费项目 <small>列表</small></h5>
+                        <h5>已缴费项目 <small>列表</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -85,7 +85,7 @@
         	var patient_ID = sessionStorage.getItem("patient_ID");
 			
         	$.ajax({
-        		url: '/collector/getUnPayByPatient',
+        		url: '/collector/getHasPayedByPatient',
         		type: 'POST',
         		
         		data:{'patient_ID':patient_ID},
@@ -138,7 +138,7 @@
         function changeghStatus(patient_ID,item,item_ID,price){
          	
           			$.ajax({
-                  		url: '/collector/createPaymentForPatient',
+                  		url: '/collector/createRefundForPatient',
                   		type: 'POST',
                   		data: {
                   			'patient_ID':patient_ID,
@@ -150,14 +150,14 @@
                   		dataType: 'JSON',
                   		success: function(result){
                   			if(result>0){
-                  				layer.alert('收费成功',function(index){
+                  				layer.alert('退费成功',function(index){
                   					//layer.close(index);
-                  					window.location.href="/collector/SolvePay_collector";
+                  					window.location.href="/collector/SolveRefund_collector";
                   				});
                   			}
                   		},
                   		error: function(res){
-                  			layer.msg('收费失败');
+                  			layer.msg('退费失败');
                   		}
                   	});
           		}

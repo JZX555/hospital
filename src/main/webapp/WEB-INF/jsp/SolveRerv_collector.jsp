@@ -42,6 +42,7 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
+                                	<th>病人ID</th>
                                     <th>预约单ID</th>
                                     <th>预约医生ID</th>
                                     <th>预约科室ID</th>
@@ -98,6 +99,7 @@
                     $('.dataTables-example').DataTable( {
                         data: data,
                         columns: [
+                        	{data: 'patientId'},
                             { data: 'id' },
                             { data: 'docId' },
                             { data: 'departId' },
@@ -107,7 +109,7 @@
                             { data: null}
                         ],
                         columnDefs:[{
-                            targets: 4,
+                            targets: 5,
                             render: function (data, type, row, meta) {
                             	
                             	if(row.state == 0){
@@ -121,7 +123,11 @@
                                 
                             }
                         },
+                            { "orderable": false, "targets": 5 },
                             { "orderable": false, "targets": 3 },
+                            { "orderable": false, "targets": 2 },
+                            { "orderable": false, "targets": 1 },
+                            { "orderable": false, "targets": 0 },
                         ],
                     } );
         		},
