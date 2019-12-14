@@ -2,6 +2,7 @@ package cn.edu.cqu.hospital.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -14,9 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.edu.cqu.hospital.pojo.Doctor;
+import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Reservation;
+import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
+import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.RegisterService;
 import cn.edu.cqu.hospital.service.ReservationService;
 import cn.edu.cqu.hospital.service.TriageService;
@@ -32,6 +37,10 @@ public class CollectorController {
 	private PatientService patientService = null;
 	@Autowired
 	private ReservationService reservationService = null;
+	@Autowired
+	private DoctorService doctorService = null;
+	@Autowired
+	private PrescriptionService prescriptionService = null;
 	
 	@RequestMapping("/DeptLists_collector")
 	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -75,7 +84,7 @@ public class CollectorController {
 		Date date = new Date();
 		Random random = new Random();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 
 		
 		Register register = new Register();
@@ -97,7 +106,10 @@ public class CollectorController {
 		String collector_ID = request.getParameter("collector_ID");
 		
 		Reservation reservation = this.reservationService.getReservationByID(reservation_ID);
-		if(reservation == null)
+		if(reservation == null || reservation.getState() != 0)
+			return 0;
+		reservation.setState(1);
+		if(this.reservationService.updateReservation(reservation) == 0)
 			return 0;
 		
 		Integer type;
@@ -109,7 +121,7 @@ public class CollectorController {
 		Date date = new Date();
 		Random random = new Random();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		
 		Register register = new Register();
 		register.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
@@ -121,5 +133,39 @@ public class CollectorController {
 		register.setTime(date);		
 		
 		return this.registerService.createRegister(register);
+	}
+	
+	@RequestMapping("/getRemainedByID")
+	@ResponseBody
+	public Integer getRemainedByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		
+		Doctor doctor = this.doctorService.getDoctorByID(ID);
+		if(doctor == null)
+			return -1;
+		
+		int used = this.doctorService.getUsedByIDAndDate(ID, dateFormat.format(date));
+		
+		return doctor.getMax() - used;
+	}
+	
+	@RequestMapping("/getReservationByID")
+	@ResponseBody
+	public List<Reservation> getReservationByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		
+		List<Reservation> res = this.reservationService.getReservationsByPatientAndDate(ID, dateFormat.format(date));
+		for(Reservation r : res) {
+			if(r.getState() != 0 && r.getState() != 1)
+				res.remove(r);
+		}
+		
+		return res;
 	}
 }

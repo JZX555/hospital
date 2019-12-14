@@ -3,6 +3,7 @@ package cn.edu.cqu.hospital.service.impl;
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 
 import org.junit.Test;
@@ -36,8 +37,11 @@ public class PatientServiceImplTest {
 //		System.out.println(p.getPhone());
 		
 //		System.out.println(this.patientService.updatePassword("511112199803190913", "123456"));
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		Date date = new Date();
+		
+		System.out.println(dateFormat.format(date));
 		
 	}
 
