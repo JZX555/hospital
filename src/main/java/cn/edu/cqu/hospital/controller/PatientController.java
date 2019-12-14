@@ -1,6 +1,7 @@
 package cn.edu.cqu.hospital.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.TimeZone;
 import java.text.ParseException;
@@ -22,12 +23,17 @@ import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Patient;
 import cn.edu.cqu.hospital.pojo.Prescription;
+import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Reservation;
+import cn.edu.cqu.hospital.pojo.Triage;
+import cn.edu.cqu.hospital.pojo.TriageWithQueue;
 import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
+import cn.edu.cqu.hospital.service.QueueService;
 import cn.edu.cqu.hospital.service.ReservationService;
+import cn.edu.cqu.hospital.service.TriageService;
 
 @Controller
 @RequestMapping("/patient")
@@ -42,6 +48,10 @@ public class PatientController {
 	private ReservationService reservationService = null;
 	@Autowired
 	private PrescriptionService prescriptionService = null;
+	@Autowired
+	private TriageService triageService = null;
+	@Autowired
+	private QueueService queueService = null;
 	
 	@RequestMapping("/DeptLists_patient")
 	public String DeptLists_patient(HttpServletRequest request,Model model) {
@@ -180,6 +190,26 @@ public class PatientController {
 		String ID = request.getParameter("ID");
 		
 		List<Prescription> res = this.prescriptionService.getPrescriptionByPatient(ID);
+		
+		return res;
+	}
+	
+	@RequestMapping("/getIndexByID")
+	@ResponseBody
+	public List<TriageWithQueue> getIndexByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String patient_ID = request.getParameter("patient_ID");
+		List<TriageWithQueue> res = new ArrayList<TriageWithQueue>();
+		
+		List<Triage> triages = this.triageService.getTriagesByPatient(patient_ID);
+		
+		for(Triage t : triages) {
+			Queue q = this.queueService.getQueueByID(t.getQueue());
+			TriageWithQueue tmp = new TriageWithQueue();
+			tmp.setQueue(q);
+			tmp.setTriage(t);
+			
+			res.add(tmp);
+		}
 		
 		return res;
 	}
