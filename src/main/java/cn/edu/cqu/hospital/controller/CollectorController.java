@@ -86,6 +86,11 @@ public class CollectorController {
 		return "SolvePay_collector";
 	}
 	
+	@RequestMapping("SolveRefund_collector")
+	public String SolveRefund_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "SolveRefund_collector";
+	}
+	 
 	@RequestMapping("/searchpay_collector")
 	public String searchpay_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "searchpay_collector";
