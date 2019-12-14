@@ -22,7 +22,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		return this.prescriptionDao.selectByPatientKey(ID);
 	}
 
-	public Integer createPrescripiton(Prescription p) {
+	public Integer createPrescription(Prescription p) {
 		return this.prescriptionDao.insertSelective(p);
 	}
 

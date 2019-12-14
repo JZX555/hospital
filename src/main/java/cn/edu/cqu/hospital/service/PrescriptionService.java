@@ -9,7 +9,7 @@ public interface PrescriptionService {
 	public List<Prescription> getPrescriptionByPatient(String ID);
 	public List<Prescription> getPrescriptionByRecord(String ID);
 	
-	public Integer createPrescripiton(Prescription p);
+	public Integer createPrescription(Prescription p);
 	public Integer updatePrescription(Prescription p);
 	public Integer deletaPrescription(String ID);
 }
