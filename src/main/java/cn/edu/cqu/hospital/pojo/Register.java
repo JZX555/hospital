@@ -15,15 +15,18 @@ public class Register {
 
     private Integer type;
 
+    private Integer state;
+
     private Date time;
 
-    public Register(String id, String patientId, String collectorId, String departId, String docId, Integer type, Date time) {
+    public Register(String id, String patientId, String collectorId, String departId, String docId, Integer type, Integer state, Date time) {
         this.id = id;
         this.patientId = patientId;
         this.collectorId = collectorId;
         this.departId = departId;
         this.docId = docId;
         this.type = type;
+        this.state = state;
         this.time = time;
     }
 
@@ -77,6 +80,14 @@ public class Register {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getTime() {

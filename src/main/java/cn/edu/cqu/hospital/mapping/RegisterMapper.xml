@@ -9,11 +9,12 @@
       <arg column="depart_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="doc_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, patient_ID, collector_ID, depart_ID, doc_ID, type, time
+    ID, patient_ID, collector_ID, depart_ID, doc_ID, type, state, time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -46,10 +47,10 @@
   <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Register" >
     insert into register (ID, patient_ID, collector_ID, 
       depart_ID, doc_ID, type, 
-      time)
+      state, time)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{collectorId,jdbcType=VARCHAR}, 
       #{departId,jdbcType=VARCHAR}, #{docId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP})
+      #{state,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.hospital.pojo.Register" >
     insert into register
@@ -71,6 +72,9 @@
       </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="state != null" >
+        state,
       </if>
       <if test="time != null" >
         time,
@@ -95,6 +99,9 @@
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
       </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
       <if test="time != null" >
         #{time,jdbcType=TIMESTAMP},
       </if>
@@ -118,6 +125,9 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
       <if test="time != null" >
         time = #{time,jdbcType=TIMESTAMP},
       </if>
@@ -131,6 +141,7 @@
       depart_ID = #{departId,jdbcType=VARCHAR},
       doc_ID = #{docId,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
