@@ -247,9 +247,12 @@ public class DoctorController {
 			return null;
 		
 		Prescription prescription = new Prescription();
-		Random random = new Random();		
+		Date date = new Date();
+		Random random = new Random();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));	
 		
-		prescription.setId(record_ID + (int)(random.nextDouble() * 899 + 100));
+		prescription.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
 		prescription.setPatientId(recordWithBLOBs.getPatientId());
 		prescription.setDocId(recordWithBLOBs.getDocId());
 		prescription.setRecordId(record_ID);
