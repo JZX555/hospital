@@ -251,7 +251,7 @@ public class DoctorController {
 		prescription.setState(0);
 		
 		try {
-			this.prescriptionService.createPrescripiton(prescription);
+			this.prescriptionService.createPrescription(prescription);
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
@@ -263,32 +263,25 @@ public class DoctorController {
 	@RequestMapping("/updatePrescription")
 	@ResponseBody
 	public Integer updatePrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
-		String record_ID = request.getParameter("record_ID");
+		String ID = request.getParameter("ID");
 		String medicine_ID = request.getParameter("medicine_ID");
 		Integer nums = Integer.parseInt(request.getParameter("nums"));
 		Double price;
-		
-		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(record_ID);
-		if(recordWithBLOBs == null)
-			return 0;
 		
 		Medicine medicine = this.medicineService.getMedicineByID(medicine_ID);
 		if(medicine == null)
 			return 0;
 		price = medicine.getPrice() * nums;
 		
-		Random random = new Random();
+		Prescription prescription = this.prescriptionService.getPrescriptionByID(ID);
+		if(prescription == null)
+			return 0;
 		
-		Prescription prescription = new Prescription();
-		prescription.setId(record_ID + (int)(random.nextDouble() * 899 + 100));
-		prescription.setPatientId(recordWithBLOBs.getPatientId());
-		prescription.setDocId(recordWithBLOBs.getDocId());
-		prescription.setRecordId(record_ID);
 		prescription.setMedicineId(medicine_ID);
 		prescription.setNum(nums);
 		prescription.setPrice(price);
 		prescription.setState(0);
 		
-		return this.prescriptionService.createPrescripiton(prescription);
+		return this.prescriptionService.updatePrescription(prescription);
 	}
 }
