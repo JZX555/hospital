@@ -25,6 +25,12 @@
     from triage
     where queue = #{q,jdbcType=VARCHAR} and triage.index = #{i,jdbcType=INTEGER}
   </select>
+  <select id="selectByPatientKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from triage
+    where patient_ID = #{id,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from triage
     where ID = #{id,jdbcType=VARCHAR}

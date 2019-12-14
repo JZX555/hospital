@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class TriageServiceImpl implements TriageService {
 
 	public Triage getByQueueAndIndex(String q, Integer i) {
 		return this.triageDao.selectByQueueAndIndex(q, i);
+	}
+
+	public List<Triage> getTriagesByPatient(String ID) {
+		return this.triageDao.selectByPatientKey(ID);
 	}
 
 	public Integer createTriage(Triage t) {
