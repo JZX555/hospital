@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>我的预约 <small>列表</small></h5>
+                        <h5>药房库存 <small>清单</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -42,12 +42,10 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>预约单ID</th>
-                                    <th>预约医生ID</th>
-                                    <th>预约科室ID</th>
-                                    <th>预约单状态</th>
-                                    <th>预约时间</th>
-                                    <th>操作</th>
+                                    <th>药品ID</th>
+                                    <th>药品名称</th>
+                                    <th>药品单价</th>
+                                    <th>剩余库存</th> 
                                 </tr>
                             </thead>
                             <tbody id="deptList">
@@ -62,10 +60,6 @@
         
     </div>
 
-	<!-- 脚本 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
-    <!-- 语言包 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/zh-cn.js"></script>
 
 
     <!-- 全局js -->
@@ -82,16 +76,11 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-        	
-        	var patient_ID = $.cookie('loginID');
-         	
-         	
+		
         	$.ajax({
-        		url: '/patient/getReservationByPatient',
+        		url: '/Dispenser/getAllMedicines',
         		type: 'POST',
-        		
-        		data:{'ID':patient_ID},
-        		
+	
         		dataType: 'JSON',
         		success: function(res){
         			var data = res;
@@ -101,41 +90,26 @@
                         data: data,
                         columns: [
                             { data: 'id' },
-                            { data: 'docId' },
-                            { data: 'departId' },
-                            { data: 'state',render:function(data,type,row){
-                                if(data == 0){
-                                 
-                                    return "<font color='green' size='3''>正常<font/>";
-                                }else if(data == 1){
-                                    return "<font color='green' size='3''>正常<font/>";
-                                }else{
-                                	return "<font color='red' size='3''>已取消<font/>";
-                                }
-                                
-                        	} },
-                            { data: 'time' ,"render" : function(data, type, full, meta) {
-        						return  moment(data).format("YYYY-MM-DD");
-        					}},
+                            { data: 'name' },
+                            { data: 'price' },
                             { data: null}
                         ],
                         columnDefs:[{
-                            targets: 5,
+                            targets: 3,
                             render: function (data, type, row, meta) {
-                            	if(row.state == 0){
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.id + '") >取消预约 </a>';
-                            	}else if(row.state == 1){
-                            		return '<a type="button" class="btn btn-warning" href="#" disabled>已就诊 </a>';
+                            	
+                            	if(row.nums <=10){
+                            		return "<font color='red' size='3'>"+row.nums+"<font/>";
                             	}else{
-                            		return '<a type="button" class="btn btn-danger" href="#" disabled>已取消 </a>';
+                            		return "<font color='green' size='3'>"+row.nums+"<font/>";
                             	}
                             	
                                 
                             }
                         },
                             { "orderable": false, "targets": 3 },
-                            { "orderable": false, "targets": 5 },
-                            
+                            { "orderable": false, "targets": 2 },
+                            { "orderable": false, "targets": 1 },
                         ],
                     } );
         		},
@@ -144,33 +118,7 @@
         		}
         	});
         });
-        function changeghStatus(id){
-        	
-            	layer.confirm('确认取消预约？', {
-          		  btn: ['确定','取消'] //按钮
-          		}, function(){
-          			$.ajax({
-                  		url: '/patient/cancelReservationByID',
-                  		type: 'POST',
-                  		data: {
-                  			'ID':id
-                  		},
-                  		dataType: 'JSON',
-                  		success: function(result){
-                  			if(result>0){
-                  				layer.alert('取消成功',function(index){
-                  					//layer.close(index);
-                  					window.location.href="/patient/RervLists_patient";
-                  				});
-                  			}
-                  		},
-                  		error: function(res){
-                  			layer.msg('修改失败');
-                  		}
-                  	});
-          		}, function(){
-          	});
-        }
+  
     </script>
 	
     

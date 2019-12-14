@@ -36,12 +36,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">医院挂号系统</strong>
+                                        <strong class="font-bold">医院门诊系统</strong>
                                     </span>
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">医院挂号系统
+                        <div class="logo-element">医院门诊系统
                         </div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">

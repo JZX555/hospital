@@ -48,36 +48,17 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/collector/DeptLists_collector">
+                        <a class="J_menuItem" href="/Dispenser/MedList">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">门诊挂号</span>
+	                        <span class="nav-label">药品清单</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/collector/getPID_collector">
+                        <a class="J_menuItem" href="/Dispenser/Update_dispenser">
                         	<i class="fa fa-table"></i>
-	                        <span class="nav-label">预约挂号</span>
+	                        <span class="nav-label">处方处理</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="J_menuItem" href="/collector/shou_collector">
-                        	<i class="fa fa-table"></i>
-	                        <span class="nav-label">缴费处理</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/collector/shou_collector">
-                        	<i class="fa fa-table"></i>
-	                        <span class="nav-label">退费处理</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="/collector/Money_collector">
-                        	<i class="fa fa-table"></i>
-	                        <span class="nav-label">今日结算</span>
-                        </a>
-                    </li>
-               
                     <li>
                         <a class="J_menuItem" onclick="loginOut()">
                         	<i class="fa fa-table"></i>
@@ -94,7 +75,7 @@
                 
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="/collector/DeptLists_collector?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="/Dispenser/MedList?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->

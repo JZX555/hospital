@@ -49,8 +49,8 @@
                  <select class="sub_button" id ="userType" name="userType">
 					<option value="patient">病人</option>
 					<option value="doctor">医生</option>
-					<option value="chemist">药剂师</option>
 					<option value="dispenser">配药师</option>
+					<option value="chemist">药剂师</option>
 					<option value="collector">收费员</option>
                 </p>
 
