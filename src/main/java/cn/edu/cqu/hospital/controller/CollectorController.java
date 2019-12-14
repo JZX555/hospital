@@ -1,6 +1,7 @@
 package cn.edu.cqu.hospital.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -20,14 +21,17 @@ import cn.edu.cqu.hospital.pojo.Payment;
 import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Register;
+import cn.edu.cqu.hospital.pojo.Requisition;
 import cn.edu.cqu.hospital.pojo.Reservation;
 import cn.edu.cqu.hospital.pojo.Triage;
+import cn.edu.cqu.hospital.pojo.UnPay;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PaymentService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.QueueService;
 import cn.edu.cqu.hospital.service.RegisterService;
+import cn.edu.cqu.hospital.service.RequisitionService;
 import cn.edu.cqu.hospital.service.ReservationService;
 import cn.edu.cqu.hospital.service.TriageService;
 
@@ -50,6 +54,8 @@ public class CollectorController {
 	private QueueService queueService = null;
 	@Autowired
 	private PaymentService paymentService = null;
+	@Autowired
+	private RequisitionService requisitionService = null;
 	
 	@RequestMapping("/DeptLists_collector")
 	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -268,6 +274,41 @@ public class CollectorController {
 		for(Reservation r : res) {
 			if(r.getState() != 0 && r.getState() != 1)
 				res.remove(r);
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping("/getUnPayByPatient")
+	@ResponseBody
+	public List<UnPay> getUnPayByPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String patient_ID = request.getParameter("patient_ID");
+		List<UnPay> res = new ArrayList<UnPay>();
+		
+		List<Prescription> prescriptions = this.prescriptionService.getPrescriptionByPatient(patient_ID);
+		for(Prescription p : prescriptions) {
+			if(p.getState() == 0) {
+				UnPay tmp = new UnPay();
+				tmp.setPatient_ID(patient_ID);
+				tmp.setItem(2);
+				tmp.setItem_ID(p.getId());
+				tmp.setPrice(p.getPrice());
+				
+				res.add(tmp);
+			}
+		}
+		
+		List<Requisition> requisitions = this.requisitionService.getRequisitionByPatient(patient_ID);
+		for(Requisition r : requisitions) {
+			if(r.getState() == 0) {
+				UnPay tmp = new UnPay();
+				tmp.setPatient_ID(patient_ID);
+				tmp.setItem(3);
+				tmp.setItem_ID(r.getId());
+				tmp.setPrice(r.getPrice());
+				
+				res.add(tmp);
+			}
 		}
 		
 		return res;
