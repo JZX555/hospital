@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Doctor;
+import cn.edu.cqu.hospital.pojo.Payment;
 import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Register;
@@ -23,6 +24,7 @@ import cn.edu.cqu.hospital.pojo.Reservation;
 import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
+import cn.edu.cqu.hospital.service.PaymentService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.QueueService;
 import cn.edu.cqu.hospital.service.RegisterService;
@@ -46,6 +48,8 @@ public class CollectorController {
 	private PrescriptionService prescriptionService = null;
 	@Autowired
 	private QueueService queueService = null;
+	@Autowired
+	private PaymentService paymentService = null;
 	
 	@RequestMapping("/DeptLists_collector")
 	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -114,6 +118,20 @@ public class CollectorController {
 		if(this.registerService.createRegister(register) == 0)
 			return 0;
 		
+		Payment payment = new Payment();
+		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100) + collector_ID);
+		payment.setPatientId(patient_ID);
+		payment.setItem(1);
+		payment.setItemId(register_ID);
+		payment.setType(0);
+		payment.setTime(date);
+		payment.setPrice(10.0 + doctor.getLevel() * 10.0);
+		
+		if(this.paymentService.createPayment(payment) == 0) {
+			this.registerService.deleteRegister(register_ID);
+			return 0;
+		}
+		
 		Triage triage = new Triage();
 		triage.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
 		triage.setPatientId(patient_ID);
@@ -169,6 +187,20 @@ public class CollectorController {
 		
 		if(this.registerService.createRegister(register) == 0)
 			return 0;
+		
+		Payment payment = new Payment();
+		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100) + collector_ID);
+		payment.setPatientId(reservation.getPatientId());
+		payment.setItem(1);
+		payment.setItemId(register_ID);
+		payment.setType(0);
+		payment.setTime(date);
+		payment.setPrice(10.0 + doctor.getLevel() * 10.0);
+		
+		if(this.paymentService.createPayment(payment) == 0) {
+			this.registerService.deleteRegister(register_ID);
+			return 0;
+		}
 		
 		Triage triage = new Triage();
 		triage.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
