@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title> 医院挂号系统-主页</title>
+    <title> 医院门诊管理系统-主页</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -36,7 +36,7 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">医院挂号系统</strong>
+                                        <strong class="font-bold">医院门诊系统</strong>
                                     </span>
                                 </span>
                             </a>
@@ -69,7 +69,7 @@
                 
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="/index/index_index.jsp?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="/doctor/consult_doctor" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->

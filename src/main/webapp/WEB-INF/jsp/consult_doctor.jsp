@@ -124,10 +124,6 @@
         		}
         	});
         }
-        //重新加载
-        function reload(){
-        	window.location.reload();
-        }
     </script>
 	
     
