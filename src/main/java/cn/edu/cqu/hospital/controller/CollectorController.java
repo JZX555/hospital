@@ -119,7 +119,7 @@ public class CollectorController {
 			return 0;
 		
 		Payment payment = new Payment();
-		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100) + collector_ID);
+		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
 		payment.setPatientId(patient_ID);
 		payment.setItem(1);
 		payment.setItemId(register_ID);
@@ -189,7 +189,7 @@ public class CollectorController {
 			return 0;
 		
 		Payment payment = new Payment();
-		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100) + collector_ID);
+		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
 		payment.setPatientId(reservation.getPatientId());
 		payment.setItem(1);
 		payment.setItemId(register_ID);

@@ -20,9 +20,9 @@ public class DispenserController {
 	@Autowired
 	private MedicineService medicinService = null;
 	
-	@RequestMapping("/Update_dispense")
+	@RequestMapping("/Update_dispenser")
 	public String Update_dispense(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "Update_dispense";
+		return "Update_dispenser";
 	}
 	
 	@RequestMapping("/MedList")
