@@ -120,7 +120,7 @@
                             render: function (data, type, row, meta) {
                             	
                             	
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.patient_ID + '+'+ row.item + '+'+row.item_ID+'+' +row.price +'") >收费 </a>';
+                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.patient_ID + '","'+ row.item + '","' + row.item_ID + '","' + row.price +'") >收费 </a>';
                             	
                             	
                                 
