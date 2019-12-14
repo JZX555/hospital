@@ -159,8 +159,12 @@ public class CollectorController {
 		payment.setTime(date);
 		payment.setPrice(10.0 + doctor.getLevel() * 10.0);
 		
-		if(this.paymentService.createPayment(payment) == 0) {
-			this.registerService.deleteRegister(register_ID);
+		if(this.paymentService.createPayment(payment) == 0)
+			return 0;
+		
+		register.setState(1);
+		if(this.registerService.updateRegister(register) == 0) {
+			this.paymentService.deletaPayment(payment.getId());
 			return 0;
 		}
 		
@@ -230,8 +234,12 @@ public class CollectorController {
 		payment.setTime(date);
 		payment.setPrice(10.0 + doctor.getLevel() * 10.0);
 		
-		if(this.paymentService.createPayment(payment) == 0) {
-			this.registerService.deleteRegister(register_ID);
+		if(this.paymentService.createPayment(payment) == 0)
+			return 0;
+		
+		register.setState(1);
+		if(this.registerService.updateRegister(register) == 0) {
+			this.paymentService.deletaPayment(payment.getId());
 			return 0;
 		}
 		
@@ -301,6 +309,55 @@ public class CollectorController {
 		List<Requisition> requisitions = this.requisitionService.getRequisitionByPatient(patient_ID);
 		for(Requisition r : requisitions) {
 			if(r.getState() == 0) {
+				UnPay tmp = new UnPay();
+				tmp.setPatient_ID(patient_ID);
+				tmp.setItem(3);
+				tmp.setItem_ID(r.getId());
+				tmp.setPrice(r.getPrice());
+				
+				res.add(tmp);
+			}
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping("/getHasPayedByPatient")
+	@ResponseBody
+	public List<UnPay> getHasPayedByPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String patient_ID = request.getParameter("patient_ID");
+		List<UnPay> res = new ArrayList<UnPay>();
+		
+		List<Register> registers = this.registerService.getRegisterByPatient(patient_ID);
+		for(Register r : registers) {
+			if(r.getState() == 1) {
+				Doctor d = this.doctorService.getDoctorByID(r.getDocId());
+				UnPay tmp = new UnPay();
+				tmp.setPatient_ID(patient_ID);
+				tmp.setItem(1);
+				tmp.setItem_ID(r.getId());
+				tmp.setPrice(10.0 + 10 * d.getLevel());
+				
+				res.add(tmp);
+			}			
+		}
+		
+		List<Prescription> prescriptions = this.prescriptionService.getPrescriptionByPatient(patient_ID);
+		for(Prescription p : prescriptions) {
+			if(p.getState() == 1) {
+				UnPay tmp = new UnPay();
+				tmp.setPatient_ID(patient_ID);
+				tmp.setItem(2);
+				tmp.setItem_ID(p.getId());
+				tmp.setPrice(p.getPrice());
+				
+				res.add(tmp);
+			}
+		}
+		
+		List<Requisition> requisitions = this.requisitionService.getRequisitionByPatient(patient_ID);
+		for(Requisition r : requisitions) {
+			if(r.getState() == 1) {
 				UnPay tmp = new UnPay();
 				tmp.setPatient_ID(patient_ID);
 				tmp.setItem(3);
