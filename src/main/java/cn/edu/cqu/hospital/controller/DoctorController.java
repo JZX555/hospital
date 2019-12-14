@@ -87,6 +87,11 @@ public class DoctorController {
 		return "viewHistoricalRec";
 	}
 	
+	@RequestMapping("/addPrescription_doctor")
+	public String addPrescription_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "addPrescription_doctor";
+	}
+	
 	@RequestMapping("/getNextPatientByDoctor")
 	@ResponseBody
 	public Register getNextPatientByDocto(String ID, HttpServletRequest request, HttpServletResponse response, Model model, HttpSession httpSession) {
