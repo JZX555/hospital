@@ -212,9 +212,57 @@ public class DoctorController {
 		return this.medicineService.getAllMedicines();
 	}
 	
-	@RequestMapping("/insertPrescription")
+	@RequestMapping("/getAllPrescription")
 	@ResponseBody
-	public Integer insertPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public List<Prescription> getAllPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String record_ID = request.getParameter("record_ID");
+		
+		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(record_ID);
+		if(recordWithBLOBs == null)
+			return null;
+		
+		String doc_ID = recordWithBLOBs.getDocId();
+		
+		List<Prescription> res = this.prescriptionService.getPrescriptionByPatient(recordWithBLOBs.getPatientId());
+		for(Prescription p : res) {
+			if(!p.getDocId().equals(doc_ID))
+				res.remove(p);
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping("/createPrescription")
+	@ResponseBody
+	public Prescription createPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String record_ID = request.getParameter("record_ID");
+		
+		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(record_ID);
+		if(recordWithBLOBs == null)
+			return null;
+		
+		Prescription prescription = new Prescription();
+		Random random = new Random();		
+		
+		prescription.setId(record_ID + (int)(random.nextDouble() * 899 + 100));
+		prescription.setPatientId(recordWithBLOBs.getPatientId());
+		prescription.setDocId(recordWithBLOBs.getDocId());
+		prescription.setRecordId(record_ID);
+		prescription.setState(0);
+		
+		try {
+			this.prescriptionService.createPrescripiton(prescription);
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+		
+		return prescription;
+	}
+	
+	@RequestMapping("/updatePrescription")
+	@ResponseBody
+	public Integer updatePrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String record_ID = request.getParameter("record_ID");
 		String medicine_ID = request.getParameter("medicine_ID");
 		Integer nums = Integer.parseInt(request.getParameter("nums"));
