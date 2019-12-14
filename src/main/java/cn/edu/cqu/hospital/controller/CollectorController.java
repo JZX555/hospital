@@ -370,4 +370,59 @@ public class CollectorController {
 		
 		return res;
 	}
+	
+	@RequestMapping("/createPaymentForPatient")
+	@ResponseBody
+	public Integer createPaymentForPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String patient_ID = request.getParameter("patient_ID");
+		Integer item = Integer.parseInt(request.getParameter("item"));
+		String item_ID = request.getParameter("item_ID");
+		Double price = Double.parseDouble(request.getParameter("price"));
+		
+		Date date = new Date();
+		Random random = new Random();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		
+		if(item == 1) {
+			Register r = this.registerService.getRegisterByID(item_ID);
+			if(r == null || r.getState() != 0)
+				return 0;
+			r.setState(1);
+			
+			if(this.registerService.updateRegister(r) == 0)
+				return 0;
+		}
+		else if(item == 2) {
+			Prescription p = this.prescriptionService.getPrescriptionByID(item_ID);
+			if(p == null || p.getState() != 0)
+				return 0;
+			p.setState(1);
+			
+			if(this.prescriptionService.updatePrescription(p) == 0)
+				return 0;
+		}
+		else if(item == 3) {
+			Requisition r = this.requisitionService.getRequisitionByID(item_ID);
+			if(r == null || r.getState() != 0)
+				return 0;
+			r.setState(1);
+			
+			if(this.requisitionService.updateRequisition(r) == 0)
+				return 0;
+		}
+		else
+			return 0;
+		
+		Payment payment = new Payment();
+		payment.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		payment.setPatientId(patient_ID);
+		payment.setItem(item);
+		payment.setItemId(item_ID);
+		payment.setType(0);
+		payment.setPrice(price);
+		payment.setTime(date);
+		
+		return this.paymentService.createPayment(payment);
+	}
 }
