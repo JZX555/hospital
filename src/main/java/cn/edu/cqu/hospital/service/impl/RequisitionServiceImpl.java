@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class RequisitionServiceImpl implements RequisitionService {
 	
 	public Requisition getRequisitionByID(String ID) {
 		return this.requisitionDao.selectByPrimaryKey(ID);
+	}
+
+	public List<Requisition> getRequisitionByPatient(String ID) {
+		return this.requisitionDao.selectByPatientKey(ID);
 	}
 
 	public Integer createRequisition(Requisition r) {

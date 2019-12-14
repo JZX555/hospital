@@ -1,5 +1,7 @@
 package cn.edu.cqu.hospital.Dao;
 
+import java.util.List;
+
 import cn.edu.cqu.hospital.pojo.Requisition;
 
 public interface RequisitionMapper {
@@ -10,6 +12,8 @@ public interface RequisitionMapper {
     int insertSelective(Requisition record);
 
     Requisition selectByPrimaryKey(String id);
+    
+    List<Requisition> selectByPatientKey(String id);
 
     int updateByPrimaryKeySelective(Requisition record);
 
