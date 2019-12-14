@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Doctor;
 import cn.edu.cqu.hospital.pojo.Prescription;
+import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Reservation;
+import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.service.DoctorService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
+import cn.edu.cqu.hospital.service.QueueService;
 import cn.edu.cqu.hospital.service.RegisterService;
 import cn.edu.cqu.hospital.service.ReservationService;
 import cn.edu.cqu.hospital.service.TriageService;
@@ -41,6 +44,8 @@ public class CollectorController {
 	private DoctorService doctorService = null;
 	@Autowired
 	private PrescriptionService prescriptionService = null;
+	@Autowired
+	private QueueService queueService = null;
 	
 	@RequestMapping("/DeptLists_collector")
 	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -76,10 +81,22 @@ public class CollectorController {
 		String collector_ID = request.getParameter("collector_ID");
 		Integer type;
 		
-		if(doc_ID.endsWith("000"))
+		Doctor doctor = this.doctorService.getDoctorByID(doc_ID);
+		if(doctor == null)
+			return 0;
+		
+		Queue queue = null;
+		if(doctor.getLevel() == 0) {
+			queue = this.queueService.getQueueByID(doctor.getQueue());
 			type = 0;
-		else
+		}
+		else {
+			queue = this.queueService.getQueueByID(doctor.getPrioQueue());
 			type = 1;
+		}
+		
+		if(queue == null)
+			return 0;
 		
 		Date date = new Date();
 		Random random = new Random();
@@ -88,7 +105,9 @@ public class CollectorController {
 
 		
 		Register register = new Register();
-		register.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		String register_ID = dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100);
+		
+		register.setId(register_ID);
 		register.setPatientId(patient_ID);
 		register.setDocId(doc_ID);
 		register.setDepartId(depart_ID);
@@ -96,7 +115,17 @@ public class CollectorController {
 		register.setType(type);
 		register.setTime(date);
 		
-		return this.registerService.createRegister(register);
+		if(this.registerService.createRegister(register) == 0)
+			return 0;
+		
+		Triage triage = new Triage();
+		triage.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		triage.setPatientId(patient_ID);
+		triage.setRegisterId(register_ID);
+		triage.setQueue(queue.getId());
+		triage.setIndex(this.queueService.increaseNumsByID(queue.getId()));
+		
+		return this.triageService.createTriage(triage);
 	}
 	
 	@RequestMapping("/insertRegisterByReservation")
@@ -104,6 +133,7 @@ public class CollectorController {
 	public Integer insertRegisterByReservation(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String reservation_ID = request.getParameter("reservation_ID");
 		String collector_ID = request.getParameter("collector_ID");
+		Integer type;
 		
 		Reservation reservation = this.reservationService.getReservationByID(reservation_ID);
 		if(reservation == null || reservation.getState() != 0)
@@ -112,11 +142,22 @@ public class CollectorController {
 		if(this.reservationService.updateReservation(reservation) == 0)
 			return 0;
 		
-		Integer type;
-		if(reservation.getDocId().endsWith("000"))
+		Doctor doctor = this.doctorService.getDoctorByID(reservation.getDocId());
+		if(doctor == null)
+			return 0;
+		
+		Queue queue = null;
+		if(doctor.getLevel() == 0) {
+			queue = this.queueService.getQueueByID(doctor.getQueue());
 			type = 2;
-		else
+		}
+		else {
+			queue = this.queueService.getQueueByID(doctor.getPrioQueue());
 			type = 3;
+		}
+		
+		if(queue == null)
+			return 0;
 		
 		Date date = new Date();
 		Random random = new Random();
@@ -124,7 +165,9 @@ public class CollectorController {
 		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		
 		Register register = new Register();
-		register.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		String register_ID = dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100);
+		
+		register.setId(register_ID);
 		register.setPatientId(reservation.getPatientId());
 		register.setDocId(reservation.getDocId());
 		register.setDepartId(reservation.getDepartId());
@@ -132,7 +175,17 @@ public class CollectorController {
 		register.setType(type);
 		register.setTime(date);		
 		
-		return this.registerService.createRegister(register);
+		if(this.registerService.createRegister(register) == 0)
+			return 0;
+		
+		Triage triage = new Triage();
+		triage.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		triage.setPatientId(reservation.getPatientId());
+		triage.setRegisterId(register_ID);
+		triage.setQueue(queue.getId());
+		triage.setIndex(this.queueService.increaseNumsByID(queue.getId()));
+		
+		return this.triageService.createTriage(triage);
 	}
 	
 	@RequestMapping("/getRemainedByID")
