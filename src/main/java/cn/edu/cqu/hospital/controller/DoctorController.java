@@ -217,6 +217,14 @@ public class DoctorController {
 		return this.medicineService.getAllMedicines();
 	}
 	
+	@RequestMapping("/getMedicineByID")
+	@ResponseBody
+	public Medicine getMedicineByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String medicine_ID = request.getParameter("medicine_ID");
+		
+		return this.medicineService.getMedicineByID(medicine_ID);
+	}
+	
 	@RequestMapping("/getAllPrescription")
 	@ResponseBody
 	public List<Prescription> getAllPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
