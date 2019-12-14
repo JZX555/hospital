@@ -31,7 +31,7 @@
   </delete>
   <insert id="insert" parameterType="cn.edu.cqu.hospital.pojo.Triage" >
     insert into triage (ID, patient_ID, register_ID, 
-      queue, index)
+      queue, triage.index)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{registerId,jdbcType=VARCHAR}, 
       #{queue,jdbcType=VARCHAR}, #{index,jdbcType=INTEGER})
   </insert>
@@ -51,7 +51,7 @@
         queue,
       </if>
       <if test="index != null" >
-        index,
+        triage.index,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -85,7 +85,7 @@
         queue = #{queue,jdbcType=VARCHAR},
       </if>
       <if test="index != null" >
-        index = #{index,jdbcType=INTEGER},
+        triage.index = #{index,jdbcType=INTEGER},
       </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
@@ -95,7 +95,7 @@
     set patient_ID = #{patientId,jdbcType=VARCHAR},
       register_ID = #{registerId,jdbcType=VARCHAR},
       queue = #{queue,jdbcType=VARCHAR},
-      index = #{index,jdbcType=INTEGER}
+      triage.index = #{index,jdbcType=INTEGER}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
