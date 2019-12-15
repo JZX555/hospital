@@ -131,10 +131,10 @@
 	       		  shadeClose: true,
 	       		  shade: 0.8,
 	       		  area: ['70%', '90%'],
-	       		  content: '/doctor/editItemList_doctor',
+	       		  content: '/doctor/editRequisitionList_doctor',
 	       		  success: function (layero, index) {
         			var iframe = window['layui-layer-iframe' + index];
-                  	iframe.getItemList()
+                  	iframe.getRequisitionList()
                 }
        		});
         };
