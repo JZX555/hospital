@@ -81,6 +81,35 @@
         $(document).ready(function () {
         	
         });
+       	function getNextPatient() {
+           	var ID = $.cookie("loginID");
+        
+        	$.ajax({
+        		url: '/doctor/getNextPatientByDoctor',
+        		type: 'POST',
+        		async:false,
+        		data: {
+	        			'ID':ID,
+    				},
+        		dataType: 'JSON',
+        		success: function(res){
+        			
+        			var data = res;
+        			line = "<tr>" +
+                    		"<th>" + data.patientId + "</th>" +
+                    		"<th>" + data.type + "</th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#'>申请 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editPrescription()>编辑 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=viewPrevRecord()>查看 </a></th>" +
+                			"</tr>";
+        			$('#currentPatient').append(line);
+        		},
+        		error: function(res){
+        			layer.msg('今日已无病人就诊');
+        		}
+        	});
+        };
         function editRecord() {
         	layer.open({
 	       		  type: 2,
@@ -109,35 +138,20 @@
                 }
        		});
         };
-       	function getNextPatient() {
-           	var ID = $.cookie("loginID");
-        
-        	$.ajax({
-        		url: '/doctor/getNextPatientByDoctor',
-        		type: 'POST',
-        		async:false,
-        		data: {
-	        			'ID':ID,
-    				},
-        		dataType: 'JSON',
-        		success: function(res){
-        			
-        			var data = res;
-        			line = "<tr>" +
-                    		"<th>" + data.patientId + "</th>" +
-                    		"<th>" + data.type + "</th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#'>申请 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editPrescription()>编辑 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#'>查看 </a></th>" +
-                			"</tr>";
-        			$('#currentPatient').append(line);
-        		},
-        		error: function(res){
-        			layer.msg('今日已无病人就诊');
-        		}
-        	});
-        }
+        function viewPrevRecord() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '历史病历列表',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		  area: ['70%', '90%'],
+	       		  content: '/doctor/viewPrevRecord_doctor',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getRecordList()
+                }
+       		});
+        };
     </script>
 	
     
