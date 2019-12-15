@@ -9,6 +9,8 @@ public class Requisition {
 
     private String docId;
 
+    private String recordId;
+
     private String itemId;
 
     private Double price;
@@ -17,10 +19,11 @@ public class Requisition {
 
     private Integer state;
 
-    public Requisition(String id, String patientId, String docId, String itemId, Double price, Date time, Integer state) {
+    public Requisition(String id, String patientId, String docId, String recordId, String itemId, Double price, Date time, Integer state) {
         this.id = id;
         this.patientId = patientId;
         this.docId = docId;
+        this.recordId = recordId;
         this.itemId = itemId;
         this.price = price;
         this.time = time;
@@ -53,6 +56,14 @@ public class Requisition {
 
     public void setDocId(String docId) {
         this.docId = docId == null ? null : docId.trim();
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId == null ? null : recordId.trim();
     }
 
     public String getItemId() {
