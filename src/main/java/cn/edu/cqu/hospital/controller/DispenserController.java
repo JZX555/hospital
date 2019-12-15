@@ -55,6 +55,14 @@ public class DispenserController {
 	@RequestMapping("/updatePrescriptionByID")
 	@ResponseBody
 	public Integer updatePrescriptionByID(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return null;
+		String ID = request.getParameter("ID");
+		Integer state = Integer.parseInt(request.getParameter("state"));
+		
+		Prescription prescription = this.prescriptionService.getPrescriptionByID(ID);
+		if(ID == null) 
+			return 0;
+		prescription.setState(state);
+		
+		return this.prescriptionService.updatePrescription(prescription);
 	}
 }
