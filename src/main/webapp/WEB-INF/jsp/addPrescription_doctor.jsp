@@ -39,7 +39,7 @@
                             	<tr>
                             		<th>药品ID</th>
                             		<th>数量</th>
-                            		<th>价格</th>
+                            		<th>单价</th>
                             	</tr>
                             </thead>
                             <tbody id="medicineInfo">
@@ -86,12 +86,23 @@
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			layer.msg("保存成功");
-	       		},
+	       			layer.msg(res);
+	       			if(res == 1) {
+	       				layer.msg("保存成功");
+	       				setTimeout(function (){
+		       				parent.layer.closeAll();
+	    				}, 1000);
+	       			} else {
+	       				layer.msg("库存不足！");
+	       			}
+       			},
 	    		error: function(res){
 	    			layer.msg('保存失败');
 	    		}
 			});
+			setTimeout(function (){
+					window.location.reload();
+				}, 2000);
 		};
 		function getPriceById() {
 			var medicine_ID = document.getElementById("medicineId").value;
