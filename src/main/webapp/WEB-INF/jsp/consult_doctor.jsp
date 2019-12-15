@@ -88,7 +88,7 @@
 	       		  shadeClose: true,
 	       		  shade: 0.8,
 	       		  area: ['70%', '90%'],
-	       		  content: '/doctor/editRecord',
+	       		  content: '/doctor/editRecord_doctor',
 	       		  success: function (layero, index) {
         			var iframe = window['layui-layer-iframe' + index];
                   	iframe.getCurrRecord()
@@ -102,7 +102,7 @@
 	       		  shadeClose: true,
 	       		  shade: 0.8,
 	       		  area: ['70%', '90%'],
-	       		  content: '/doctor/editPrescription',
+	       		  content: '/doctor/editPrescriptionList_doctor',
 	       		  success: function (layero, index) {
         			var iframe = window['layui-layer-iframe' + index];
                   	iframe.getPrescriptionList()
