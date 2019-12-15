@@ -99,7 +99,7 @@
                     		"<th>" + data.patientId + "</th>" +
                     		"<th>" + data.type + "</th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#'>申请 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editItem()>申请 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editPrescription()>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=viewPrevRecord()>查看 </a></th>" +
                 			"</tr>";
@@ -121,6 +121,20 @@
 	       		  success: function (layero, index) {
         			var iframe = window['layui-layer-iframe' + index];
                   	iframe.getCurrRecord()
+                }
+       		});
+        };
+        function editItem() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '检验项目',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		  area: ['70%', '90%'],
+	       		  content: '/doctor/editItemList_doctor',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getItemList()
                 }
        		});
         };
