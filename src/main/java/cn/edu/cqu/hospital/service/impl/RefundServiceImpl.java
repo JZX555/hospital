@@ -22,6 +22,10 @@ public class RefundServiceImpl implements RefundService {
 		return this.refundDao.selecctByPatientKey(ID);
 	}
 
+	public List<Refund> getRefundByDate(String date) {
+		return this.refundDao.selectByDate(date);
+	}
+
 	public Integer createRefund(Refund r) {
 		return this.refundDao.insertSelective(r);
 	}

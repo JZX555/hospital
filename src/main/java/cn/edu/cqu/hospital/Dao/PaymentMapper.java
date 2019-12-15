@@ -14,6 +14,8 @@ public interface PaymentMapper {
     Payment selectByPrimaryKey(String id);
     
     List<Payment> selectByPatientKey(String id);
+    
+    List<Payment> selectByDate(String date);
 
     int updateByPrimaryKeySelective(Payment record);
 

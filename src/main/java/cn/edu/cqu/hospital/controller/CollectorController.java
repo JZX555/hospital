@@ -25,6 +25,7 @@ import cn.edu.cqu.hospital.pojo.Refund;
 import cn.edu.cqu.hospital.pojo.Register;
 import cn.edu.cqu.hospital.pojo.Requisition;
 import cn.edu.cqu.hospital.pojo.Reservation;
+import cn.edu.cqu.hospital.pojo.Settlement;
 import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.pojo.UnPay;
 import cn.edu.cqu.hospital.service.DoctorService;
@@ -484,5 +485,38 @@ public class CollectorController {
 		refund.setTime(date);
 		
 		return this.refundService.createRefund(refund);
+	}
+	
+	@RequestMapping("/getSettlement")
+	@ResponseBody
+	public Settlement getSettlement(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Settlement settlement = new Settlement();
+		Date time = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		String date = dateFormat.format(time);
+		
+		Double pay = 0.0;
+		Double ref = 0.0;
+		Double all = 0.0;
+		
+		List<Payment> payments = this.paymentService.getPaymentByDate(date);
+		for(Payment p : payments) {
+			pay += p.getPrice();
+		}
+		
+		List<Refund> refunds = this.refundService.getRefundByDate(date);
+		for(Refund r : refunds) {
+			ref -= r.getPrice();
+		}
+		
+		all = pay - ref;
+		
+		settlement.setDate(date);
+		settlement.setPayment(pay);
+		settlement.setRefund(ref);
+		settlement.setAll(all);
+		
+		return settlement;
 	}
 }

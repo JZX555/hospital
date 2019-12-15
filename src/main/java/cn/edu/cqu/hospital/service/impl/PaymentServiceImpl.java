@@ -22,6 +22,10 @@ public class PaymentServiceImpl implements PaymentService {
 		return this.paymentDao.selectByPatientKey(ID);
 	}
 
+	public List<Payment> getPaymentByDate(String date) {
+		return this.paymentDao.selectByDate(date);
+	}
+
 	public Integer createPayment(Payment p) {
 		return this.paymentDao.insertSelective(p);
 	}

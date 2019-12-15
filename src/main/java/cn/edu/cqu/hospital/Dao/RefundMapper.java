@@ -15,6 +15,8 @@ public interface RefundMapper {
     
     List<Refund> selecctByPatientKey(String id);
 
+    List<Refund> selectByDate(String date);
+    
     int updateByPrimaryKeySelective(Refund record);
 
     int updateByPrimaryKey(Refund record);

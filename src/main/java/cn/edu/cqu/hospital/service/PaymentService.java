@@ -7,6 +7,7 @@ import cn.edu.cqu.hospital.pojo.Payment;
 public interface PaymentService {
 	public Payment getPaymentByID(String ID);
 	public List<Payment> getPaymentByPatient(String ID);
+	public List<Payment> getPaymentByDate(String date);
 	
 	public Integer createPayment(Payment p);
 	public Integer updatePayment(Payment p);
