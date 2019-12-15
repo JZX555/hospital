@@ -513,7 +513,7 @@ public class CollectorController {
 		
 		List<Refund> refunds = this.refundService.getRefundByDate(date);
 		for(Refund r : refunds) {
-			ref -= r.getPrice();
+			ref += r.getPrice();
 		}
 		
 		all = pay - ref;
