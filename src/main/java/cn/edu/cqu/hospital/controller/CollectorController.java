@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Doctor;
+import cn.edu.cqu.hospital.pojo.Medicine;
 import cn.edu.cqu.hospital.pojo.Payment;
 import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.pojo.Queue;
@@ -27,6 +28,7 @@ import cn.edu.cqu.hospital.pojo.Reservation;
 import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.pojo.UnPay;
 import cn.edu.cqu.hospital.service.DoctorService;
+import cn.edu.cqu.hospital.service.MedicineService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PaymentService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
@@ -60,6 +62,8 @@ public class CollectorController {
 	private RequisitionService requisitionService = null;
 	@Autowired
 	private RefundService refundService = null;
+	@Autowired
+	private MedicineService medicineService = null;
 	
 	@RequestMapping("/DeptLists_collector")
 	public String DeptLists_collector(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -443,21 +447,18 @@ public class CollectorController {
 		Random random = new Random();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-		
-		if(item == 1) {
-			Register r = this.registerService.getRegisterByID(item_ID);
-			if(r == null || r.getState() != 1)
-				return 0;
-			r.setState(2);
-			
-			if(this.registerService.updateRegister(r) == 0)
-				return 0;
-		}
-		else if(item == 2) {
+
+		if(item == 2) {
 			Prescription p = this.prescriptionService.getPrescriptionByID(item_ID);
 			if(p == null || p.getState() != 1)
 				return 0;
-			p.setState(5);
+			p.setState(7);
+			
+			Medicine m = this.medicineService.getMedicineByID(p.getMedicineId());
+			if(m != null) {
+				m.setNums(m.getNums() + p.getNum());
+				this.medicineService.updateMedicine(m);
+			}
 			
 			if(this.prescriptionService.updatePrescription(p) == 0)
 				return 0;

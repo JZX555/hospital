@@ -357,14 +357,30 @@ public class DoctorController {
 		Integer nums = Integer.parseInt(request.getParameter("nums"));
 		Double price;
 		
-		Medicine medicine = this.medicineService.getMedicineByID(medicine_ID);
-		if(medicine == null)
-			return 0;
-		price = medicine.getPrice() * nums;
-		
 		Prescription prescription = this.prescriptionService.getPrescriptionByID(ID);
 		if(prescription == null)
 			return 0;
+		
+		
+		if(prescription.getMedicineId() != null && prescription.getNum() != null) {
+			Medicine medicine_old = this.medicineService.getMedicineByID(prescription.getMedicineId());
+			medicine_old.setNums(medicine_old.getNums() + prescription.getNum());
+			this.medicineService.updateMedicine(medicine_old);
+		}
+		
+		Medicine medicine_new = this.medicineService.getMedicineByID(medicine_ID);
+		if(medicine_new == null || medicine_new.getNums() < nums) {
+			if(prescription.getMedicineId() != null && prescription.getNum() != null) {
+				Medicine medicine_old = this.medicineService.getMedicineByID(prescription.getMedicineId());
+				medicine_old.setNums(medicine_old.getNums() - prescription.getNum());
+				this.medicineService.updateMedicine(medicine_old);
+			}			
+			return 0;
+		}
+		medicine_new.setNums(medicine_new.getNums() - nums);
+		this.medicineService.updateMedicine(medicine_new);
+		
+		price = medicine_new.getPrice() * nums;
 		
 		prescription.setMedicineId(medicine_ID);
 		prescription.setNum(nums);
