@@ -494,7 +494,8 @@ public class CollectorController {
 	
 	@RequestMapping("/getSettlement")
 	@ResponseBody
-	public Settlement getSettlement(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public List<Settlement> getSettlement(HttpServletRequest request, HttpServletResponse response, Model model) {
+		List<Settlement> res = new ArrayList<Settlement>();
 		Settlement settlement = new Settlement();
 		Date time = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -522,6 +523,8 @@ public class CollectorController {
 		settlement.setRefund(ref);
 		settlement.setAll(all);
 		
-		return settlement;
+		res.add(settlement);
+		
+		return res;
 	}
 }
