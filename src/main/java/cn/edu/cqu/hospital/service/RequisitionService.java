@@ -7,6 +7,7 @@ import cn.edu.cqu.hospital.pojo.Requisition;
 public interface RequisitionService {
 	public Requisition getRequisitionByID(String ID);
 	public List<Requisition> getRequisitionByPatient(String ID);
+	public List<Requisition> getRequisitionByRecord(String ID);
 	
 	public Integer createRequisition(Requisition r);
 	public Integer updateRequisition(Requisition r);

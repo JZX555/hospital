@@ -14,6 +14,8 @@ public interface RequisitionMapper {
     Requisition selectByPrimaryKey(String id);
     
     List<Requisition> selectByPatientKey(String id);
+    
+    List<Requisition> selectByRecordKey(String id);
 
     int updateByPrimaryKeySelective(Requisition record);
 

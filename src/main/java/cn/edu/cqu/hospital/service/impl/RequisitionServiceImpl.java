@@ -22,6 +22,10 @@ public class RequisitionServiceImpl implements RequisitionService {
 		return this.requisitionDao.selectByPatientKey(ID);
 	}
 
+	public List<Requisition> getRequisitionByRecord(String ID) {
+		return this.requisitionDao.selectByRecordKey(ID);
+	}
+
 	public Integer createRequisition(Requisition r) {
 		return this.requisitionDao.insertSelective(r);
 	}
