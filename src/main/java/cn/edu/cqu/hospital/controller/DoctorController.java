@@ -304,21 +304,7 @@ public class DoctorController {
 	public List<Prescription> getAllPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String record_ID = request.getParameter("record_ID");
 		
-		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(record_ID);
-		if(recordWithBLOBs == null)
-			return null;
-		
-		String doc_ID = recordWithBLOBs.getDocId();
-		
-		List<Prescription> res = this.prescriptionService.getPrescriptionByPatient(recordWithBLOBs.getPatientId());
-		
-		Iterator<Prescription> it = res.iterator();
-		while(it.hasNext()) {
-			Prescription p = it.next();
-			
-			if(!p.getDocId().equals(doc_ID))
-				it.remove();
-		}
+		List<Prescription> res = this.prescriptionService.getPrescriptionByRecord(record_ID);
 		
 		return res;
 	}
