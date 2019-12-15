@@ -97,18 +97,34 @@
        						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
        						res.patient.id + "</td></tr>";
             			line3 = "<tr><td align='center'>主诉</td>" +
-	    					"<td colspan='2'><textarea id='Illness' rows='6' cols='68' style='width:100%;height:100%;border:solid 1px #4682B4;' value='" 
-	    					+ res.recordWithBLOBs.illness + "'>" + "</textarea></td></tr>";
+	    					"<td colspan='2'><textarea id='Illness' rows='6' cols='68' style='width:100%;height:100%;border:solid 1px #4682B4;'>" + 
+	    					"</textarea></td></tr>";
             			line4 = "<tr><td align='center'>病史</td>" +
-    						"<td colspan='2'><textarea id='History' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;' value='"
-    						+ res.recordWithBLOBs.history + "'>" + "</textarea></td></tr>";
+    						"<td colspan='2'><textarea id='History' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;'>" +
+    						"</textarea></td></tr>";
    						line5 = "<tr><td align='center'>诊断结果</td>" +
-    						"<td colspan='2'><textarea id='Result' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;' value='" 
-    						+ res.recordWithBLOBs.result + "'>" + "</textarea></td></tr>";
+    						"<td colspan='2'><textarea id='Result' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;'>" +
+    						"</textarea></td></tr>";
    						line6 = "<tr><td align='center'>治疗方式</td>" +
-    						"<td colspan='2'><textarea id='Treatment' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;' value='"
-    						+ res.recordWithBLOBs.treatment + "'>" + "</textarea></td></tr>";
+    						"<td colspan='2'><textarea id='Treatment' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;'>" +
+    						"</textarea></td></tr>";
 	        			$("#patientInfo").append(line1+line2+line3+line4+line5+line6);
+	        			if(res.recordWithBLOBs.illness != null) {
+	        				document.getElementById('Illness').value=res.recordWithBLOBs.illness;
+	        				document.getElementById('Illness').readOnly = true; 
+	        			}
+	        			if(res.recordWithBLOBs.history != null) {
+	        				document.getElementById('History').value=res.recordWithBLOBs.history;
+	        				document.getElementById('History').readOnly = true; 
+	        			}
+	        			if(res.recordWithBLOBs.result != null) {
+	        				document.getElementById('Result').value=res.recordWithBLOBs.result;
+        					document.getElementById('Result').readOnly = true; 
+        				}
+	        			if(res.recordWithBLOBs.treatment != null) {
+	        				document.getElementById('Treatment').value=res.recordWithBLOBs.treatment;
+        					document.getElementById('Result').readOnly = true; 
+        				}
 	        		},
 	        		error: function(res){
 	        			layer.msg('病历加载失败');
