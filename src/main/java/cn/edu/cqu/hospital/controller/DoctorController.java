@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cn.edu.cqu.hospital.pojo.Department;
 import cn.edu.cqu.hospital.pojo.Doctor;
+import cn.edu.cqu.hospital.pojo.Item;
 import cn.edu.cqu.hospital.pojo.Medicine;
 import cn.edu.cqu.hospital.pojo.Patient;
 import cn.edu.cqu.hospital.pojo.PatientWithRecord;
@@ -29,15 +30,18 @@ import cn.edu.cqu.hospital.pojo.Queue;
 import cn.edu.cqu.hospital.pojo.Record;
 import cn.edu.cqu.hospital.pojo.RecordWithBLOBs;
 import cn.edu.cqu.hospital.pojo.Register;
+import cn.edu.cqu.hospital.pojo.Requisition;
 import cn.edu.cqu.hospital.pojo.Triage;
 import cn.edu.cqu.hospital.service.DepartmentService;
 import cn.edu.cqu.hospital.service.DoctorService;
+import cn.edu.cqu.hospital.service.ItemService;
 import cn.edu.cqu.hospital.service.MedicineService;
 import cn.edu.cqu.hospital.service.PatientService;
 import cn.edu.cqu.hospital.service.PrescriptionService;
 import cn.edu.cqu.hospital.service.QueueService;
 import cn.edu.cqu.hospital.service.RecordService;
 import cn.edu.cqu.hospital.service.RegisterService;
+import cn.edu.cqu.hospital.service.RequisitionService;
 import cn.edu.cqu.hospital.service.TriageService;
 
 @SessionAttributes(value = {"record_ID"})
@@ -62,6 +66,10 @@ public class DoctorController {
 	private MedicineService medicineService = null;
 	@Autowired
 	private PrescriptionService prescriptionService = null;
+	@Autowired
+	private RequisitionService requisitionService = null;
+	@Autowired
+	private ItemService itemService = null;
 	
 	
 	@RequestMapping("/consult_doctor")
@@ -379,5 +387,68 @@ public class DoctorController {
 		prescription.setState(0);
 		
 		return this.prescriptionService.updatePrescription(prescription);
+	}
+	
+	@RequestMapping("/getAllRequisition")
+	@ResponseBody
+	public List<Requisition> getAllRequisition(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String record_ID = request.getParameter("record_ID");
+		
+		List<Requisition> res = this.requisitionService.getRequisitionByRecord(record_ID);  
+				
+		return res;
+	}
+	
+	@RequestMapping("/createRequisition")
+	@ResponseBody
+	public Requisition createRequisition(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String record_ID = request.getParameter("record_ID");
+		
+		RecordWithBLOBs recordWithBLOBs = this.recordService.getRecordByID(record_ID);
+		if(recordWithBLOBs == null)
+			return null;
+		
+		Requisition requisition = new Requisition();
+		Date date = new Date();
+		Random random = new Random();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		
+		requisition.setId(dateFormat.format(date) + (int)(random.nextDouble() * 899 + 100));
+		requisition.setPatientId(recordWithBLOBs.getPatientId());
+		requisition.setDocId(recordWithBLOBs.getDocId());
+		requisition.setRecordId(record_ID);
+		requisition.setTime(date);
+		requisition.setState(0);
+		
+		try {
+			this.requisitionService.createRequisition(requisition);
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+		
+		return requisition;
+	}
+	
+	@RequestMapping("/updateRequisition")
+	@ResponseBody
+	public Integer updateRequisition(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		String item_ID = request.getParameter("item_ID");
+		Double price;
+		
+		Requisition requisition = this.requisitionService.getRequisitionByID(ID);
+
+		Item item = this.itemService.getItemByID(item_ID);
+		if(item == null)
+			return 0;
+		
+		price = item.getPrice();
+		
+		requisition.setItemId(item_ID);
+		requisition.setPrice(price);
+		
+		return this.requisitionService.updateRequisition(requisition);
 	}
 }
