@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.faces.flow.builder.ReturnBuilder;
 import javax.servlet.http.HttpServletRequest;
@@ -195,9 +196,11 @@ public class PatientController {
 		
 		List<Prescription> res = this.prescriptionService.getPrescriptionByPatient(ID);
 		
-		for(Prescription p : res) {
+		Iterator<Prescription> it = res.iterator();
+		while(it.hasNext()) {
+			Prescription p = it.next();
 			if(p.getState() != 2 && p.getState() != 3 && p.getState() != 4 && p.getState() != 5)
-				res.remove(p);
+				it.remove();
 		}
 		
 		return res;

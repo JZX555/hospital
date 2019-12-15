@@ -3,6 +3,7 @@ package cn.edu.cqu.hospital.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
@@ -310,9 +311,13 @@ public class DoctorController {
 		String doc_ID = recordWithBLOBs.getDocId();
 		
 		List<Prescription> res = this.prescriptionService.getPrescriptionByPatient(recordWithBLOBs.getPatientId());
-		for(Prescription p : res) {
+		
+		Iterator<Prescription> it = res.iterator();
+		while(it.hasNext()) {
+			Prescription p = it.next();
+			
 			if(!p.getDocId().equals(doc_ID))
-				res.remove(p);
+				it.remove();
 		}
 		
 		return res;

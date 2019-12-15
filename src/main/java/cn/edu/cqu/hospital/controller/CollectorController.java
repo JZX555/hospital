@@ -3,6 +3,7 @@ package cn.edu.cqu.hospital.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
@@ -288,9 +289,13 @@ public class CollectorController {
 		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 		
 		List<Reservation> res = this.reservationService.getReservationsByPatientAndDate(ID, dateFormat.format(date));
-		for(Reservation r : res) {
+		
+		Iterator<Reservation> it = res.iterator();
+		while(it.hasNext()) {
+			Reservation r = it.next();
+			
 			if(r.getState() != 0 && r.getState() != 1)
-				res.remove(r);
+				it.remove();
 		}
 		
 		return res;
