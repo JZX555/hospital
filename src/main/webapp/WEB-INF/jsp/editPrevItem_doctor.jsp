@@ -29,20 +29,20 @@
                         <a type='button' class='btn btn-info' href='#' onclick=savePrescription()>保存 </a>
                     </div>
                     <div class="ibox-content">
-						<center><font size="5" ><a>处方单</a></font></center>
-						<div class="row" id="prescriptionID" style="float:right;font-size:14px;">
+						<center><font size="5" ><a>检验项目</a></font></center>
+						<div class="row" id="itemID" style="float:right;font-size:14px;">
 						</div>
 					</div>
                     <div class="ibox-content" style="font-size:18px;">
 						<table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             	<tr>
-                            		<th>药品ID</th>
+                            		<th>检验项目ID</th>
                             		<th>数量</th>
-                            		<th>价格</th>
+                            		<th>单价</th>
                             	</tr>
                             </thead>
-                            <tbody id="medicineInfo">
+                            <tbody id="itemInfo">
                             </tbody>
                         </table>
                     </div>
@@ -73,15 +73,15 @@
 
 	<script>
 		var record_ID = '<%= session.getAttribute("record_ID") %>';
-		function savePrescription() {
-			var medicine_ID = document.getElementById("medicineId").value;
-			var nums = document.getElementById("medicineNum").value;
+		function saveItem() {
+			var item_ID = document.getElementById("itemId").value;
+			var nums = document.getElementById("itemNum").value;
 			$.ajax({
-        		url: '/doctor/updatePrescription',
+        		url: '/doctor/updateItem',
         		type: 'POST',
         		data:{
         			'ID':ID,
-        			'medicine_ID':medicine_ID,
+        			'item_ID':item_ID,
         			'nums':nums
         		},
 	       		dataType: 'JSON',
@@ -110,24 +110,17 @@
 	    		}
 			});
 		};
-
-		var data;
 		function getPrescriptionById(prescription_ID){
 			$.ajax({
 	        		url: '/doctor/getPrescriptionById',
 	        		type: 'POST',
 	        		data:{'prescription_ID':prescription_ID},
-	        		async:false,
 	        		dataType: 'JSON',
 	        		success: function(res){
 	        			$("#prescriptionID").append(
 	        					"<p><a>No：</a>" + prescription_ID + "</p>");
+	        			getMedicineInfo();
 	        			ID = prescription_ID;
-	        			selectBox = '<tr><td><select class="sub_button" id ="medicineId" name="medicineId">';
-	        			selectBox += getMedicineInfo(selectBox);
-		       			selectBox += '</select></td><td><input type="text" id="medicineNum" /></td>' +
-	        				'<td><input type="text" id="medicinePrice" value = "0" /></td></tr>';
-	        			$("#medicineInfo").append(selectBox);
 	        			document.getElementById("medicineId").value = res.medicineId;
 		       			document.getElementById("medicineNum").value = res.num;
 		       			document.getElementById("medicinePrice").value = res.price;
@@ -137,26 +130,27 @@
 	        		}
         	});
 		};
-		function getMedicineInfo(selectBox) {
+		function getMedicineInfo() {
 			$.ajax({
         		url: '/doctor/getAllMedicines',
         		type: 'POST',
         		data:{
         			'record_ID':record_ID
         		},
-        		async:false,
 	       		dataType: 'JSON',
-	       		success: function(res, selectBox){
+	       		success: function(res){
+	       			selectBox = '<tr><td><select class="sub_button" id ="medicineId" name="medicineId">';
 	       			for(let i=0;i<res.length;i++){
 						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
 	       			}
-	       			data = selectBox;
+	       			selectBox += '</select></td><td><input type="text" id="medicineNum" /></td>' +
+        				'<td><input type="text" id="medicinePrice" value = "0" /></td></tr>';
+        			$("#medicineInfo").append(selectBox);
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取失败');
 	    		}
 			});
-			return data;
 		};
 		
 	</script>

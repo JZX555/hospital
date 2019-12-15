@@ -101,7 +101,7 @@
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editItem()>申请 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editPrescription()>编辑 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#' onclick=viewPrevRecord()>查看 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=viewPrevRecord(" + data.patientId + ")>查看 </a></th>" +
                 			"</tr>";
         			$('#currentPatient').append(line);
         		},
@@ -152,7 +152,7 @@
                 }
        		});
         };
-        function viewPrevRecord() {
+        function viewPrevRecord(ID) {
         	layer.open({
 	       		  type: 2,
 	       		  title: '历史病历列表',
@@ -162,7 +162,7 @@
 	       		  content: '/doctor/viewPrevRecord_doctor',
 	       		  success: function (layero, index) {
         			var iframe = window['layui-layer-iframe' + index];
-                  	iframe.getRecordList()
+                  	iframe.getRecordList(ID)
                 }
        		});
         };

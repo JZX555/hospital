@@ -72,7 +72,7 @@
 		function Date2String(date) {
 			return  moment(date).format("YYYY-MM-DD");
 		};
-		function viewRecordById(ID){
+		function viewRecordById(ID) {
 			$("#recordID").append(
 					"<p><a>No：</a>" + ID + "</p>");
 			$.ajax({
@@ -85,20 +85,16 @@
 	        			$("#visitTime").append("<p><a>就诊时间：</a>" + Date2String(res.recordWithBLOBs.time) + "</p>");
 	        			
 	        			line1 = "<tr>" +
-                			"<td>&nbsp;姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
-               				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
+                			"<td width='33%''>姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
                				res.patient.name + "</td>" +
-                			"<td>&nbsp;&nbsp;&nbsp;性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
-               				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                			"<td width='33%''>&nbsp;&nbsp;性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                				res.patient.sex + "</td>" +
-                			"<td>&nbsp;&nbsp;年龄：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
-               				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                			"<td width='33%''>&nbsp;&nbsp;年龄：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                				res.patient.age + "</td></tr>";
-            			line2 = "<tr><td>&nbsp;电话：&nbsp;&nbsp;&nbsp;&nbsp;" + 
-       						"&nbsp;&nbsp;" + 
+            			line2 = "<tr><td>电话：&nbsp;&nbsp;&nbsp;" + 
        						res.patient.phone + "</td>" +
         					"<td colspan='2'>&nbsp;&nbsp;&nbsp;身份证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
-       						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+       						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
        						res.patient.id + "</td></tr>";
             			line3 = "<tr><td align='center'>主诉</td>" +
 	    					"<td colspan='2'><textarea id='Illness' rows='6' cols='68' style='width:100%;height:100%;border:solid 1px #4682B4;' value='" 
@@ -112,7 +108,7 @@
    						line6 = "<tr><td align='center'>治疗方式</td>" +
     						"<td colspan='2'><textarea id='Treatment' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;' value='"
     						+ res.recordWithBLOBs.treatment + "'>" + "</textarea></td></tr>";
-	        			$("#recordInfo").append(line1+line2+line3+line4+line5+line6);
+	        			$("#patientInfo").append(line1+line2+line3+line4+line5+line6);
 	        		},
 	        		error: function(res){
 	        			layer.msg('病历加载失败');

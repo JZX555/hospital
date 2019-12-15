@@ -65,24 +65,25 @@
     <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
 	<script>
-		function getRecordList() {
+		function getRecordList(patient_ID) {
         	$.ajax({
-        		url: '/doctor/getAllRecord',
+        		url: '/doctor/getRecordByPatient',
         		type: 'POST',
         		dataType: 'JSON',
+        		data: {"patient_ID" : patient_ID},
         		success: function(res){
        				var data = res;
        				//然后 DataTables 这样初始化：
                     $('.dataTables-example').DataTable( {
                         data: data,
                         columns: [
-                       		{ data: 'id' },
+                       		{ data: 'recordWithBLOBs.id' },
                            	{ data: null}
                         ],
                         columnDefs:[{
                             targets: 1,
                             render: function (data, type, row) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=viewOneRecord("' + row.id + '")>查看</a>';
+                                return '<a type="button" class="btn btn-info" href="#" onclick=viewOneRecord("' + row.recordWithBLOBs.id + '")>查看</a>';
                             }
                         },
                             { "orderable": false, "targets": 1 },
