@@ -39,7 +39,7 @@
                             	<tr>
                             		<th>药品ID</th>
                             		<th>数量</th>
-                            		<th>单价</th>
+                            		<th>价格</th>
                             	</tr>
                             </thead>
                             <tbody id="medicineInfo">
@@ -95,6 +95,7 @@
 		};
 		function getPriceById() {
 			var medicine_ID = document.getElementById("medicineId").value;
+			var num = document.getElementById("medicineNum").value;
 			$.ajax({
         		url: '/doctor/getMedicineByID',
         		type: 'POST',
@@ -103,7 +104,7 @@
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			document.getElementById("medicinePrice").value = res.price;
+	       			document.getElementById("medicinePrice").value = res.price * num;
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取价格失败');
@@ -141,7 +142,7 @@
 						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
 	       			}
 	       			selectBox += '</select></td><td><input type="text" id="medicineNum" /></td>' +
-        				'<td><input type="text" id="medicinePrice" value = "0" /></td></tr>';
+        				'<td><input type="number" id="medicinePrice" value = "0" /></td></tr>';
         			$("#medicineInfo").append(selectBox);
 	       		},
 	    		error: function(res){
