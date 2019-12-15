@@ -112,9 +112,9 @@ public class DoctorController {
 		return "addPrescription_doctor";
 	}
 	
-	@RequestMapping("/addRequisition_docto")
-	public String addRequisition_docto() {
-		return "addRequisition_docto";
+	@RequestMapping("/addRequisition_doctor")
+	public String addRequisition_doctor() {
+		return "addRequisition_doctor";
 	}
 	
 	@RequestMapping("/viewRecordById_doctor")
@@ -392,6 +392,20 @@ public class DoctorController {
 		prescription.setState(0);
 		
 		return this.prescriptionService.updatePrescription(prescription);
+	}
+	
+	@RequestMapping("/getItemMedicineByID")
+	@ResponseBody
+	public Item getItemMedicineByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String item_ID = request.getParameter("item_ID");
+		
+		return this.itemService.getItemByID(item_ID);
+	}
+	
+	@RequestMapping("/getAllItems")
+	@ResponseBody
+	public List<Item> getAllItems(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return this.itemService.getAllItems();
 	}
 	
 	@RequestMapping("/getAllRequisition")
