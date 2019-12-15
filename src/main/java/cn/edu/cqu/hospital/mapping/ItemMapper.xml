@@ -17,6 +17,11 @@
     from item
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectAllItems" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from item
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from item
     where ID = #{id,jdbcType=VARCHAR}
