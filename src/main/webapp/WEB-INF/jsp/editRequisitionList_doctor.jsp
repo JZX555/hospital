@@ -27,13 +27,13 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <a type='button' class='btn btn-info' href='#' onclick=addItem()>新增项目 </a>
+                        <a type='button' class='btn btn-info' href='#' onclick=addItem()>新增检验单 </a>
                     </div>
                     <div class="ibox-content" style="font-size:18px;">
 						<table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             	<tr>
-                                    <th>项目ID</th>
+                                    <th>检验项目ID</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -69,7 +69,7 @@
 		var record_ID = '<%= session.getAttribute("record_ID") %>';
 		function getItemList() {
         	$.ajax({
-        		url: '/doctor/getAllItem',
+        		url: '/doctor/getAllRequisitions',
         		data:{
         			'record_ID':record_ID
         		},
@@ -87,7 +87,7 @@
                         columnDefs:[{
                             targets: 1,
                             render: function (data, type, row) {
-                                return '<a type="button" class="btn btn-info" href="#" onclick=editOneItem("' + row.id + '")>编辑</a>';
+                                return '<a type="button" class="btn btn-info" href="#" onclick=editOneRequisition("' + row.id + '")>编辑</a>';
                             }
                         },
                             { "orderable": false, "targets": 1 },
@@ -99,17 +99,17 @@
         		}
         	});
         };
-		function editOneItem(ID){
+		function editOneRequisition(ID){
         	layer.open({
       		  type: 2,
       		  title: '处方',
       		  shadeClose: true,
       		  shade: 0.8,
       		  area: ['70%', '90%'],
-      		  content: '/doctor/editPrevItem_doctor',
+      		  content: '/doctor/editPrevRequisition_doctor',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];
-                iframe.getItemById(ID)
+                iframe.getRequisitionById(ID)
               }
       		});
         };
@@ -120,7 +120,7 @@
       		  	shadeClose: true,
       		  	shade: 0.8,
       		  	area: ['70%', '90%'],
-      		  	content: '/doctor/addPrescription_doctor',
+      		  	content: '/doctor/addRequisition_doctor',
       		  	success: function (layero, index) {
       				var iframe = window['layui-layer-iframe' + index];
                 	iframe.getCurrPrescription()

@@ -95,6 +95,7 @@
 		};
 		function getPriceById() {
 			var medicine_ID = document.getElementById("medicineId").value;
+			var num = document.getElementById("medicineNum").value;
 			$.ajax({
         		url: '/doctor/getMedicineByID',
         		type: 'POST',
@@ -103,7 +104,7 @@
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			document.getElementById("medicinePrice").value = res.price;
+	       			document.getElementById("medicinePrice").value = res.price * num;
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取价格失败');
