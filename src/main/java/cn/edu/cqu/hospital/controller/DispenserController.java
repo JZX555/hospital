@@ -46,6 +46,14 @@ public class DispenserController {
 		return this.medicinService.getAllMedicines();
 	}
 	
+	@RequestMapping("/getPrecriptionByID")
+	@ResponseBody
+	public Prescription getPrecriptionByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String ID = request.getParameter("ID");
+		
+		return this.prescriptionService.getPrescriptionByID(ID);
+	}
+	
 	@RequestMapping("/getPrecriptions")
 	@ResponseBody
 	public List<Prescription> getPrescriptions(HttpServletRequest request, HttpServletResponse response, Model model) {
