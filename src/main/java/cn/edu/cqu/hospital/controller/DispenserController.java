@@ -36,7 +36,7 @@ public class DispenserController {
 	}
 	
 	@RequestMapping("/show_dispenser")
-	public String show_dispenser() {
+	public String show_dispenser(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "show_dispenser";
 	}
 	

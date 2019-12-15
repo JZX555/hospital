@@ -20,4 +20,9 @@ public class ChemistController {
 	public String Update_chemist(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "Update_chemist";
 	}
+	
+	@RequestMapping("/show_chemist")
+	public String show_chemist(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "show_chemist";
+	}
 }
