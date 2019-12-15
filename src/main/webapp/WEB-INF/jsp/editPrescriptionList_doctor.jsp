@@ -95,7 +95,7 @@
                     } );
         		},
         		error: function(res){
-        			layer.msg('');
+        			layer.msg('获取列表失败');
         		}
         	});
         };
