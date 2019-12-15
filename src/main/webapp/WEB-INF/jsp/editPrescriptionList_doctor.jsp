@@ -109,7 +109,7 @@
       		  content: '/doctor/editPrevPrescription_doctor',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];
-                iframe.getDoctorByDeptId(ID)
+                iframe.getPrescriptionById(ID)
               }
       		});
         };
