@@ -34,6 +34,18 @@
     from prescription
     where record_ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectAllByDispenser" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from prescription
+    where state = 1 or state = 2 or state = 3
+  </select>
+  <select id="selectAllByChemist" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from prescription
+    where state = 4 or state = 5 or state = 6
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from prescription
     where ID = #{id,jdbcType=VARCHAR}

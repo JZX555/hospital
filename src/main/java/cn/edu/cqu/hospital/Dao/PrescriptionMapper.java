@@ -16,6 +16,10 @@ public interface PrescriptionMapper {
     List<Prescription> selectByPatientKey(String id);
     
     List<Prescription> selectByRecordKey(String id);
+    
+    List<Prescription> selectAllByDispenser();
+    
+    List<Prescription> selectAllByChemist();
                  
     int updateByPrimaryKeySelective(Prescription record);
 

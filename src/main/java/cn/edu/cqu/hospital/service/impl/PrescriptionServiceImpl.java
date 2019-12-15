@@ -22,6 +22,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 		return this.prescriptionDao.selectByPatientKey(ID);
 	}
 
+	public List<Prescription> getAllByDispenser() {
+		return this.prescriptionDao.selectAllByDispenser();
+	}
+
+	public List<Prescription> getAllByChemist() {
+		return this.prescriptionDao.selectAllByChemist();
+	}
+
 	public Integer createPrescription(Prescription p) {
 		return this.prescriptionDao.insertSelective(p);
 	}
