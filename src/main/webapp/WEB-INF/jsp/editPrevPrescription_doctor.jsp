@@ -110,20 +110,23 @@
 	    		}
 			});
 		};
-		function getCurrPrescription(){
+		function getPrescriptionById(prescription_ID){
 			$.ajax({
-	        		url: '/doctor/createPrescription',
+	        		url: '/doctor/getPrescriptionById',
 	        		type: 'POST',
-	        		data:{'record_ID':record_ID},
+	        		data:{'prescription_ID':prescription_ID},
 	        		dataType: 'JSON',
 	        		success: function(res){
 	        			$("#prescriptionID").append(
-	        					"<p><a>No：</a>" + res.id + "</p>");
-	        			ID = res.id;
+	        					"<p><a>No：</a>" + prescription_ID + "</p>");
 	        			getMedicineInfo();
+	        			ID = prescription_ID;
+	        			document.getElementById("medicineId").value = res.medicineId;
+		       			document.getElementById("medicineNum").value = res.num;
+		       			document.getElementById("medicinePrice").value = res.price;
 	        		},
 	        		error: function(res){
-	        			layer.msg('新建处方失败');
+	        			layer.msg('获取处方失败');
 	        		}
         	});
 		};

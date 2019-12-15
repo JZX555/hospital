@@ -14,6 +14,7 @@
     <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 	<style>
 		.des{display:block;line-height:25px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 	</style>
@@ -60,6 +61,9 @@
     
     <script src="/static/js/laydate/laydate.js"></script>
     <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
 	<script>
 		var record_ID = '<%= session.getAttribute("record_ID") %>';
@@ -72,42 +76,55 @@
         		type: 'POST',
         		dataType: 'JSON',
         		success: function(res){
-        			if(res != null) {
-        				//然后 DataTables 这样初始化：
-                        $('.dataTables-example').DataTable( {
-                            data: res,
-                            columns: [
-                                { data: 'id' },
-                                { data: null}
-                            ],
-                            columnDefs:[{
-                                targets: 1,
-                                render: function (data, type, row) {
-                                    return '<a type="button" class="btn btn-info" href="#" >编辑</a>';
-                                }
-                            },
-                                { "orderable": false, "targets": 1 },
-                            ],
-                        } );
-        			}
+       				var data = res;
+       				//然后 DataTables 这样初始化：
+                    $('.dataTables-example').DataTable( {
+                        data: data,
+                        columns: [
+                       		{ data: 'id' },
+                           	{ data: null}
+                        ],
+                        columnDefs:[{
+                            targets: 1,
+                            render: function (data, type, row) {
+                                return '<a type="button" class="btn btn-info" href="#" onclick=editOnePrescription("' + row.id + '")>编辑</a>';
+                            }
+                        },
+                            { "orderable": false, "targets": 1 },
+                        ],
+                    } );
         		},
         		error: function(res){
         			layer.msg('列表获取失败');
         		}
         	});
-        }
+        };
+		function editOnePrescription(ID){
+        	layer.open({
+      		  type: 2,
+      		  title: '处方',
+      		  shadeClose: true,
+      		  shade: 0.8,
+      		  area: ['70%', '90%'],
+      		  content: '/doctor/editPrevPrescription_doctor',
+      		  success: function (layero, index) {
+      			var iframe = window['layui-layer-iframe' + index];
+                iframe.getPrescriptionById(ID)
+              }
+      		});
+        };
 		function addPrescription() {
 			layer.open({
-      			type: 3,
+      			type: 2,
       		  	title: '处方',
       		  	shadeClose: true,
       		  	shade: 0.8,
       		  	area: ['70%', '90%'],
-      		  	content: '/doctor/addPrescription',
+      		  	content: '/doctor/addPrescription_doctor',
       		  	success: function (layero, index) {
       				var iframe = window['layui-layer-iframe' + index];
-                	iframe.getCurrRecord()
-              }
+                	iframe.getCurrPrescription()
+              	}
      		});
 		}
 	</script>

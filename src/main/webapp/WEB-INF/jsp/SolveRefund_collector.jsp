@@ -119,8 +119,8 @@
                             targets: 4,
                             render: function (data, type, row, meta) {
                             	
-                            	
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.patient_ID + '+'+ row.item + '+'+row.item_ID+'+' +row.price +'") >收费 </a>';
+                            		
+                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.patient_ID + '","'+ row.item + '","' + row.item_ID + '","' + row.price +'") >退费 </a>';
                             	
                             	
                                 
@@ -136,7 +136,8 @@
         	});
         });
         function changeghStatus(patient_ID,item,item_ID,price){
-         	
+        	
+        	
           			$.ajax({
                   		url: '/collector/createRefundForPatient',
                   		type: 'POST',
@@ -149,6 +150,7 @@
                   		},
                   		dataType: 'JSON',
                   		success: function(result){
+                  			
                   			if(result>0){
                   				layer.alert('退费成功',function(index){
                   					//layer.close(index);

@@ -81,34 +81,6 @@
         $(document).ready(function () {
         	
         });
-        function editRecord() {
-        	layer.open({
-	       		  type: 2,
-	       		  title: '病历',
-	       		  shadeClose: true,
-	       		  shade: 0.8,
-	       		  area: ['70%', '90%'],
-	       		  content: '/doctor/editRecord',
-	       		  success: function (layero, index) {
-        			var iframe = window['layui-layer-iframe' + index];
-                  	iframe.getCurrRecord()
-                }
-       		});
-        };
-        function editPrescription() {
-        	layer.open({
-	       		  type: 2,
-	       		  title: '处方列表',
-	       		  shadeClose: true,
-	       		  shade: 0.8,
-	       		  area: ['70%', '90%'],
-	       		  content: '/doctor/editPrescription',
-	       		  success: function (layero, index) {
-        			var iframe = window['layui-layer-iframe' + index];
-                  	iframe.getPrescriptionList()
-                }
-       		});
-        };
        	function getNextPatient() {
            	var ID = $.cookie("loginID");
         
@@ -127,9 +99,9 @@
                     		"<th>" + data.patientId + "</th>" +
                     		"<th>" + data.type + "</th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#'>申请 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=editItem()>申请 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editPrescription()>编辑 </a></th>" +
-                    		"<th><a type='button' class='btn btn-info' href='#'>查看 </a></th>" +
+                    		"<th><a type='button' class='btn btn-info' href='#' onclick=viewPrevRecord()>查看 </a></th>" +
                 			"</tr>";
         			$('#currentPatient').append(line);
         		},
@@ -137,7 +109,63 @@
         			layer.msg('今日已无病人就诊');
         		}
         	});
-        }
+        };
+        function editRecord() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '病历',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		  area: ['70%', '90%'],
+	       		  content: '/doctor/editRecord_doctor',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getCurrRecord()
+                }
+       		});
+        };
+        function editItem() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '检验项目',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		  area: ['70%', '90%'],
+	       		  content: '/doctor/editItemList_doctor',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getItemList()
+                }
+       		});
+        };
+        function editPrescription() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '处方列表',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		  area: ['70%', '90%'],
+	       		  content: '/doctor/editPrescriptionList_doctor',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getPrescriptionList()
+                }
+       		});
+        };
+        function viewPrevRecord() {
+        	layer.open({
+	       		  type: 2,
+	       		  title: '历史病历列表',
+	       		  shadeClose: true,
+	       		  shade: 0.8,
+	       		  area: ['70%', '90%'],
+	       		  content: '/doctor/viewPrevRecord_doctor',
+	       		  success: function (layero, index) {
+        			var iframe = window['layui-layer-iframe' + index];
+                  	iframe.getRecordList()
+                }
+       		});
+        };
     </script>
 	
     
