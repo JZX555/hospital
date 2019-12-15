@@ -35,6 +35,11 @@ public class DispenserController {
 		return "MedList";
 	}
 	
+	@RequestMapping("/show_dispenser")
+	public String show_dispenser() {
+		return "show_dispenser";
+	}
+	
 	@RequestMapping("/getAllMedicines")
 	@ResponseBody
 	public List<Medicine> getAllMedicines(HttpServletRequest request, HttpServletResponse response, Model model) {
