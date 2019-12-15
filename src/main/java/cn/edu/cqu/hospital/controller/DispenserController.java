@@ -1,5 +1,6 @@
 package cn.edu.cqu.hospital.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.hospital.pojo.Medicine;
+import cn.edu.cqu.hospital.pojo.Prescription;
 import cn.edu.cqu.hospital.service.MedicineService;
+import cn.edu.cqu.hospital.service.PrescriptionService;
 
 @Controller
 @RequestMapping("/Dispenser")
 public class DispenserController {
 	@Autowired
 	private MedicineService medicinService = null;
+	@Autowired
+	private PrescriptionService prescriptionService = null;
 	
 	@RequestMapping("/Update_dispenser")
 	public String Update_dispense(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -34,5 +39,17 @@ public class DispenserController {
 	@ResponseBody
 	public List<Medicine> getAllMedicines(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return this.medicinService.getAllMedicines();
+	}
+	
+	@RequestMapping("/getPrecriptions")
+	@ResponseBody
+	public List<Prescription> getPrescriptions(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return this.prescriptionService.getAllByDispenser();
+	}
+	
+	@RequestMapping("/updatePrescriptionByID")
+	@ResponseBody
+	public Integer updatePrescriptionByID(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return null;
 	}
 }
