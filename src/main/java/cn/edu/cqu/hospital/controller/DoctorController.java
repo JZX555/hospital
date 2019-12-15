@@ -112,19 +112,24 @@ public class DoctorController {
 		return "addPrescription_doctor";
 	}
 	
+	@RequestMapping("/addRequisition_docto")
+	public String addRequisition_docto() {
+		return "addRequisition_docto";
+	}
+	
 	@RequestMapping("/viewRecordById_doctor")
 	public String viewRecordById_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "viewRecordById_doctor";
 	}
 	
-	@RequestMapping("/editItemList_doctor")
+	@RequestMapping("/editRequisitionList_doctor")
 	public String editItemList_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "editItemList_doctor";
+		return "editRequisitionList_doctor";
 	}
 	
-	@RequestMapping("/editPrevItem_doctor")
+	@RequestMapping("/editPrevRequisition_doctor")
 	public String editPrevItem_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "editPrevItem_doctor";
+		return "editPrevRequisition_doctor";
 	}
 	
 	@RequestMapping("/getNextPatientByDoctor")
