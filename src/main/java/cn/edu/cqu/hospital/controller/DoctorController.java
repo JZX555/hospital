@@ -1,6 +1,7 @@
 package cn.edu.cqu.hospital.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -67,9 +68,14 @@ public class DoctorController {
 		return "consult_doctor";
 	}
 	
-	@RequestMapping("/editRecord")
+	@RequestMapping("/viewPrevRecord_doctor")
+	public String viewPrevRecord_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "viewPrevRecord_doctor";
+	}
+	
+	@RequestMapping("/editRecord_doctor")
 	public String editRecord(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "editRecord";
+		return "editRecord_doctor";
 	}
 	
 	@RequestMapping("/editRequisition")
@@ -77,9 +83,14 @@ public class DoctorController {
 		return "editRequisition";
 	}
 	
-	@RequestMapping("/editPrescription")
+	@RequestMapping("/editPrevPrescription_doctor")
+	public String editPrevPrescription_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "editPrevPrescription_doctor";
+	}
+	
+	@RequestMapping("/editPrescriptionList_doctor")
 	public String editPrescription(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "editPrescription";
+		return "editPrescriptionList_doctor";
 	}
 	
 	@RequestMapping("/viewHistoricalRec")
@@ -90,6 +101,21 @@ public class DoctorController {
 	@RequestMapping("/addPrescription_doctor")
 	public String addPrescription_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "addPrescription_doctor";
+	}
+	
+	@RequestMapping("/viewRecordById_doctor")
+	public String viewRecordById_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "viewRecordById_doctor";
+	}
+	
+	@RequestMapping("/editItemList_doctor")
+	public String editItemList_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "editItemList_doctor";
+	}
+	
+	@RequestMapping("/editPrevItem_doctor")
+	public String editPrevItem_doctor(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "editPrevItem_doctor";
 	}
 	
 	@RequestMapping("/getNextPatientByDoctor")
@@ -190,6 +216,45 @@ public class DoctorController {
 		return res;
 	}
 	
+	@RequestMapping("/getRecordByPatient")
+	@ResponseBody
+	public List<PatientWithRecord> getRecordByPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String patient_ID = request.getParameter("patient_ID");
+		List<PatientWithRecord> res = new ArrayList<PatientWithRecord>();
+		
+		Patient patient = this.patientService.getPatientByID(patient_ID);
+		if(patient == null)
+			return null;
+		
+		List<RecordWithBLOBs> recordWithBLOBs = this.recordService.getRecordByPatient(patient_ID);
+		if(recordWithBLOBs == null)
+			return null;
+		
+		
+		for(RecordWithBLOBs r : recordWithBLOBs) {
+			PatientWithRecord tmp = new PatientWithRecord();
+			if(patient == null)
+				return null;
+			
+			Doctor doctor = this.doctorService.getDoctorByID(r.getDocId());
+			if(doctor == null)
+				return null;
+			
+			Department department = this.departmentService.getDepartmentByID(doctor.getDepartId());
+			if(department == null)
+				return null;
+			
+			tmp.setRecordWithBLOBs(r);
+			tmp.setDepartment(department);
+			tmp.setPatient(patient);
+			
+			res.add(tmp);
+		}
+		
+		return res;
+		
+	}
+	
 	@RequestMapping("/updatetRecordByID")
 	@ResponseBody
 	public Integer updateRecordByID(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -223,6 +288,14 @@ public class DoctorController {
 		String medicine_ID = request.getParameter("medicine_ID");
 		
 		return this.medicineService.getMedicineByID(medicine_ID);
+	}
+	
+	@RequestMapping("/getPrescriptionById")
+	@ResponseBody
+	public Prescription getPrescriptionById(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String prescription_ID = request.getParameter("prescription_ID");
+		
+		return this.prescriptionService.getPrescriptionByID(prescription_ID);
 	}
 	
 	@RequestMapping("/getAllPrescription")

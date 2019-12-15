@@ -434,6 +434,7 @@ public class CollectorController {
 	@ResponseBody
 	public Integer createRefundForPatient(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String patient_ID = request.getParameter("patient_ID");
+		System.out.println(request.getParameter("item"));
 		Integer item = Integer.parseInt(request.getParameter("item"));
 		String item_ID = request.getParameter("item_ID");
 		Double price = Double.parseDouble(request.getParameter("price"));
