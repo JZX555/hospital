@@ -119,7 +119,7 @@
       		  	title: '处方',
       		  	shadeClose: true,
       		  	shade: 0.8,
-      		  	area: ['100%', '100%'],
+      		  	area: ['70%', '90%'],
       		  	content: '/doctor/addPrescription_doctor',
       		  	success: function (layero, index) {
       				var iframe = window['layui-layer-iframe' + index];

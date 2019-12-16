@@ -29,17 +29,17 @@
                         <a type='button' class='btn btn-info' href='#' onclick=saveRequisition()>保存 </a>
                     </div>
                     <div class="ibox-content">
-						<center><font size="5" ><a>检验项目</a></font></center>
-						<div class="row" id="itemID" style="float:right;font-size:14px;">
+						<center><font size="5" ><a>检验单</a></font></center>
+						<div class="row" id="requisitionID" style="float:right;font-size:14px;">
 						</div>
 					</div>
                     <div class="ibox-content" style="font-size:18px;">
 						<table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             	<tr>
-                            		<th>检验项目ID</th>
+                            		<th>项目ID</th>
                             		<th>数量</th>
-                            		<th>单价</th>
+                            		<th>价格</th>
                             	</tr>
                             </thead>
                             <tbody id="itemInfo">
@@ -73,11 +73,11 @@
 
 	<script>
 		var record_ID = '<%= session.getAttribute("record_ID") %>';
-		function saveItem() {
+		function saveRequisition() {
 			var item_ID = document.getElementById("itemId").value;
 			var nums = document.getElementById("itemNum").value;
 			$.ajax({
-        		url: '/doctor/updateItem',
+        		url: '/doctor/updateRequisition',
         		type: 'POST',
         		data:{
         			'ID':ID,
@@ -86,15 +86,27 @@
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			layer.msg("保存成功");
-	       		},
+	       			layer.msg(res);
+	       			if(res == 1) {
+	       				layer.msg("保存成功");
+	       				setTimeout(function (){
+		       				parent.layer.closeAll();
+	    				}, 1000);
+	       			} else {
+	       				layer.msg("库存不足！");
+	       			}
+       			},
 	    		error: function(res){
 	    			layer.msg('保存失败');
 	    		}
 			});
+			setTimeout(function (){
+					window.location.reload();
+				}, 2000);
 		};
 		function getPriceById() {
 			var item_ID = document.getElementById("itemId").value;
+			var num = document.getElementById("itemNum").value;
 			$.ajax({
         		url: '/doctor/getItemByID',
         		type: 'POST',
@@ -103,54 +115,59 @@
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			document.getElementById("itemPrice").value = res.price;
+	       			document.getElementById("itemPrice").value = res.price * num;
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取价格失败');
 	    		}
 			});
 		};
-		function getRequisitionById(requisition_ID){
+
+		var data;
+		function getRequisitionById(Requisition_ID){
 			$.ajax({
 	        		url: '/doctor/getRequisitionById',
 	        		type: 'POST',
-	        		data:{'requisition_ID':requisition_ID},
+	        		data:{'Requisition_ID':Requisition_ID},
+	        		async:false,
 	        		dataType: 'JSON',
 	        		success: function(res){
 	        			$("#requisitionID").append(
-	        					"<p><a>No：</a>" + requisition_ID + "</p>");
-	        			getItemInfo();
-	        			ID = requisition_ID;
+	        					"<p><a>No：</a>" + Requisition_ID + "</p>");
+	        			ID = Requisition_ID;
+	        			selectBox = '<tr><td><select class="sub_button" id ="itemId" name="itemId">';
+	        			selectBox += getItemInfo(selectBox);
+		       			selectBox += '</select></td><td><input type="text" id="itemNum" value="1" disabled/></td>' +
+	        				'<td><input type="text" id="itemPrice" value = "0" /></td></tr>';
+	        			$("#itemInfo").append(selectBox);
 	        			document.getElementById("itemId").value = res.itemId;
-		       			document.getElementById("itemNum").value = res.num;
 		       			document.getElementById("itemPrice").value = res.price;
 	        		},
 	        		error: function(res){
-	        			layer.msg('获取处方失败');
+	        			layer.msg('获取检验单失败');
 	        		}
         	});
 		};
-		function getItemInfo() {
+		function getItemInfo(selectBox) {
 			$.ajax({
-        		url: '/doctor/getAllitems',
+        		url: '/doctor/getAllItems',
         		type: 'POST',
         		data:{
         			'record_ID':record_ID
         		},
+        		async:false,
 	       		dataType: 'JSON',
-	       		success: function(res){
-	       			selectBox = '<tr><td><select class="sub_button" id ="itemId" name="itemId">';
+	       		success: function(res, selectBox){
 	       			for(let i=0;i<res.length;i++){
 						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
 	       			}
-	       			selectBox += '</select></td><td><input type="text" id="itemNum" /></td>' +
-        				'<td><input type="text" id="itemPrice" value = "0" /></td></tr>';
-        			$("#itemInfo").append(selectBox);
+	       			data = selectBox;
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取失败');
 	    		}
 			});
+			return data;
 		};
 		
 	</script>

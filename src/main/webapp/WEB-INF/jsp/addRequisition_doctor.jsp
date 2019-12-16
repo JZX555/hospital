@@ -89,9 +89,7 @@
 	       			layer.msg(res);
 	       			if(res == 1) {
 	       				layer.msg("保存成功");
-	       				setTimeout(function (){
-		       				parent.layer.closeAll();
-	    				}, 1000);
+	       				parent.layer.closeAll();
 	       			} else {
 	       				layer.msg("库存不足！");
 	       			}
@@ -149,7 +147,7 @@
 	       			for(let i=0;i<res.length;i++){
 						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
 	       			}
-	       			selectBox += '</select></td><td><input type="text" id="itemNum" /></td>' +
+	       			selectBox += '</select></td><td><input type="text" id="itemNum" value="1" disabled/></td>' +
         				'<td><input type="number" id="itemPrice" value = "0" /></td></tr>';
         			$("#itemInfo").append(selectBox);
 	       		},
