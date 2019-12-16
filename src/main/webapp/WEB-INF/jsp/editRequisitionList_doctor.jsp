@@ -105,7 +105,7 @@
       		  title: '检验单',
       		  shadeClose: true,
       		  shade: 0.8,
-      		  area: ['70%', '90%'],
+      		  area: ['100%', '100%'],
       		  content: '/doctor/editPrevRequisition_doctor',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];

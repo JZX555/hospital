@@ -100,9 +100,6 @@
 	    			layer.msg('保存失败');
 	    		}
 			});
-			setTimeout(function (){
-					window.location.reload();
-				}, 2000);
 		};
 		function getPriceById() {
 			var medicine_ID = document.getElementById("medicineId").value;

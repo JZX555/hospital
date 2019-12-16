@@ -101,7 +101,7 @@
       		  title: '病历',
       		  shadeClose: true,
       		  shade: 0.8,
-      		  area: ['70%', '90%'],
+      		  area: ['100%', '100%'],
       		  content: '/doctor/viewRecordById_doctor',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];
