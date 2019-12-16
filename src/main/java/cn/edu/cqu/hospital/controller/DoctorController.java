@@ -408,6 +408,14 @@ public class DoctorController {
 		return this.itemService.getAllItems();
 	}
 	
+	@RequestMapping("/getRequisitionById")
+	@ResponseBody
+	public Requisition getRequisitionById(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String Requisition_ID = request.getParameter("Requisition_ID");
+		
+		return this.requisitionService.getRequisitionByID(Requisition_ID);
+	}
+	
 	@RequestMapping("/getAllRequisition")
 	@ResponseBody
 	public List<Requisition> getAllRequisition(HttpServletRequest request, HttpServletResponse response, Model model) {
