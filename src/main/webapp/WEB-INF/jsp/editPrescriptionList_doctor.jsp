@@ -122,6 +122,7 @@
       		  	area: ['70%', '90%'],
       		  	content: '/doctor/addPrescription_doctor',
       		  	success: function (layero, index) {
+      		  		
       				var iframe = window['layui-layer-iframe' + index];
                 	iframe.getCurrPrescription()
               	}

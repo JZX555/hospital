@@ -89,7 +89,9 @@
 	       			layer.msg(res);
 	       			if(res == 1) {
 	       				layer.msg("保存成功");
-	       				parent.layer.closeAll();
+	       				window.parent.location.reload();
+       					varindex = parent.layer.getFrameIndex(window.name);
+       					parent.layer.close(index);
 	       			} else {
 	       				layer.msg("库存不足！");
 	       			}

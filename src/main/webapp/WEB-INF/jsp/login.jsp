@@ -84,7 +84,7 @@
         			},
         		dataType: 'text',
         		success: function(result){
-        			alert(result);
+        			
         			window.location.href = result;
         		},
         		error: function(res){
