@@ -33,7 +33,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>我的排号单 <small>列表</small></h5>
+                        <h5>当前处方单 <small>列表</small></h5>
                         <div class="ibox-tools">
                         </div>
                     </div>
@@ -42,12 +42,12 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>挂号单ID</th>
-                                    <th>挂号科室ID</th>
-                                    <th>挂号医生ID</th>
-                                    <th>所属队列</th>
-                                    <th>号码</th>
-                                    <th>前方剩余人数</th>
+                                    <th>处方单ID</th>
+                                    <th>病人ID</th>
+                                    <th>药品ID</th>
+                                    <th>药品数量</th>
+                                    <th>当前状态</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody id="deptList">
@@ -82,43 +82,46 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-        	
-        	var patient_ID = $.cookie('loginID');
         	$.ajax({
-        		url: '/patient/getIndexByID',
+        		url: '/Dispenser/getPrecriptions',
         		type: 'POST',
-        		
-        		data:{'patient_ID':patient_ID},
-        		
+ 	
         		dataType: 'JSON',
         		success: function(res){
-
         			var data = res;
         			
         			//然后 DataTables 这样初始化：
                     $('.dataTables-example').DataTable( {
                         data: data,
                         columns: [
-                            { data: 'register_ID' },
-                            { data: 'depart_ID' },
-                            { data: 'doc_ID' },
-                            { data: 'queue_ID' },
-                            { data: 'index' },
+                            { data: 'id' },
+                            { data: 'patientId' },
+                            { data: 'medicineId' },
+                            { data: 'num'},
+                            {data:  'state' ,render:function(data,type,row){
+                                if(data == 1){
+                                 
+                                    return "<font color='green' size='3''>已缴费<font/>";
+                                }else if(data == 2){
+                                    return "<font color='green' size='3''>等待配药<font/>";
+                                }else{
+                                	return "<font color='green' size='3''>正在配药<font/>";
+                                }
+                                
+                        	}},
                             { data: null}
                         ],
                         columnDefs:[{
                             targets: 5,
                             render: function (data, type, row, meta) {
-                            	if(row.remained == 0){
-                            		return "<font color='red' size='3'>"+row.remained+" 人<font/>";
-                            	}else{
-                            		return "<font color='green' size='3'>"+row.remained+" 人<font/>";
-                            	}
                             	
+                            	return '<a type="button" class="btn btn-info" href="#" onclick=Update("' + row.id + '") >更新 </a>';
                                 
                             }
                         },
+                            { "orderable": false, "targets": 4 },
                             { "orderable": false, "targets": 3 },
+                            { "orderable": false, "targets": 5 },
                             { "orderable": false, "targets": 2 },
                             { "orderable": false, "targets": 1 },
                         ],
@@ -129,6 +132,27 @@
         		}
         	});
         });
+        
+        function Update(id){
+        	
+        	
+        	
+        	layer.open({
+      		  type: 2,
+      		  title: '更新处方状态',
+      		  shadeClose: true,
+      		  shade: 0.8,
+      		  area: ['50%', '50%'],
+      		  content: '/Dispenser/Update_dispenser ', //iframe的url
+      		  success: function (layero, index) {
+      			var iframe = window['layui-layer-iframe' + index];
+      			
+                iframe.getPreById(id)
+
+              }
+      		});
+        }
+        
     </script>
 	
     
@@ -137,4 +161,3 @@
 </body>
 
 </html>
-

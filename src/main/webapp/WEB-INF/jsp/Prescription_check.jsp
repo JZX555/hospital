@@ -108,16 +108,17 @@
                         columnDefs:[{
                             targets: 4,
                             render: function (data, type, row, meta) {
-                            	if(row.state == 1){
-                            		return '<a type="button" class="btn btn-info" href="#" disabled >等待配药 </a>';
-                            	}else if(row.state == 2){
-                            		return '<a type="button" class="btn btn-info" href="#" disabled>正在配药 </a>';
+                            	var a;
+                            	if(row.state == 2){
+                            		a= "<font color='green' size='3''>等待配药<font/>";
                             	}else if(row.state == 3){
-                            		return '<a type="button" class="btn btn-info" href="#" disabled>等待发药 </a>';
-                            	}else {
-                            		return '<a type="button" class="btn btn-info" href="#" disabled>正在发药 </a>';
+                            		a= "<font color='green' size='3''>正在配药<font/>";
+                            	}else if(row.state == 4){
+                            		a= "<font color='green' size='3''>等待发药<font/>";
+                            	}else if(row.state == 5){
+                            		a= "<font color='green' size='3''>正在发药<font/>";
                             	};
-                            	
+                            	return a;
                                 
                             }
                         },

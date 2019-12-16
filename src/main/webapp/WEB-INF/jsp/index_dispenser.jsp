@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/Dispenser/Update_dispenser">
+                        <a class="J_menuItem" href="/Dispenser/show_dispenser">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">处方处理</span>
                         </a>

@@ -8,22 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title> - 数据表格</title>
+    <title> - 基本表单</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
     <link rel="shortcut icon" href="favicon.ico"> 
     <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
-    <!-- Data Tables -->
-    <link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
 	<style>
-		.float-e-margins .btn {margin-bottom: 0px;}		
-		.tableBtn{float:left;width:30%;margin-top:0px;margin-left:5px;padding:2px 8px;}
+		.form-control, .single-line{padding:4px 12px;}
 	</style>
 </head>
 
@@ -32,135 +28,106 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>待配药处方 <small>列表</small></h5>
-                        <div class="ibox-tools">
-                        </div>
-                    </div>
+                    
                     <div class="ibox-content">
-
-                        <table class="table table-striped table-bordered table-hover dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th>处方ID</th>
-                                    <th>病人ID</th>
-                                    <th>药品ID</th>
-                                    <th>药品数量</th>
-                                    <th>当前状态</th>
-                                </tr>
-                            </thead>
-                            <tbody id="deptList">
-                            
-                            </tbody>
-                        </table>
-
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form role="form" class="form-horizontal">
+                                	<div class="form-group">
+                                        <label>处方ID：</label>
+                                        <input id="preid" type="text" placeholder="处方ID" class="form-control">
+                                    </div>
+                                    
+                                   <div class="form-group">
+                                        <label>可更新状态为：</label>
+		                                    <select class="form-control m-b" name="pstate" id="pstate">
+		                                        <option value="2">等待配药</option>
+		                                        <option value="3">正在配药</option>
+		                                        <option value="4">等待发药</option>
+		                                    </select>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-primary pull-right m-t-n-xs" onclick="updatestate()">
+                                        	<strong>更 新</strong>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
+           </div>
     </div>
-
-	<!-- 脚本 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
-    <!-- 语言包 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/zh-cn.js"></script>
-
 
     <!-- 全局js -->
     <script src="/static/js/jquery.min.js?v=2.1.4"></script>
     <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="/static/js/plugins/jeditable/jquery.jeditable.js"></script>
-    <!-- Data Tables -->
-    <script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
     <!-- 自定义js -->
     <script src="/static/js/content.js?v=1.0.0"></script>
-	<script src="/static/layer/layer.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
-    <!-- Page-Level Scripts -->
+
+    <!-- iCheck -->
+    <script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="/static/layer/layer.js"></script>
     <script>
-        $(document).ready(function () {
-        	
-        	var patient_ID = sessionStorage.getItem("patient_ID");
-			
-        	$.ajax({
-        		url: '/collector/getReservationByID',
+	    $(document).ready(function () {
+	        $('.i-checks').iCheck({
+	            checkboxClass: 'icheckbox_square-green',
+	            radioClass: 'iradio_square-green',
+	        });
+	    });
+    
+	    function getPreById(id){
+	    	
+	    	$.ajax({
+        		url: '/Dispenser/getPrecriptionByID',
         		type: 'POST',
-        		
-        		data:{'ID':patient_ID},
-        		
+        		data: {'ID':id},
         		dataType: 'JSON',
-        		success: function(res){
-        			var data = res;
-        			
-        			//然后 DataTables 这样初始化：
-                    $('.dataTables-example').DataTable( {
-                        data: data,
-                        columns: [
-                            { data: 'id' },
-                            { data: 'docId' },
-                            { data: 'departId' },
-                            { data: 'time' ,"render" : function(data, type, full, meta) {
-        						return  moment(data).format("YYYY-MM-DD");
-        					}},
-                            { data: null}
-                        ],
-                        columnDefs:[{
-                            targets: 4,
-                            render: function (data, type, row, meta) {
-                            	
-                            	if(row.state == 0){
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.id + '") >进行挂号 </a>';
-                            	}else if(row.state == 1){
-                            		return '<a type="button" class="btn btn-warning" href="#" disabled>已挂号 </a>';
-                            	}else{
-                            		return '<a type="button" class="btn btn-danger" href="#" disabled>已取消 </a>';
-                            	}
-                            	
-                                
-                            }
-                        },
-                            { "orderable": false, "targets": 3 },
-                        ],
-                    } );
+        		success: function(res){        			
+        			$('#preid').val(res.id);
         		},
         		error: function(res){
-        			layer.msg('加载失败');
+        			layer.msg('失败');
         		}
         	});
-        });
-        function changeghStatus(id){
-         	var collector_id=$.cookie('loginID');
-          			$.ajax({
-                  		url: '/collector/insertRegisterByReservation',
-                  		type: 'POST',
-                  		data: {
-                  			'reservation_ID':id,
-                  			'collector_ID':collector_id
-                  			
-                  		},
-                  		dataType: 'JSON',
-                  		success: function(result){
-                  			if(result>0){
-                  				layer.alert('挂号成功',function(index){
-                  					//layer.close(index);
-                  					window.location.href="/collector/SolveRerv_collector";
-                  				});
-                  			}
-                  		},
-                  		error: function(res){
-                  			layer.msg('挂号失败');
-                  		}
-                  	});
-          		}
-        
-        //重新加载
-        function reload(){
-        	window.location.reload();
+	    }
+	    
+        function updatestate(){
+        	var pstate = $("select option:checked").val();
+        	var stateName = $("select option:checked").text();
+			var preid=$('#preid').val();
+        	$.ajax({
+        		url: '/Dispenser/updatePrescriptionByID',
+        		type: 'POST',
+        		data: {'ID':preid,
+        			'state':pstate
+        			},
+        		dataType: 'JSON',
+        		success: function(result){
+        			var frameIndex = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        			
+        			if(result>0){
+        				layer.alert('更新成功',function(index){
+        					//layer.close(index);
+        					window.parent.location.reload();
+        					parent.layer.closeAll();
+        					//alert(111);
+        					
+        				});
+        				
+        			}else{
+        				layer.msg('更新失败');
+        			}
+        		},
+        		error: function(res){
+        			layer.msg('更新失败');
+        		}
+        	});
         }
     </script>
-	
+
     
     
 

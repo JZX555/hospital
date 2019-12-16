@@ -118,15 +118,22 @@
                         columnDefs:[{
                             targets: 4,
                             render: function (data, type, row, meta) {
-                            	
+                            		if(row.item==1){
+                            			return '<a type="button" class="btn btn-danger" href="#" disabled>不可退费 </a>';
+                            			
+                            		}else{
                             		
-                            		return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.patient_ID + '","'+ row.item + '","' + row.item_ID + '","' + row.price +'") >退费 </a>';
-                            	
+                            			return '<a type="button" class="btn btn-info" href="#" onclick=changeghStatus("' + row.patient_ID + '","'+ row.item + '","' + row.item_ID + '","' + row.price +'") >退费 </a>';
+                            		}
                             	
                                 
                             }
                         },
+                            { "orderable": false, "targets": 1 },
+                            { "orderable": false, "targets": 2 },
+                            { "orderable": false, "targets": 3 },
                             { "orderable": false, "targets": 4 },
+                            
                         ],
                     } );
         		},

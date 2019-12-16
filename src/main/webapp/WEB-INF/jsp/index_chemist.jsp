@@ -48,7 +48,7 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="/collector/getPID_collector">
+                        <a class="J_menuItem" href="/Chemist/show_chemist">
                         	<i class="fa fa-table"></i>
 	                        <span class="nav-label">处方处理</span>
                         </a>
@@ -69,7 +69,7 @@
                 
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="/collector/DeptLists_collector?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="/Chemist/show_chemist?v=4.0" frameborder="0" data-id="/index/index_index.jsp" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->
