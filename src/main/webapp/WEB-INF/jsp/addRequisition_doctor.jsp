@@ -26,23 +26,23 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <a type='button' class='btn btn-info' href='#' onclick=savePrescription()>保存 </a>
+                        <a type='button' class='btn btn-info' href='#' onclick=saveRequisition()>保存 </a>
                     </div>
                     <div class="ibox-content">
-						<center><font size="5" ><a>处方单</a></font></center>
-						<div class="row" id="prescriptionID" style="float:right;font-size:14px;">
+						<center><font size="5" ><a>检验单</a></font></center>
+						<div class="row" id="requisitionID" style="float:right;font-size:14px;">
 						</div>
 					</div>
                     <div class="ibox-content" style="font-size:18px;">
 						<table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                             	<tr>
-                            		<th>药品ID</th>
+                            		<th>项目ID</th>
                             		<th>数量</th>
-                            		<th>单价</th>
+                            		<th>价格</th>
                             	</tr>
                             </thead>
-                            <tbody id="medicineInfo">
+                            <tbody id="itemInfo">
                             </tbody>
                         </table>
                     </div>
@@ -73,15 +73,15 @@
 
 	<script>
 		var record_ID = '<%= session.getAttribute("record_ID") %>';
-		function savePrescription() {
-			var medicine_ID = document.getElementById("medicineId").value;
-			var nums = document.getElementById("medicineNum").value;
+		function saveRequisition() {
+			var item_ID = document.getElementById("itemId").value;
+			var nums = document.getElementById("itemNum").value;
 			$.ajax({
-        		url: '/doctor/updatePrescription',
+        		url: '/doctor/updateRequisition',
         		type: 'POST',
         		data:{
         			'ID':ID,
-        			'medicine_ID':medicine_ID,
+        			'item_ID':item_ID,
         			'nums':nums
         		},
 	       		dataType: 'JSON',
@@ -100,58 +100,58 @@
 	    			layer.msg('保存失败');
 	    		}
 			});
+			setTimeout(function (){
+					window.location.reload();
+				}, 2000);
 		};
 		function getPriceById() {
-			var medicine_ID = document.getElementById("medicineId").value;
-			var num = document.getElementById("medicineNum").value;
+			var item_ID = document.getElementById("itemId").value;
+			var num = document.getElementById("itemNum").value;
 			$.ajax({
-        		url: '/doctor/getMedicineByID',
+        		url: '/doctor/getItemMedicineByID',
         		type: 'POST',
         		data:{
-        			'medicine_ID':medicine_ID
+        			'item_ID':item_ID
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			document.getElementById("medicinePrice").value = res.price * num;
+	       			document.getElementById("itemPrice").value = res.price * num;
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取价格失败');
 	    		}
 			});
 		};
-		function getCurrPrescription(){
+		function getCurrRequisition(){
 			$.ajax({
-	        		url: '/doctor/createPrescription',
+	        		url: '/doctor/createRequisition',
 	        		type: 'POST',
 	        		data:{'record_ID':record_ID},
 	        		dataType: 'JSON',
 	        		success: function(res){
-	        			$("#prescriptionID").append(
+	        			$("#requisitionID").append(
 	        					"<p><a>No：</a>" + res.id + "</p>");
 	        			ID = res.id;
-	        			getMedicineInfo();
+	        			getItemInfo();
 	        		},
 	        		error: function(res){
-	        			layer.msg('新建处方失败');
+	        			layer.msg('新建检验单失败');
 	        		}
         	});
 		};
-		function getMedicineInfo() {
+		function getItemInfo() {
 			$.ajax({
-        		url: '/doctor/getAllMedicines',
+        		url: '/doctor/getAllItems',
         		type: 'POST',
-        		data:{
-        			'record_ID':record_ID
-        		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			selectBox = '<tr><td><select class="sub_button" id ="medicineId" name="medicineId">';
+	       			selectBox = '<tr><td><select class="sub_button" id ="itemId" name="itemId">';
 	       			for(let i=0;i<res.length;i++){
 						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
 	       			}
-	       			selectBox += '</select></td><td><input type="text" id="medicineNum" /></td>' +
-        				'<td><input type="number" id="medicinePrice" value = "0" /></td></tr>';
-        			$("#medicineInfo").append(selectBox);
+	       			selectBox += '</select></td><td><input type="text" id="itemNum" /></td>' +
+        				'<td><input type="number" id="itemPrice" value = "0" /></td></tr>';
+        			$("#itemInfo").append(selectBox);
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取失败');

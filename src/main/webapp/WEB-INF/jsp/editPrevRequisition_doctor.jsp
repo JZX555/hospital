@@ -26,7 +26,7 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <a type='button' class='btn btn-info' href='#' onclick=savePrescription()>保存 </a>
+                        <a type='button' class='btn btn-info' href='#' onclick=saveRequisition()>保存 </a>
                     </div>
                     <div class="ibox-content">
 						<center><font size="5" ><a>检验项目</a></font></center>
@@ -94,58 +94,58 @@
 			});
 		};
 		function getPriceById() {
-			var medicine_ID = document.getElementById("medicineId").value;
+			var item_ID = document.getElementById("itemId").value;
 			$.ajax({
-        		url: '/doctor/getMedicineByID',
+        		url: '/doctor/getItemByID',
         		type: 'POST',
         		data:{
-        			'medicine_ID':medicine_ID
+        			'item_ID':item_ID
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			document.getElementById("medicinePrice").value = res.price;
+	       			document.getElementById("itemPrice").value = res.price;
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取价格失败');
 	    		}
 			});
 		};
-		function getPrescriptionById(prescription_ID){
+		function getRequisitionById(requisition_ID){
 			$.ajax({
-	        		url: '/doctor/getPrescriptionById',
+	        		url: '/doctor/getRequisitionById',
 	        		type: 'POST',
-	        		data:{'prescription_ID':prescription_ID},
+	        		data:{'requisition_ID':requisition_ID},
 	        		dataType: 'JSON',
 	        		success: function(res){
-	        			$("#prescriptionID").append(
-	        					"<p><a>No：</a>" + prescription_ID + "</p>");
-	        			getMedicineInfo();
-	        			ID = prescription_ID;
-	        			document.getElementById("medicineId").value = res.medicineId;
-		       			document.getElementById("medicineNum").value = res.num;
-		       			document.getElementById("medicinePrice").value = res.price;
+	        			$("#requisitionID").append(
+	        					"<p><a>No：</a>" + requisition_ID + "</p>");
+	        			getItemInfo();
+	        			ID = requisition_ID;
+	        			document.getElementById("itemId").value = res.itemId;
+		       			document.getElementById("itemNum").value = res.num;
+		       			document.getElementById("itemPrice").value = res.price;
 	        		},
 	        		error: function(res){
 	        			layer.msg('获取处方失败');
 	        		}
         	});
 		};
-		function getMedicineInfo() {
+		function getItemInfo() {
 			$.ajax({
-        		url: '/doctor/getAllMedicines',
+        		url: '/doctor/getAllitems',
         		type: 'POST',
         		data:{
         			'record_ID':record_ID
         		},
 	       		dataType: 'JSON',
 	       		success: function(res){
-	       			selectBox = '<tr><td><select class="sub_button" id ="medicineId" name="medicineId">';
+	       			selectBox = '<tr><td><select class="sub_button" id ="itemId" name="itemId">';
 	       			for(let i=0;i<res.length;i++){
 						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
 	       			}
-	       			selectBox += '</select></td><td><input type="text" id="medicineNum" /></td>' +
-        				'<td><input type="text" id="medicinePrice" value = "0" /></td></tr>';
-        			$("#medicineInfo").append(selectBox);
+	       			selectBox += '</select></td><td><input type="text" id="itemNum" /></td>' +
+        				'<td><input type="text" id="itemPrice" value = "0" /></td></tr>';
+        			$("#itemInfo").append(selectBox);
 	       		},
 	    		error: function(res){
 	    			layer.msg('获取失败');

@@ -26,7 +26,6 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <a type='button' class='btn btn-info' href='#' onclick=saveRecord()>保存 </a>
                     </div>
                     <div class="ibox-content">
 						<center><font size="5" ><a>门诊病历</a></font></center>
@@ -109,22 +108,14 @@
     						"<td colspan='2'><textarea id='Treatment' rows='6' cols='68'  style='width:100%;height:100%;border:solid 1px #4682B4;'>" +
     						"</textarea></td></tr>";
 	        			$("#patientInfo").append(line1+line2+line3+line4+line5+line6);
-	        			if(res.recordWithBLOBs.illness != null) {
-	        				document.getElementById('Illness').value=res.recordWithBLOBs.illness;
-	        				document.getElementById('Illness').readOnly = true; 
-	        			}
-	        			if(res.recordWithBLOBs.history != null) {
-	        				document.getElementById('History').value=res.recordWithBLOBs.history;
-	        				document.getElementById('History').readOnly = true; 
-	        			}
-	        			if(res.recordWithBLOBs.result != null) {
-	        				document.getElementById('Result').value=res.recordWithBLOBs.result;
-        					document.getElementById('Result').readOnly = true; 
-        				}
-	        			if(res.recordWithBLOBs.treatment != null) {
-	        				document.getElementById('Treatment').value=res.recordWithBLOBs.treatment;
-        					document.getElementById('Result').readOnly = true; 
-        				}
+        				document.getElementById('Illness').value=res.recordWithBLOBs.illness;
+        				document.getElementById('Illness').readOnly = true; 
+        				document.getElementById('History').value=res.recordWithBLOBs.history;
+        				document.getElementById('History').readOnly = true; 
+        				document.getElementById('Result').value=res.recordWithBLOBs.result;
+      					document.getElementById('Result').readOnly = true; 
+        				document.getElementById('Treatment').value=res.recordWithBLOBs.treatment;
+       					document.getElementById('Treatment').readOnly = true; 
 	        		},
 	        		error: function(res){
 	        			layer.msg('病历加载失败');

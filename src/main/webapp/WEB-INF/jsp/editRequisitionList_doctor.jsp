@@ -27,7 +27,7 @@
             <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <a type='button' class='btn btn-info' href='#' onclick=addItem()>新增检验单 </a>
+                        <a type='button' class='btn btn-info' href='#' onclick=addRequisition()>新增项目 </a>
                     </div>
                     <div class="ibox-content" style="font-size:18px;">
 						<table class="table table-striped table-bordered table-hover dataTables-example">
@@ -67,9 +67,9 @@
 
 	<script>
 		var record_ID = '<%= session.getAttribute("record_ID") %>';
-		function getItemList() {
+		function getRequisitionList() {
         	$.ajax({
-        		url: '/doctor/getAllRequisitions',
+        		url: '/doctor/getAllRequisition',
         		data:{
         			'record_ID':record_ID
         		},
@@ -102,10 +102,10 @@
 		function editOneRequisition(ID){
         	layer.open({
       		  type: 2,
-      		  title: '处方',
+      		  title: '检验单',
       		  shadeClose: true,
       		  shade: 0.8,
-      		  area: ['70%', '90%'],
+      		  area: ['100%', '100%'],
       		  content: '/doctor/editPrevRequisition_doctor',
       		  success: function (layero, index) {
       			var iframe = window['layui-layer-iframe' + index];
@@ -113,17 +113,17 @@
               }
       		});
         };
-		function addPrescription() {
+		function addRequisition() {
 			layer.open({
       			type: 2,
-      		  	title: '处方',
+      		  	title: '检验项目单',
       		  	shadeClose: true,
       		  	shade: 0.8,
       		  	area: ['70%', '90%'],
       		  	content: '/doctor/addRequisition_doctor',
       		  	success: function (layero, index) {
       				var iframe = window['layui-layer-iframe' + index];
-                	iframe.getCurrPrescription()
+                	iframe.getCurrRequisition()
               	}
      		});
 		}
