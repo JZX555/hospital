@@ -88,10 +88,10 @@
 	       		success: function(res){
 	       			layer.msg(res);
 	       			if(res == 1) {
-	       				layer.msg("保存成功");
-	       				setTimeout(function (){
-		       				parent.layer.closeAll();
-	    				}, 1000);
+	       				layer.alert('保存成功', function() {
+	       					parent.layer.closeAll();
+	       					window.parent.location.reload();
+	       				});
 	       			} else {
 	       				layer.msg("库存不足！");
 	       			}
