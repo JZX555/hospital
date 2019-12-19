@@ -107,6 +107,11 @@
 	        		data:{'ID':ID},
 	        		dataType: 'JSON',
 	        		success: function(res){
+	        			var ss;
+	        			if(res.patient.sex==1)
+	        				ss='女';
+	        			else
+	        				ss='男';
 	        			$("#deptType").append("<p><a>&nbsp;&nbsp;&nbsp;&nbsp;科室：</a>" + res.department.type + "</p>");
 	        			$("#visitTime").append("<p><a>就诊时间：</a>" + Date2String(res.recordWithBLOBs.time) + "</p>");
 	        			
@@ -116,7 +121,7 @@
                				res.patient.name + "</td>" +
                 			"<td>&nbsp;&nbsp;&nbsp;性别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
                				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-               				res.patient.sex + "</td>" +
+               				ss + "</td>" +
                 			"<td>&nbsp;&nbsp;年龄：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 
                				"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                				res.patient.age + "</td></tr>";

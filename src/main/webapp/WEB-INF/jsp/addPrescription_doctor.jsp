@@ -150,9 +150,9 @@
 	       		success: function(res){
 	       			selectBox = '<tr><td><select class="sub_button" id ="medicineId" name="medicineId">';
 	       			for(let i=0;i<res.length;i++){
-						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
+						selectBox += '<option value="' + res[i].id + '">' + res[i].name + '</option>';
 	       			}
-	       			selectBox += '</select></td><td><input type="text" id="medicineNum" /></td>' +
+	       			selectBox += '</select></td><td><input size="5" type="text" id="medicineNum" /></td>' +
         				'<td><input type="number" id="medicinePrice" value = "0" /></td></tr>';
         			$("#medicineInfo").append(selectBox);
 	       		},

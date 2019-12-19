@@ -147,9 +147,9 @@
 	       		success: function(res){
 	       			selectBox = '<tr><td><select class="sub_button" id ="itemId" name="itemId">';
 	       			for(let i=0;i<res.length;i++){
-						selectBox += '<option value="' + res[i].id + '">' + res[i].id + '</option>';
+						selectBox += '<option value="' + res[i].id + '">' + res[i].name + '</option>';
 	       			}
-	       			selectBox += '</select></td><td><input type="text" id="itemNum" value="1" disabled/></td>' +
+	       			selectBox += '</select></td><td><input size ="5" type="text" id="itemNum" value="1" disabled/></td>' +
         				'<td><input type="number" id="itemPrice" value = "0" /></td></tr>';
         			$("#itemInfo").append(selectBox);
 	       		},

@@ -30,7 +30,7 @@
         <div>
             <div>
 
-                <h1 class="logo-name">h</h1>
+                <h1 class="logo-name">HIS</h1>
 
             </div>
             <h3>欢迎使用 医院门诊系统</h3>

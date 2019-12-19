@@ -28,10 +28,10 @@
         <div>
             <div>
 
-                <h1 class="logo-name">H+</h1>
+                <h1 class="logo-name">HIS</h1>
 
             </div>
-            <h3>欢迎注册 【医院挂号系统】</h3>
+            <h3>欢迎注册 医院门诊系统</h3>
             <p>创建一个新账户</p>
             <form class="m-t" role="form" action="login.html">
                 <div class="form-group">

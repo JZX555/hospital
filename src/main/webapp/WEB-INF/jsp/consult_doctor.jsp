@@ -93,11 +93,20 @@
     				},
         		dataType: 'JSON',
         		success: function(res){
+        			var name;
         			
         			var data = res;
+        			if(data.type==0)
+        				name='普通门诊';
+        			else if(data.type==1)
+        				name='专家门诊';
+        			else if(data.type==2)
+        				name='普通预约';
+        			else if(data.type==3)
+        				name='专家预约';
         			line = "<tr>" +
                     		"<th>" + data.patientId + "</th>" +
-                    		"<th>" + data.type + "</th>" +
+                    		"<th>" + name + "</th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editRecord()>编辑 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editItem()>申请 </a></th>" +
                     		"<th><a type='button' class='btn btn-info' href='#' onclick=editPrescription()>编辑 </a></th>" +
